@@ -7,7 +7,10 @@
 <title>Réseau</title>
 </head>
 <body>
-<h1>Reseau</h1>
 <%@ include file ="menu.jsp" %>
+
+<p class="">Reseau</p>
+<p>blablabla</p>
+<p>blablabla</p>
 </body>
 </html>
