@@ -25,23 +25,23 @@
 			<!-- Carrousel  -->
 			<div class="carousel-inner">
 				<div class="carousel-item active active">
-					<img class="d-block w-100" src="image/etudiants1.jpg" alt="étudiants 1">
+					<img class="d-block w-100" src="image/etudiants1.jpg" alt="étudiants 1" style="border-radius: 30px">
 					<div class="carousel-caption d-none d-md-block">
-        				<p class="h1" style="color:black">Un avenir radieux.</p>
+        				<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Un avenir radieux.</p>
       				</div>
 				</div>
 
 				<div class="carousel-item">
-					<img class="d-block w-100" src="image/etudiants2.jpg" alt="étudiants 2">
+					<img class="d-block w-100" src="image/etudiants2.jpg" alt="étudiants 2" style="border-radius: 30px">
 					<div class="carousel-caption d-none d-md-block">
-        				<p class="h1" style="color:black">Des cours de qualité.</p>
+        				<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Des cours de qualité.</p>
       				</div>
 				</div>
 
 				<div class="carousel-item">
-					<img class="d-block w-100" src="image/etudiants3.jpg" alt="étudiants 3">
+					<img class="d-block w-100" src="image/etudiants3.jpg" alt="étudiants 3" style="border-radius: 30px">
 					<div class="carousel-caption d-none d-md-block">
-        				<p class="h1" style="color:black">Un monde merveilleux.</p>
+        				<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Un monde merveilleux.</p>
       				</div>
 				</div>
 			</div>
