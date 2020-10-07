@@ -9,7 +9,7 @@
 <title>Cours Polytech</title>
 </head>
 
-<body style="background-color:#E2FAFF">
+<body style= "background-color:#484d50; color:white">
 	<%@ include file="menu.jsp"%>
 	<div class="container">
 

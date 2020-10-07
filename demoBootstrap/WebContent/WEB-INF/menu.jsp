@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-white bg-manavbar"  >
+<nav class="navbar navbar-expand-lg navbar-white bg-manavbar" style= "background-color: #343434" >
 	<a class="navbar-brand" href="#" style= "color : #ffffff;"> 
 	<img src="image/cat.svg" class="d-inline-block align-top" width="30" height="30" alt="">
 		LES COURS
