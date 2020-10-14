@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<palette>
+    <listePeintures>
+        <paint label="khorne red">
+            <catégorie>base</catégorie>
+            <couleur>rouge</couleur>
+        </paint>
+        <paint label="kantor blue">
+            <catégorie>base</catégorie>
+            <couleur>bleu</couleur>
+        </paint>
+        <paint label="nuln oil">
+            <catégorie>shade</catégorie>
+            <couleur>noir</couleur>
+        </paint>
+    </listePeintures>
+</palette>
