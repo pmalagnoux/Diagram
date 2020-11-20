@@ -8,28 +8,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-Je suis dans la jsp2
-<c:out value="J'arrive à reconnaitre le JSTL et prêt à être utilisée"></c:out>
 
-<p>
-<c:forEach items="${etudiants}" var="etudiant">
-<ul>
-<li>
-<c:out value="${etudiant.nom }">
-</c:out>
-</li>
-</ul>
-
-</c:forEach>
-
-</p>
-
+<h1>Création étudiant</h1>
 <form action="dao" method="post">
 <p>
-<label id="id"> Identifiant </label>
-<input type="text" id="id" name="id"/> 
+<input type="hidden" name="form" value="create"/>
 
-<label id="nim"> Nom </label>
+<label id="idCreate"> Identifiant </label>
+<input type="text" id="idCreate" name="idCreate"/> 
+
+<label id="nomCreate"> Nom </label>
+<input type="text" id="nomCreate" name="nomCreate"/> 
+
+<label id="prenomCreate"> Prénom </label>
+<input type="text" id="prenomCreate" name="prenomCreate"/> 
+
+<input type="submit"/>
+</p>
+</form>
+
+
+<h1>Modification</h1>
+<form action="dao" method="post">
+<p>
+<input type="hidden" name="form" value="modif"/>
+<label for="modif">Etudiant à modifier :</label>
+  <select id="id" name="id">
+    <c:forEach items="${resultat}" var="etud">
+    	<option value="${etud.id}">${etud.prenom} ${etud.nom}</option>
+    </c:forEach>
+ </select>
+ <br>
+
+<label id="nom"> Nom </label>
 <input type="text" id="nom" name="nom"/> 
 
 <label id="prenom"> Prénom </label>
@@ -39,6 +50,23 @@ Je suis dans la jsp2
 </p>
 </form>
 
+<h1>Suppression</h1>
+<form action="dao" method="post">
+<p>
+<input type="hidden" name="form" value="delete"/>
+  <label for="suppr">Etudiant à supprimer :</label>
+  <select id="suppr" name="suppr">
+    <c:forEach items="${resultat}" var="etud">
+    	<option value="${etud.id}">${etud.prenom} ${etud.nom}</option>
+    </c:forEach>
+  </select>
+  <input type="submit"/>
+  </p>
+</form>
+<br>
+
+<h1>Liste des étudiants</h1>
+<input>
 <c:forEach items="${resultat}" var="etud">
 <ul>
 <li>

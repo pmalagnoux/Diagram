@@ -100,11 +100,32 @@ public class Etudiants {
 		}
 	}
 	
-	public void updateEduiant(Etudiant e) {
-		
-	}
+    public void modifyStudient(String nom, String prenom, int id) {
+    	this.connect();
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE `etudiants` SET `nom` = ?, `prenom` = ? WHERE `id` = ?;");
+            preparedStatement.setString(1, nom);
+            preparedStatement.setString(2, prenom);
+            preparedStatement.setInt(3, id);
+         // exécuter la requète
+         	preparedStatement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println("Problème de modification dans la BD");
+        }
+    }
 	
-	public void deleteEtudiant(int id) {
-		
-	}
+    public void deleteStudient(int id) {
+    	this.connect();
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM `etudiants` WHERE `id` = ?;");
+            preparedStatement.setInt(1, id);
+         
+            // exécuter la requète
+         	preparedStatement.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println("Problème de suppression dans la BD");
+        }
+    }
 }
