@@ -12,21 +12,21 @@
 
 
 <br>
-<h1>Création étudiant</h1>
-<form action="dao" method="post">
+<h1 class="ml-1">Création étudiant</h1>
+<form action="dao" method="post" class="ml-3">
 <input type="hidden" name="form" value="create"/>
 <div class="row">
     <div class="col-auto ">
 		<label id="idCreate"> Identifiant </label>
-		<input class="form-control mr-sm-2" name="idCreate" id="idCreate" type="text" placeholder="ID" aria-label="Search">
+		<input class="form-control mr-sm-2" name="idCreate" id="idCreate" type="text" placeholder="ID">
 	</div>
 	<div class="col-auto">
 		<label id="nomCreate"> Nom </label>
-		<input class="form-control mr-sm-2" name="nomCreate" id="nomCreate" type="text" placeholder="Nom" aria-label="Search">
+		<input class="form-control mr-sm-2" name="nomCreate" id="nomCreate" type="text" placeholder="Nom">
 	</div>
 	<div class="col-auto">
 		<label id="prenomCreate"> Prénom </label>
-		<input class="form-control mr-sm-2" name="prenomCreate" id="prenomCreate" type="text" placeholder="Prénom" aria-label="Search">
+		<input class="form-control mr-sm-2" name="prenomCreate" id="prenomCreate" type="text" placeholder="Prénom">
 	</div>
 	<div class="col-auto align-self-end">
 		<button class="btn btn-outline-success my-2 my-sm-0" id="create" type="submit">Créer</button>
@@ -35,8 +35,8 @@
 </form>
 
 <br>
-<h1>Modification</h1>
-<form action="dao" method="post">
+<h1 class="ml-1">Modification</h1>
+<form action="dao" method="post" class="ml-3">
 <input type="hidden" name="form" value="modif"/>
 <div class="row">
     <div class="col-auto">
@@ -53,11 +53,11 @@
 <div class="row">
     <div class="col-auto">
 		<label id="nom"> Nom </label>
-		<input class="form-control mr-sm-2" name="nom" id="nom" type="text" placeholder="Nom" aria-label="Search">
+		<input class="form-control mr-sm-2" name="nom" id="nom" type="text" placeholder="Nom">
 	</div>
 	<div class="col-auto">
 		<label id="prenom"> Prénom </label>
-		<input class="form-control mr-sm-2" name="prenom" id="prenom" type="text" placeholder="Prénom" aria-label="Search">
+		<input class="form-control mr-sm-2" name="prenom" id="prenom" type="text" placeholder="Prénom">
 	</div>
 	<div class="col-auto align-self-end">
 		<button class="btn btn-outline-success my-2 my-sm-0" id="modif" type="submit">Modifier</button>
@@ -67,8 +67,8 @@
 
 
 <br>
-<h1>Suppression</h1>
-<form action="dao" method="post" class="form-inline">
+<h1 class="ml-1">Suppression</h1>
+<form action="dao" method="post" class="ml-3">
 <p>
 <input type="hidden" name="form" value="delete"/>
 <div class="row">
@@ -89,31 +89,30 @@
 
 
 <br>
-<h1>Liste des étudiants</h1>
-<form action="dao" method="post" class="form-inline">
-<input type="hidden" name="form" value="search"/>
+<h1 class="ml-1">Liste des étudiants</h1>
 <div class="row">
-    <div class="col-auto">
-	<input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
+	<div class="col-auto">
+		<form action="dao" method="post" class="ml-3">
+		<input type="hidden" name="form" value="search"/>
+		    <div class="row">
+				<input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="Search">
+			</div>
+			<div class="row justify-content-center mt-2">
+				<button class="btn btn-outline-success my-2 my-sm-0" id="search" name="search" type="submit">Rechercher</button>
+			</div>
+		</form>
 	</div>
-	<div class="col-auto align-self-end">
-	<button class="btn btn-outline-success my-2 my-sm-0" id="search" name="search" type="submit">Rechercher</button>
+	<div class="col-auto">
+	<c:forEach items="${searchEtu}" var="se">
+		<div class="row-auto">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<c:out value="${se.nom} ${se.prenom}"></c:out>
+				</li>
+			</ul>
+		</div>
+	</c:forEach>
 	</div>
 </div>
-</form>
-
-
-<c:forEach items="${searchEtu}" var="se">
-<ul class="list-group">
-	<li class="list-group-item">
-	<c:out value="${se.nom} ${se.prenom}"></c:out>
-	</li>
-</ul>
-
-</c:forEach>
-
-
-
-
 </body>
 </html>
