@@ -45,8 +45,6 @@ public class Etudiants {
 	public List<Etudiant> allStudentsDisplay(){
 		List<Etudiant> result = new ArrayList<Etudiant>();
 		
-		
-		
 		//Se connecter à la BD	
 		this.connect();
 		Statement statement = null;		// la requète SQL
@@ -79,8 +77,6 @@ public class Etudiants {
 			}
 			
 		}
-		
-		
 		return result;
 	}
 	
@@ -126,6 +122,41 @@ public class Etudiants {
         }
         catch(SQLException e){
             System.out.println("Problème de suppression dans la BD");
+        }
+    }
+
+    public List<Etudiant> findStudient(String search) {
+        this.connect();
+        List<Etudiant> result = new ArrayList<Etudiant>();
+        Statement statement = null;        // la requète SQL
+        ResultSet resultSet = null;     // le résultat de la requète SQL
+        try {
+            String req = "SELECT * FROM `etudiants` WHERE `nom` LIKE \"%" + search +  "%\" or `prenom` LIKE \"%" + search +"%\";";
+            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/demo_dao", "root", "");
+            statement = connection.createStatement();
+            //execution d'une requête et récupération de résultat dans l'objet resultSet
+            resultSet = statement.executeQuery(req);
+            
+            //récupération des données
+            while(resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                result.add(new Etudiant(id, nom, prenom));
+            }
+            return result;
+            
+        }
+        catch(SQLException e){
+            System.out.println("Problème dans la recherche dans la BD");
+            return null;
+        }finally {
+			try {
+				if(statement!=null) statement.close();
+				if(resultSet!=null) statement.close();
+			}catch (Exception e2) {
+				
+			}
         }
     }
 }

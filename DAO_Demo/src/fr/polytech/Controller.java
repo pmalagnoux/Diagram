@@ -29,10 +29,8 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Etudiants etudiantsList = new Etudiants();
-		request.setAttribute("resultat", etudiantsList.allStudentsDisplay());
-		
+        request.setAttribute("resultat", etudiantsList.allStudentsDisplay());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dao2.jsp").forward(request, response);
 	}
 
@@ -42,7 +40,6 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// on définit un objet de la classe métier... on fait apprel à la méthode addStudiant(Etudiant etudiant)
 		Etudiants listeEtu = new Etudiants();
-		System.out.println("coucou1");
 		if(request.getParameter("form").equals("create")) {
 			Etudiant e = new Etudiant();
 			e.setId(Integer.parseInt(request.getParameter("idCreate")));
@@ -57,9 +54,13 @@ public class Controller extends HttpServlet {
 			listeEtu.modifyStudient(nom, prenom, id);
 			
 		}else if(request.getParameter("form").equals("delete")) {
-			System.out.println("coucou");
 			int id = Integer.parseInt(request.getParameter("suppr"));
 			listeEtu.deleteStudient(id);
+			
+		}else if(request.getParameter("form").equals("search")) {
+			String searchEtu = request.getParameter("search");
+			request.setAttribute("searchEtu", listeEtu.findStudient(searchEtu));
+			
 		}
 		
 		
