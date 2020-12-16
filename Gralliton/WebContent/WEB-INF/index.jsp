@@ -7,12 +7,11 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 <script src="jquery-3.5.1.min.js"></script>
 <title>Gralliton</title>
+
 </head>
 <body>
 
 <%@ include file ="menu.jsp" %>
-
-
 
 
 </body>

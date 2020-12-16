@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<!-- 
-<nav class="navbar navbar-expand-lg navbar-white bg-manavbar" style= "background-color: #343434" >
+	
+	
+        <nav class="navbar navbar-expand-lg navbar-white bg-manavbar" style= "background-color: #343434" >
 	<a class="navbar-brand" href="#" style= "color : #ffffff;"> 
 	<img src="images/cat.svg" class="d-inline-block align-top" width="30" height="30" alt="">
 		Gralliton
@@ -14,63 +14,37 @@
       <input class="form-control" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style= "background-color: #C7C7C7">Go</button>
     </form>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" style= "background-color: #C7C7C7" aria-expanded="false" aria-label="Toggle navigation">
+    collapse
+  </button>
     <a class="navbar-brand" href="#" style= "color : #C7C7C7;">Sign in</a>
 	<a class="navbar-brand" href="#" style= "color : #C7C7C7;">Register</a>
 	
-</nav>
- -->
-<div class="wrapper">
-    <!-- Sidebar -->
-    <nav id="sidebar">
-
-        <div id="dismiss">
-            <i class="fas fa-arrow-left"></i>
-        </div>
-
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-        </div>
-
-      
-    </nav>
-
-    <!-- Page Content -->
-    <div id="content">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-            </div>
-        </nav>
-    </div>
-    <!-- Dark Overlay element -->
-    <div class="overlay"></div>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <br>
+<h1 class="ml-1">Création étudiant</h1>
+<form action="dao" method="post" class="ml-3">
+<input type="hidden" name="form" value="create"/>
+<div class="row">
+    <div class="col-auto ">
+		<label id="idCreate"> Identifiant </label>
+		<input class="form-control mr-sm-2" name="idCreate" id="idCreate" type="text" placeholder="ID">
+	</div>
+	<div class="col-auto">
+		<label id="nomCreate"> Nom </label>
+		<input class="form-control mr-sm-2" name="nomCreate" id="nomCreate" type="text" placeholder="Nom">
+	</div>
+	<div class="col-auto">
+		<label id="prenomCreate"> Prénom </label>
+		<input class="form-control mr-sm-2" name="prenomCreate" id="prenomCreate" type="text" placeholder="Prénom">
+	</div>
+	<div class="col-auto align-self-end">
+		<button class="btn btn-outline-success my-2 my-sm-0" id="create" type="submit">Créer</button>
+	</div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#sidebar").mCustomScrollbar({
-            theme: "minimal"
-        });
-
-        $('#dismiss, .overlay').on('click', function () {
-            // hide sidebar
-            $('#sidebar').removeClass('active');
-            // hide overlay
-            $('.overlay').removeClass('active');
-        });
-
-        $('#sidebarCollapse').on('click', function () {
-            // open sidebar
-            $('#sidebar').addClass('active');
-            // fade in the overlay
-            $('.overlay').addClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-        });
-    });
-</script>
+</form>
+  </div>
+  
+	</nav>
+	
+	
