@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 09 déc. 2020 à 16:01
+-- Généré le : mer. 16 déc. 2020 à 14:13
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -37,7 +37,24 @@ CREATE TABLE IF NOT EXISTS `account` (
   `mailAddress` varchar(254) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL,
+  `account_id` int(20) UNSIGNED NOT NULL,
+  `recipe_id` int(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_id` (`account_id`),
+  KEY `recipe_id` (`recipe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -55,14 +72,57 @@ CREATE TABLE IF NOT EXISTS `difficulty` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ingredint`
+-- Structure de la table `favoriterecipe`
 --
 
-DROP TABLE IF EXISTS `ingredint`;
-CREATE TABLE IF NOT EXISTS `ingredint` (
+DROP TABLE IF EXISTS `favoriterecipe`;
+CREATE TABLE IF NOT EXISTS `favoriterecipe` (
+  `account_id` int(20) UNSIGNED NOT NULL,
+  `recipe_id` int(20) UNSIGNED NOT NULL,
+  KEY `account_id` (`account_id`),
+  KEY `recipe_id` (`recipe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ingredient`
+--
+
+DROP TABLE IF EXISTS `ingredient`;
+CREATE TABLE IF NOT EXISTS `ingredient` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ingredienttype`
+--
+
+DROP TABLE IF EXISTS `ingredienttype`;
+CREATE TABLE IF NOT EXISTS `ingredienttype` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `ingredient_id` int(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ingredient_id` (`ingredient_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ingredientunit`
+--
+
+DROP TABLE IF EXISTS `ingredientunit`;
+CREATE TABLE IF NOT EXISTS `ingredientunit` (
+  `ingredient_id` int(20) UNSIGNED NOT NULL,
+  `unit_id` int(20) UNSIGNED NOT NULL,
+  KEY `ingredient_id` (`ingredient_id`),
+  KEY `unit_id` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -91,6 +151,50 @@ CREATE TABLE IF NOT EXISTS `recipe` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `recipeingredient`
+--
+
+DROP TABLE IF EXISTS `recipeingredient`;
+CREATE TABLE IF NOT EXISTS `recipeingredient` (
+  `quantity` int(10) UNSIGNED NOT NULL,
+  `ingredient_id` int(20) UNSIGNED NOT NULL,
+  `recipe_id` int(20) UNSIGNED NOT NULL,
+  KEY `ingredient_id` (`ingredient_id`),
+  KEY `recipe_id` (`recipe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recipestep`
+--
+
+DROP TABLE IF EXISTS `recipestep`;
+CREATE TABLE IF NOT EXISTS `recipestep` (
+  `stepOrder` int(10) UNSIGNED NOT NULL,
+  `recipe_id` int(20) UNSIGNED NOT NULL,
+  `step_id` int(20) UNSIGNED NOT NULL,
+  KEY `recipe_id` (`recipe_id`),
+  KEY `step_id` (`step_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recipetag`
+--
+
+DROP TABLE IF EXISTS `recipetag`;
+CREATE TABLE IF NOT EXISTS `recipetag` (
+  `recipe_id` int(20) UNSIGNED NOT NULL,
+  `tag_id` int(20) UNSIGNED NOT NULL,
+  KEY `recipe_id` (`recipe_id`),
+  KEY `tag_id` (`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `recipetype`
 --
 
@@ -99,6 +203,21 @@ CREATE TABLE IF NOT EXISTS `recipetype` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recipeustensil`
+--
+
+DROP TABLE IF EXISTS `recipeustensil`;
+CREATE TABLE IF NOT EXISTS `recipeustensil` (
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT '1',
+  `recipe_id` int(20) UNSIGNED NOT NULL,
+  `ustensil_id` int(20) UNSIGNED NOT NULL,
+  KEY `recipe_id` (`recipe_id`),
+  KEY `ustensil_id` (`ustensil_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -117,12 +236,27 @@ CREATE TABLE IF NOT EXISTS `step` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `stockingredient`
+--
+
+DROP TABLE IF EXISTS `stockingredient`;
+CREATE TABLE IF NOT EXISTS `stockingredient` (
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT '1',
+  `account_id` int(20) UNSIGNED NOT NULL,
+  `ingredient_id` int(20) UNSIGNED NOT NULL,
+  KEY `account_id` (`account_id`),
+  KEY `ingredient_id` (`ingredient_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `tag`
 --
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE IF NOT EXISTS `tag` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tagName` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -159,12 +293,74 @@ CREATE TABLE IF NOT EXISTS `ustensil` (
 --
 
 --
+-- Contraintes pour la table `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`);
+
+--
+-- Contraintes pour la table `favoriterecipe`
+--
+ALTER TABLE `favoriterecipe`
+  ADD CONSTRAINT `favoriterecipe_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `favoriterecipe_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`);
+
+--
+-- Contraintes pour la table `ingredienttype`
+--
+ALTER TABLE `ingredienttype`
+  ADD CONSTRAINT `ingredienttype_ibfk_1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`);
+
+--
+-- Contraintes pour la table `ingredientunit`
+--
+ALTER TABLE `ingredientunit`
+  ADD CONSTRAINT `ingredientunit_ibfk_1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`),
+  ADD CONSTRAINT `ingredientunit_ibfk_2` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`);
+
+--
 -- Contraintes pour la table `recipe`
 --
 ALTER TABLE `recipe`
   ADD CONSTRAINT `recipe_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`),
   ADD CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`difficulty_id`) REFERENCES `difficulty` (`id`),
   ADD CONSTRAINT `recipe_ibfk_3` FOREIGN KEY (`recipeType_id`) REFERENCES `recipetype` (`id`);
+
+--
+-- Contraintes pour la table `recipeingredient`
+--
+ALTER TABLE `recipeingredient`
+  ADD CONSTRAINT `recipeingredient_ibfk_1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`),
+  ADD CONSTRAINT `recipeingredient_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`);
+
+--
+-- Contraintes pour la table `recipestep`
+--
+ALTER TABLE `recipestep`
+  ADD CONSTRAINT `recipestep_ibfk_1` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+  ADD CONSTRAINT `recipestep_ibfk_2` FOREIGN KEY (`step_id`) REFERENCES `step` (`id`);
+
+--
+-- Contraintes pour la table `recipetag`
+--
+ALTER TABLE `recipetag`
+  ADD CONSTRAINT `recipetag_ibfk_1` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+  ADD CONSTRAINT `recipetag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`);
+
+--
+-- Contraintes pour la table `recipeustensil`
+--
+ALTER TABLE `recipeustensil`
+  ADD CONSTRAINT `recipeustensil_ibfk_1` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`),
+  ADD CONSTRAINT `recipeustensil_ibfk_2` FOREIGN KEY (`ustensil_id`) REFERENCES `ustensil` (`id`);
+
+--
+-- Contraintes pour la table `stockingredient`
+--
+ALTER TABLE `stockingredient`
+  ADD CONSTRAINT `stockingredient_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `stockingredient_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
