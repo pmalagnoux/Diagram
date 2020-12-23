@@ -21,17 +21,11 @@
 	<input type="text" class="form-control" placeholder="Mot de passe"  id="password" name="password">
 	<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Me connecter</button>
 </form>
-
-<c:choose>
-	<c:when test="${empty sessionScope.userLogin}">
-		<c:out value="Mauvais login ou mdp"></c:out>
-	</c:when>
-	<c:otherwise>
-		<script>
-		  location.replace("accueil");
-		</script>
-	</c:otherwise>
-</c:choose>
+<!--  
+<c:if test="${wrongLogPass == wrongLogPass}">
+	<c:out value="Mauvais login ou mdp"></c:out>
+</c:if>
+-->
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

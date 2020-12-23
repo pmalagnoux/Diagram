@@ -13,7 +13,7 @@
   
   <servlet>
     <servlet-name>index</servlet-name>
-    <servlet-class>client.IndexServlet</servlet-class>
+    <servlet-class>client.servlet.IndexServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>index</servlet-name>
@@ -22,7 +22,7 @@
   
   <servlet>
     <servlet-name>signin</servlet-name>
-    <servlet-class>client.SignInServlet</servlet-class>
+    <servlet-class>client.servlet.SignInServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>signin</servlet-name>
@@ -31,7 +31,7 @@
   
   <servlet>
     <servlet-name>register</servlet-name>
-    <servlet-class>client.RegisterServlet</servlet-class>
+    <servlet-class>client.servlet.RegisterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>register</servlet-name>
@@ -40,7 +40,7 @@
   
   <servlet>
     <servlet-name>disconnection</servlet-name>
-    <servlet-class>client.DisconnectServlet</servlet-class>
+    <servlet-class>client.servlet.DisconnectServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>disconnection</servlet-name>

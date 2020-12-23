@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 public class Authentication {
 	private boolean connection;
 
@@ -40,10 +38,7 @@ public class Authentication {
 			System.out.println("La BD n'est pas connectée");
 		}
 		finally {
-			try {
-				connection.disconnect();
-			} catch (Exception e2) {
-			}
+			connection.disconnect();
 		}
 	}
 	
