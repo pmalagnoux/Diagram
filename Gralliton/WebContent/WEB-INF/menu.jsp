@@ -4,7 +4,7 @@
 
 <!-- Navbar -->	
 <nav class="navbar navbar-expand-lg navbar-white bg-manavbar" style= "background-color: #343434" >
-	<a class="navbar-brand" href="#" style= "color : #ffffff;"> 
+	<a class="navbar-brand" href="accueil" style= "color : #ffffff;"> 
 		<img src="images/cat.svg" class="d-inline-block align-top" width="30" height="30" alt="">
 		Gralliton
 	</a>
@@ -19,10 +19,10 @@
 
   
   	<c:choose>
-		<c:when test="${!(1==1)}"> <!-- CHANGER POUR CONNECTé avec SESSION-->
+		<c:when test="${empty sessionScope.userLogin }">
 		<!-- Liens visiteur -->
-			<a class="navbar-brand" href="#" style="color : #C7C7C7;">Sign in</a>
-			<a class="navbar-brand" href="#" style="color : #C7C7C7;">Register</a>
+			<a class="navbar-brand" href="logging" style="color : #C7C7C7;">Sign in</a>
+			<a class="navbar-brand" href="register" style="color : #C7C7C7;">Register</a>
 		</c:when>
 		<c:otherwise>
 		<!-- Dropdown -->
@@ -31,12 +31,13 @@
 		         Mon Compte
 		        </a>
 		        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style= "background-color: #C7C7C7">
+		          <a class="dropdown-item" href="#"><c:out value="${sessionScope.userLogin}"></c:out></a>
+		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="#">Mon Garde-Manger</a>
 		          <a class="dropdown-item" href="#">Mes Recettes</a>
 		          <a class="dropdown-item" href="#">Mes Favoris</a>
-		          <a class="dropdown-item" href="#">Profil</a>
 		          <div class="dropdown-divider"></div>
-		          <a class="dropdown-item" href="#">Déconnexion</a>
+		          <a class="dropdown-item" href="disconnection">Déconnexion</a>
 		        </div>
 		  	</div>
 		</c:otherwise>
@@ -46,10 +47,10 @@
 <!-- Contenu caché -->
 <div class="collapse navbar-collapse pt-3 pb-3" id="navbarSupportedContent" style= "background-color: #999999">
 	<h2 class="ml-3">Recherche avancée</h2>
-	<form action="" method="post" class="ml-4 ">
+	<form action="" method="post" class="ml-4">
 		<div class="form-row">
 			<div class="col-auto mt-3">
-	     		<input class="form-control" type="text" placeholder="Mot-clé" aria-label="Search">
+	     		<input class="form-control" type="text" placeholder="Mot-clé" aria-label="Search" id="keyWord" name="keyWord">
 	     	</div>
 	  	</div>
       	<div class="form-row">
@@ -95,5 +96,3 @@
 	  	</div>
     </form>
 </div>
-
- 

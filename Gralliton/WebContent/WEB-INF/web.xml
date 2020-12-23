@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>JSTL</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <servlet>
+    <servlet-name>index</servlet-name>
+    <servlet-class>client.IndexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>index</servlet-name>
+    <url-pattern>/accueil</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>signin</servlet-name>
+    <servlet-class>client.SignInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>signin</servlet-name>
+    <url-pattern>/logging</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>register</servlet-name>
+    <servlet-class>client.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>disconnection</servlet-name>
+    <servlet-class>client.DisconnectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>disconnection</servlet-name>
+    <url-pattern>/disconnection</url-pattern>
+  </servlet-mapping>
+</web-app>
