@@ -1,6 +1,11 @@
 package client.servlet;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String password = encrypt(request.getParameter("password"));
 		AccountManager am = new AccountManager();
 		Account account = new Account(password,login,email);
 
@@ -48,5 +53,22 @@ public class RegisterServlet extends HttpServlet {
 		
 		this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 	}
-
+	
+	private static String encrypt(String password) {
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+			String encoded = Base64.getEncoder().encodeToString(hash);
+			return encoded;
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
 }

@@ -18,7 +18,7 @@
 <c:out escapeXml="false" value="<h1>Je m'identifie</h1>"></c:out>
 <form action="" method="post">
 	<input type="text" class="form-control" placeholder="Login" id="login" name="login">
-	<input type="text" class="form-control" placeholder="Mot de passe"  id="password" name="password">
+	<input type="password" class="form-control" placeholder="Mot de passe"  id="password" name="password">
 	<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Me connecter</button>
 </form>
 <!--  
