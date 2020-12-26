@@ -2,9 +2,9 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : sam. 26 déc. 2020 à 11:51
--- Version du serveur :  5.7.31
+-- Hôte : 127.0.0.1:3307
+-- Généré le : sam. 26 déc. 2020 à 14:24
+-- Version du serveur :  10.4.13-MariaDB
 -- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,19 +33,11 @@ DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `mailAddress` varchar(254) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `account`
---
-
-INSERT INTO `account` (`id`, `username`, `password`, `mailAddress`) VALUES
-(1, 'srd', 'zert', 'zzzz'),
-(2, 'Oui', 'oui', 'Oui');
 
 -- --------------------------------------------------------
 
@@ -136,6 +128,21 @@ CREATE TABLE IF NOT EXISTS `ingredientunit` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `picture`
+--
+
+DROP TABLE IF EXISTS `picture`;
+CREATE TABLE IF NOT EXISTS `picture` (
+  `id` int(20) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `content` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `recipe`
 --
 
@@ -221,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `recipetype` (
 
 DROP TABLE IF EXISTS `recipeustensil`;
 CREATE TABLE IF NOT EXISTS `recipeustensil` (
-  `quantity` int(10) UNSIGNED NOT NULL DEFAULT '1',
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `recipe_id` int(20) UNSIGNED NOT NULL,
   `ustensil_id` int(20) UNSIGNED NOT NULL,
   KEY `recipe_id` (`recipe_id`),
@@ -249,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `step` (
 
 DROP TABLE IF EXISTS `stockingredient`;
 CREATE TABLE IF NOT EXISTS `stockingredient` (
-  `quantity` int(10) UNSIGNED NOT NULL DEFAULT '1',
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 1,
   `account_id` int(20) UNSIGNED NOT NULL,
   `ingredient_id` int(20) UNSIGNED NOT NULL,
   KEY `account_id` (`account_id`),
@@ -279,7 +286,7 @@ DROP TABLE IF EXISTS `unit`;
 CREATE TABLE IF NOT EXISTS `unit` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `ConversionRateSI` float NOT NULL DEFAULT '1' COMMENT 'Taux de conversion à appliquer pour avoir la conversion dans le système international.',
+  `ConversionRateSI` float NOT NULL DEFAULT 1 COMMENT 'Taux de conversion à appliquer pour avoir la conversion dans le système international.',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -326,6 +333,12 @@ ALTER TABLE `ingredienttype`
 ALTER TABLE `ingredientunit`
   ADD CONSTRAINT `ingredientunit_ibfk_1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`),
   ADD CONSTRAINT `ingredientunit_ibfk_2` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`);
+
+--
+-- Contraintes pour la table `picture`
+--
+ALTER TABLE `picture`
+  ADD CONSTRAINT `picture_ibfk_1` FOREIGN KEY (`id`) REFERENCES `recipe` (`id`);
 
 --
 -- Contraintes pour la table `recipe`
