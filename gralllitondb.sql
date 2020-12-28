@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3307
--- Généré le : sam. 26 déc. 2020 à 14:24
--- Version du serveur :  10.4.13-MariaDB
--- Version de PHP : 7.3.21
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  lun. 28 déc. 2020 à 10:31
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `gralllitondb`
+-- Base de données :  `gralllitondb`
 --
 CREATE DATABASE IF NOT EXISTS `gralllitondb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `gralllitondb`;
@@ -37,7 +38,14 @@ CREATE TABLE IF NOT EXISTS `account` (
   `mailAddress` varchar(254) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `account`
+--
+
+INSERT INTO `account` (`id`, `username`, `password`, `mailAddress`) VALUES
+(4, 'f3nrir', 'jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=', 'florian.miller.jeux@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -67,7 +75,18 @@ CREATE TABLE IF NOT EXISTS `difficulty` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `difficulty`
+--
+
+INSERT INTO `difficulty` (`id`, `name`) VALUES
+(1, 'Très facile'),
+(2, 'Facile'),
+(3, 'Normale'),
+(4, 'Difficile'),
+(5, 'Très difficile');
 
 -- --------------------------------------------------------
 
@@ -93,8 +112,22 @@ DROP TABLE IF EXISTS `ingredient`;
 CREATE TABLE IF NOT EXISTS `ingredient` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ingredienttype_id` int(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ingredienttype_id` (`ingredienttype_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `ingredient`
+--
+
+INSERT INTO `ingredient` (`id`, `name`, `ingredienttype_id`) VALUES
+(1, 'Riz', 8),
+(2, 'Oignon', 6),
+(3, 'Parmesan', 9),
+(4, 'Sel', 6),
+(5, 'Poivre', 6),
+(6, 'Bouillon de volaille', 10);
 
 -- --------------------------------------------------------
 
@@ -106,10 +139,24 @@ DROP TABLE IF EXISTS `ingredienttype`;
 CREATE TABLE IF NOT EXISTS `ingredienttype` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `ingredient_id` int(20) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ingredient_id` (`ingredient_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `ingredienttype`
+--
+
+INSERT INTO `ingredienttype` (`id`, `name`) VALUES
+(1, 'Fruit'),
+(2, 'Légume'),
+(3, 'Viande rouge'),
+(4, 'Viande blanche'),
+(5, 'Vin'),
+(6, 'Épice'),
+(7, 'Condiment'),
+(8, 'Céréale'),
+(9, 'Fromage'),
+(10, 'Divers');
 
 -- --------------------------------------------------------
 
@@ -161,7 +208,14 @@ CREATE TABLE IF NOT EXISTS `recipe` (
   KEY `account_id` (`account_id`),
   KEY `Difficulty_id` (`difficulty_id`),
   KEY `RecipeType_id` (`recipeType_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `recipe`
+--
+
+INSERT INTO `recipe` (`id`, `name`, `preparationTime`, `cookingTime`, `likeNumber`, `quantity`, `account_id`, `difficulty_id`, `recipeType_id`) VALUES
+(1, 'Risotto aux cèpes', 20, 40, NULL, 2, 4, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -178,6 +232,15 @@ CREATE TABLE IF NOT EXISTS `recipeingredient` (
   KEY `recipe_id` (`recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipeingredient`
+--
+
+INSERT INTO `recipeingredient` (`quantity`, `ingredient_id`, `recipe_id`) VALUES
+(100, 1, 1),
+(50, 3, 1),
+(10, 4, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -193,6 +256,15 @@ CREATE TABLE IF NOT EXISTS `recipestep` (
   KEY `step_id` (`step_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipestep`
+--
+
+INSERT INTO `recipestep` (`stepOrder`, `recipe_id`, `step_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -207,6 +279,14 @@ CREATE TABLE IF NOT EXISTS `recipetag` (
   KEY `tag_id` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipetag`
+--
+
+INSERT INTO `recipetag` (`recipe_id`, `tag_id`) VALUES
+(1, 1),
+(1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -218,7 +298,17 @@ CREATE TABLE IF NOT EXISTS `recipetype` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `recipetype`
+--
+
+INSERT INTO `recipetype` (`id`, `name`) VALUES
+(1, 'Plat principal'),
+(2, 'Entrée'),
+(3, 'Dessert'),
+(4, 'Amuse-bouche');
 
 -- --------------------------------------------------------
 
@@ -235,6 +325,15 @@ CREATE TABLE IF NOT EXISTS `recipeustensil` (
   KEY `ustensil_id` (`ustensil_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipeustensil`
+--
+
+INSERT INTO `recipeustensil` (`quantity`, `recipe_id`, `ustensil_id`) VALUES
+(2, 1, 7),
+(1, 1, 3),
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -246,7 +345,16 @@ CREATE TABLE IF NOT EXISTS `step` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `step`
+--
+
+INSERT INTO `step` (`id`, `content`) VALUES
+(1, 'e1'),
+(2, 'e2'),
+(3, 'e3');
 
 -- --------------------------------------------------------
 
@@ -274,7 +382,15 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tagName` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `tag`
+--
+
+INSERT INTO `tag` (`id`, `tagName`) VALUES
+(1, 'plat d\'hiver'),
+(2, 'petite folie');
 
 -- --------------------------------------------------------
 
@@ -298,10 +414,24 @@ CREATE TABLE IF NOT EXISTS `unit` (
 
 DROP TABLE IF EXISTS `ustensil`;
 CREATE TABLE IF NOT EXISTS `ustensil` (
-  `id` int(20) UNSIGNED NOT NULL,
+  `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `ustensil`
+--
+
+INSERT INTO `ustensil` (`id`, `name`) VALUES
+(1, 'Bol'),
+(2, 'Poèle'),
+(3, 'Cuillère en bois'),
+(4, 'Couteau'),
+(5, 'Fouet'),
+(6, 'Rouleau à pâtisserie'),
+(7, 'Casserole'),
+(8, 'Écumoir');
 
 --
 -- Contraintes pour les tables déchargées
@@ -322,10 +452,10 @@ ALTER TABLE `favoriterecipe`
   ADD CONSTRAINT `favoriterecipe_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`id`);
 
 --
--- Contraintes pour la table `ingredienttype`
+-- Contraintes pour la table `ingredient`
 --
-ALTER TABLE `ingredienttype`
-  ADD CONSTRAINT `ingredienttype_ibfk_1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`);
+ALTER TABLE `ingredient`
+  ADD CONSTRAINT `ingredient_ibfk_1` FOREIGN KEY (`ingredienttype_id`) REFERENCES `ingredienttype` (`id`);
 
 --
 -- Contraintes pour la table `ingredientunit`
