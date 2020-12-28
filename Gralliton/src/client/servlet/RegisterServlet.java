@@ -45,12 +45,11 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
 		String password = encrypt(request.getParameter("password"));
-		AccountManager am = new AccountManager();
 		Account account = new Account(password,login,email);
 
 		System.out.println(account.toString());
-		am.addAccount(account);
-		
+		AccountManager.addAccount(account);
+		//CHECK UNIQUE USERNAME
 		this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 	}
 	
@@ -69,13 +68,6 @@ public class RegisterServlet extends HttpServlet {
 		return null;
 	}
 	
-	public static boolean mailIsValid(String email) {
-		if (email.endsWith(".fr") ||email.endsWith(".com") ) {
-			if (email.indexOf("@")>0) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	
 }

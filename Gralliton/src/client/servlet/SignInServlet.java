@@ -1,10 +1,6 @@
 package client.servlet;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +41,7 @@ public class SignInServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		Authentication authentication = new Authentication();
-		authentication.acces(request);
+		authentication.access(request);
 		HttpSession session = request.getSession();	
 		if(session.getAttribute("userLogin") != null) { // est connecté
 			this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);

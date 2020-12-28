@@ -46,4 +46,23 @@
     <servlet-name>disconnection</servlet-name>
     <url-pattern>/disconnection</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>recipePrecreation</servlet-name>
+    <servlet-class>client.servlet.RecipePrecreationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>recipePrecreation</servlet-name>
+    <url-pattern>/creation-recette</url-pattern>
+  </servlet-mapping>
+  
+  <!--  
+  <servlet>
+    <servlet-name>recipeCreation</servlet-name>
+    <servlet-class>client.servlet.RecipeCreationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>recipeCreation</servlet-name>
+    <url-pattern>/creation-recette-suite</url-pattern>
+  </servlet-mapping>-->
 </web-app>

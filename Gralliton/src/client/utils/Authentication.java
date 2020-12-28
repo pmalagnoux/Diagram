@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 public class Authentication {
 	private boolean connection;
 
-	public void acces(HttpServletRequest request) {
+	public void access(HttpServletRequest request) {
 		//Se connecter à la BD	
 		ConnectionToDB connection = new ConnectionToDB();
-		connection.connect();
+		connection.open();
 		
 		String userLogin = request.getParameter("login");
 		String userPassword = encrypt(request.getParameter("password")); 
@@ -43,7 +43,7 @@ public class Authentication {
 			System.out.println("La BD n'est pas connectée");
 		}
 		finally {
-			connection.disconnect();
+			connection.close();
 		}
 	}
 	
@@ -58,6 +58,12 @@ public class Authentication {
 	public void setConnexion(boolean connexion) {
 		this.connection = connexion;
 	}
+	
+	/**
+	 * Encrypte une chaine de caractères passée en paramètre et retourne la chaîne encryptée.
+	 * @param password
+	 * @return
+	 */
 	private static String encrypt(String password) {
 		MessageDigest digest;
 		try {

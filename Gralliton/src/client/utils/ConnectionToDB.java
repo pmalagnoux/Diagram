@@ -35,7 +35,7 @@ public class ConnectionToDB {
 		this.resultSet = resultSet;
 	}
 
-	public void connect() {
+	public void open() {
 		//chargement du driver MariaDB..
 		try {
 			//Class.forName("com.mysql.cj.jdbc.Driver"); // exception surveillée...
@@ -51,7 +51,7 @@ public class ConnectionToDB {
 		}
 	}
 	
-	public void disconnect() {
+	public void close() {
 		try {
 			if(this.connection!=null) connection.close();
 			if(this.statement!=null) statement.close();

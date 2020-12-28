@@ -35,6 +35,7 @@
 		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="#">Mon Garde-Manger</a>
 		          <a class="dropdown-item" href="#">Mes Recettes</a>
+		          <a class="dropdown-item" href="creation-recette">Nouvelle Recette</a>
 		          <a class="dropdown-item" href="#">Mes Favoris</a>
 		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="disconnection">Déconnexion</a>
@@ -79,7 +80,7 @@
 		  		</select>
 		  	</div>
 		  	<div class="col-auto mt-3">
-		  		<select class="form-control" id="difficulty" name="difficulty">
+		  		<select class="form-control" id="cookingTime" name="cookingTime">
 			    	<!-- <c:forEach items="${resultat}" var="etud">
 			    		<option value="${etud.id}">${etud.prenom} ${etud.nom}</option>
 			    	</c:forEach> -->

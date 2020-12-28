@@ -3,13 +3,15 @@ package client.EJBs;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import client.utils.ConnectionToDB;
 
-public class AccountManager {
-	
-	public void addAccount(Account account) {
+public abstract class AccountManager {
+	public static void addAccount(Account account) {
 		ConnectionToDB connection = new ConnectionToDB();
-		connection.connect();
+		connection.open();
 		//failles d'injection SQL...
 		try {
 			PreparedStatement preparedStatement = connection.getConnection().prepareStatement("INSERT INTO `account`(`username`, `password`, `mailAddress`) VALUES (?,?,?);");
@@ -20,9 +22,34 @@ public class AccountManager {
 			// executer la requête
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Problème d'insertion dans la BD");
+			System.out.println("Problème d'insertion dans la BD (account)");
 		}finally {
-			connection.disconnect();
+			connection.close();
 		}
+	}
+	
+	public static int getCurrentAccountId(HttpServletRequest request) {
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			
+			//Récupération du login depuis la session
+			HttpSession session = request.getSession();	
+			String username = (String) session.getAttribute("userLogin");
+			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id` FROM `account` WHERE `username` = \"" + username + "\";"));
+			connection.getResultSet().next();
+			return connection.getResultSet().getInt("id");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (account)");
+		}
+		finally {
+			connection.close();
+		}
+		return 0; // gestion
 	}
 }
