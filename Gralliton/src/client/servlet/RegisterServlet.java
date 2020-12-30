@@ -68,6 +68,13 @@ public class RegisterServlet extends HttpServlet {
 		return null;
 	}
 	
-	
+	public static boolean mailIsValid(String email) {
+        if (email.endsWith(".fr") || email.endsWith(".com") ) {
+            if (email.indexOf("@")>0) {
+                return true;
+            }
+        }
+        return false;
+    }
 	
 }
