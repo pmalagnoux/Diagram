@@ -65,6 +65,7 @@
 	<div class="form-row">
 		<div class="col-auto mt-3">
 			<!-- Telecharger image -->
+			<input type="file" name="multiPartServlet" accept="image/*"/>
 		</div>
 		<div class="col-auto mt-3">
 			<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Poursuivre</button>
