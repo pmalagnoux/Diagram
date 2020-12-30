@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 28 déc. 2020 à 10:31
+-- Généré le :  mer. 30 déc. 2020 à 12:14
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -208,14 +208,15 @@ CREATE TABLE IF NOT EXISTS `recipe` (
   KEY `account_id` (`account_id`),
   KEY `Difficulty_id` (`difficulty_id`),
   KEY `RecipeType_id` (`recipeType_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `recipe`
 --
 
 INSERT INTO `recipe` (`id`, `name`, `preparationTime`, `cookingTime`, `likeNumber`, `quantity`, `account_id`, `difficulty_id`, `recipeType_id`) VALUES
-(1, 'Risotto aux cèpes', 20, 40, NULL, 2, 4, 3, 1);
+(1, 'Risotto aux cèpes', 20, 40, NULL, 2, 4, 3, 1),
+(2, 'Tournedos Rossini', 10, 15, NULL, 1, 4, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -239,7 +240,9 @@ CREATE TABLE IF NOT EXISTS `recipeingredient` (
 INSERT INTO `recipeingredient` (`quantity`, `ingredient_id`, `recipe_id`) VALUES
 (100, 1, 1),
 (50, 3, 1),
-(10, 4, 1);
+(10, 4, 1),
+(10, 5, 2),
+(10, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -263,7 +266,10 @@ CREATE TABLE IF NOT EXISTS `recipestep` (
 INSERT INTO `recipestep` (`stepOrder`, `recipe_id`, `step_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 1, 3);
+(3, 1, 3),
+(1, 2, 4),
+(2, 2, 5),
+(3, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -285,7 +291,9 @@ CREATE TABLE IF NOT EXISTS `recipetag` (
 
 INSERT INTO `recipetag` (`recipe_id`, `tag_id`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -332,7 +340,9 @@ CREATE TABLE IF NOT EXISTS `recipeustensil` (
 INSERT INTO `recipeustensil` (`quantity`, `recipe_id`, `ustensil_id`) VALUES
 (2, 1, 7),
 (1, 1, 3),
-(1, 1, 1);
+(1, 1, 1),
+(1, 2, 2),
+(5, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -345,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `step` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `step`
@@ -354,7 +364,10 @@ CREATE TABLE IF NOT EXISTS `step` (
 INSERT INTO `step` (`id`, `content`) VALUES
 (1, 'e1'),
 (2, 'e2'),
-(3, 'e3');
+(3, 'e3'),
+(4, 'e1'),
+(5, 'e2'),
+(6, 'e3');
 
 -- --------------------------------------------------------
 
