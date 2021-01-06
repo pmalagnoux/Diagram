@@ -95,8 +95,7 @@ public class RecipeCreationServlet extends HttpServlet {
 		i = 1;
 		while(request.getParameter("tag"+i) != null) {
 			Tag tag = new Tag(Integer.parseInt(request.getParameter("tag"+i)));
-			int quantity = Integer.parseInt(request.getParameter("ustensil" + i + "Qty"));
-			TagManager.addUstensil(tag, RecipeManager.getLastRecipeId());
+			TagManager.addTag(tag, RecipeManager.getLastRecipeId());
 			i++;
 		}
 		this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);

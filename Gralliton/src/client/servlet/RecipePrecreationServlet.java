@@ -58,7 +58,7 @@ public class RecipePrecreationServlet extends HttpServlet {
 		request.setAttribute("stepsCount", request.getParameter("stepsCount"));
 		request.setAttribute("ustensils", UstensilManager.getUstensils());
 		request.setAttribute("ingredients", IngredientManager.getIngredients());
-		request.setAttribute("tags", TagManager.getRecipeTags());
+		request.setAttribute("tags", TagManager.getTags());
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/recipeCreation.jsp").forward(request, response);
 	}

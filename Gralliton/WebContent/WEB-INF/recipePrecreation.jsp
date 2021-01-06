@@ -90,6 +90,10 @@
 			alert("Veulliez remplir tous les champs !");
 		    return false;
 		}
+		if (preparationTime + cookingTime >= "5940") {
+			alert("Le temps total de cuisine ne peux dépasser 5940 minutes (99h) !");
+	    	return false;
+		}
 	}
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class Authentication {
-	private boolean connection;
 
 	public void access(HttpServletRequest request) {
 		//Se connecter à la BD	
@@ -29,13 +28,9 @@ public class Authentication {
 				String loginDB = connection.getResultSet().getString("username");
 				String passwordDB = connection.getResultSet().getString("password");
 				if(loginDB.equals(userLogin) && passwordDB.equals(userPassword)) {
-					this.connection=true;
 					HttpSession session = request.getSession();	
 					session.setAttribute("userLogin", userLogin);
 					break;
-				}
-				else {
-					this.connection=false; 
 				}
 			}
 			
@@ -51,13 +46,6 @@ public class Authentication {
 		super();
 	}
 
-	public boolean isConnexion() {
-		return connection;
-	}
-
-	public void setConnexion(boolean connexion) {
-		this.connection = connexion;
-	}
 	
 	/**
 	 * Encrypte une chaine de caractères passée en paramètre et retourne la chaîne encryptée.

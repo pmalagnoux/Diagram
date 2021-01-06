@@ -76,26 +76,7 @@
 	<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Créer</button>
 </form>
 
-<script type="text/javascript">
-	function validateForm(id) {
-		var title = document.getElementById("title").value;
-		var ingredientsCount = document.getElementById("ingredientsCount").value;
-		var utensilsCount = document.getElementById("utensilsCount").value;
-		var preparationTime = document.getElementById("preparationTime").value;
-		var cookingTime = document.getElementById("cookingTime").value;
-		var personCount = document.getElementById("personCount").value;
-		var tagsCount = document.getElementById("tagsCount").value;
-		var difficulty = document.getElementById("difficulty").value;
-		var recipeType = document.getElementById("recipeType").value;
-		var stepsCount = document.getElementById("stepsCount").value;
-		if (title == "" || ingredientsCount == "" || utensilsCount == "" || preparationTime == "" 
-				|| cookingTime == "" || personCount == "" || tagsCount == "" || difficulty == "" 
-				|| recipeType == "" || stepsCount == "") {
-			alert("Veulliez remplir tous les champs !");
-		    return false;
-		}
-	}
-</script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>

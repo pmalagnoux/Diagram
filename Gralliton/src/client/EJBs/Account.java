@@ -1,10 +1,18 @@
 package client.EJBs;
 
 public class Account {
+	private int id;
 	private String password;
 	private String login;
 	private String email;
 	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -35,6 +43,11 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [password=" + password + ", login=" + login + ", email=" + email + "]";
+	}
+	public Account(int id, String login) {
+		super();
+		this.id = id;
+		this.login = login;
 	}
 	
 	

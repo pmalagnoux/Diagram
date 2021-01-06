@@ -1,5 +1,7 @@
 package client.EJBs;
 
+import java.util.List;
+
 public class Recipe {
 	private int id;
 	private String name;
@@ -10,6 +12,7 @@ public class Recipe {
 	private int account;
 	private int difficulty;
 	private int type;
+	private List<Tag> tags;
 	
 	
 	public Recipe() {
@@ -25,6 +28,34 @@ public class Recipe {
 		this.account = account;
 		this.difficulty = difficulty;
 		this.type = type;
+	}
+	
+	public Recipe(int id, String name, int preparationTime, int cookingTime, int likeNumber, int quantity, int account,
+			int difficulty, int type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.preparationTime = preparationTime;
+		this.cookingTime = cookingTime;
+		this.likeNumber = likeNumber;
+		this.quantity = quantity;
+		this.account = account;
+		this.difficulty = difficulty;
+		this.type = type;
+	}
+	public Recipe(int id, String name, int preparationTime, int cookingTime, int likeNumber, int quantity, int account,
+			int difficulty, int type, List<Tag> tagsID) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.preparationTime = preparationTime;
+		this.cookingTime = cookingTime;
+		this.likeNumber = likeNumber;
+		this.quantity = quantity;
+		this.account = account;
+		this.difficulty = difficulty;
+		this.type = type;
+		this.tags = tagsID;
 	}
 	public int getId() {
 		return id;
@@ -79,6 +110,12 @@ public class Recipe {
 	}
 	public void setType(int type) {
 		this.type = type;
+	}
+	public List<Tag> getTags() {
+		return tags;
+	}
+	public void setTags(List<Tag> tagsID) {
+		this.tags = tagsID;
 	}
 	
 	

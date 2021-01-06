@@ -8,7 +8,7 @@ import java.util.List;
 import client.utils.ConnectionToDB;
 
 public abstract class TagManager {
-	public static List<Tag> getRecipeTags(){
+	public static List<Tag> getTags(){
 		List<Tag> result = new ArrayList<Tag>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -38,7 +38,7 @@ public abstract class TagManager {
 	 * @param tag
 	 * @param recipeId
 	 */
-	public static void addUstensil(Tag tag, int recipeId) {
+	public static void addTag(Tag tag, int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		//failles d'injection SQL...

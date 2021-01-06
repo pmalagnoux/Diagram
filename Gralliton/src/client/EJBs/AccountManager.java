@@ -2,6 +2,8 @@ package client.EJBs;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -51,5 +53,30 @@ public abstract class AccountManager {
 			connection.close();
 		}
 		return 0; // gestion
+	}
+	
+	public static List<Account> getAccounts(){
+		List<Account> result = new ArrayList<Account>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id`, `username` FROM `account`;"));
+			//récupération des données
+			while(connection.getResultSet().next()) {
+				int id = connection.getResultSet().getInt("id");
+				String username = connection.getResultSet().getString("username");
+				result.add(new Account(id,username));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (account)");
+		}
+		finally {
+			connection.close();
+		}
+		return result;
 	}
 }

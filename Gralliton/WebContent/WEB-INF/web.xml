@@ -56,13 +56,14 @@
     <url-pattern>/creation-recette</url-pattern>
   </servlet-mapping>
   
-  <!--  
-  <servlet>
-    <servlet-name>recipeCreation</servlet-name>
-    <servlet-class>client.servlet.RecipeCreationServlet</servlet-class>
+   <servlet>
+    <servlet-name>RecipeSearchServlet</servlet-name>
+    <servlet-class>client.servlet.RecipeSearchServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>recipeCreation</servlet-name>
-    <url-pattern>/creation-recette-suite</url-pattern>
-  </servlet-mapping>-->
+    <servlet-name>RecipeSearchServlet</servlet-name>
+    <url-pattern>/rechercheRecette</url-pattern>
+  </servlet-mapping>
+  
+
 </web-app>
