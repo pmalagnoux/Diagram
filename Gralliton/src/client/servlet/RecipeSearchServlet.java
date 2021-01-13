@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import client.metier.AccountManager;
-import client.metier.DifficultyManager;
-import client.metier.RecipeManager;
-import client.metier.RecipeTypeManager;
+import client.metier.account.AccountManager;
+import client.metier.difficulty.DifficultyManager;
+import client.metier.recipe.RecipeManager;
+import client.metier.recipeType.RecipeTypeManager;
 
 /**
  * Servlet implementation class RecipeSearchServlet
@@ -35,6 +35,7 @@ public class RecipeSearchServlet extends HttpServlet {
 		int cookingTime = 0;
 		int difficulty = 0;
 		int recipeType = 0;
+		String keyWord = "";
 		
 		if(request.getParameter("cookingTime") != null) {
 			cookingTime = Integer.parseInt(request.getParameter("cookingTime"));
@@ -45,7 +46,9 @@ public class RecipeSearchServlet extends HttpServlet {
 		if(request.getParameter("recipeType") != null) {
 			recipeType = Integer.parseInt(request.getParameter("recipeType"));
 		}
-		request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime));
+		keyWord = request.getParameter("keyWord");
+		
+		request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime,keyWord));
 		request.setAttribute("difficulties", DifficultyManager.getDifficulties());
 		request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
 		request.setAttribute("accounts", AccountManager.getAccounts());

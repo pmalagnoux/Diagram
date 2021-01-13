@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import client.metier.Account;
-import client.metier.AccountManager;
+import client.metier.account.Account;
+import client.metier.account.AccountManager;
 import webservice.SecuriteService;
 import webservice.SecuriteWS;
 
