@@ -4,9 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import webService.utils.ConnectionToDB;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
+import webService.ConnectionToDB;
+
+@WebService(name="DifficultyManagerWS")
 public abstract class DifficultyManager {
+	
+	@WebMethod(operationName="getDifficulties")
 	public static List<Difficulty> getDifficulties(){
 		List<Difficulty> result = new ArrayList<Difficulty>();
 		ConnectionToDB connection = new ConnectionToDB();

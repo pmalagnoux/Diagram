@@ -1,5 +1,8 @@
 package webService.metier;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Ingredient {
 	private int id;
 	private String name;

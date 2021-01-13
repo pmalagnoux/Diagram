@@ -4,9 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import webService.utils.ConnectionToDB;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
+import webService.ConnectionToDB;
+
+@WebService(name="RecipeTypeManagerWS")
 public abstract class RecipeTypeManager {
+	
+	@WebMethod(operationName="getRecipeTypes")
 	public static List<RecipeType> getRecipeTypes(){
 		List<RecipeType> result = new ArrayList<RecipeType>();
 		ConnectionToDB connection = new ConnectionToDB();

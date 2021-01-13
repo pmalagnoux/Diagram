@@ -5,9 +5,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import webService.utils.ConnectionToDB;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
 
+import webService.ConnectionToDB;
+
+
+@WebService(name="IngredientManagerWS")
 public abstract class IngredientManager {
+	
+	@WebMethod(operationName="getIngredients")
 	public static List<Ingredient> getIngredients(){
 		List<Ingredient> result = new ArrayList<Ingredient>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -40,7 +48,8 @@ public abstract class IngredientManager {
 	 * @param quantity
 	 * @param recipeId
 	 */
-	public static void addIngredient(Ingredient ingredient, int quantity, int recipeId) {
+	@WebMethod(operationName="addIngredient")
+	public static void addIngredient(@WebParam(name="ingredient")Ingredient ingredient, @WebParam(name="quantity")int quantity, @WebParam(name="recipeId")int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		//failles d'injection SQL...

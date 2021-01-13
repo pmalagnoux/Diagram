@@ -1,5 +1,8 @@
 package webService.metier;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Step {
 	private int id;
 	private String content;

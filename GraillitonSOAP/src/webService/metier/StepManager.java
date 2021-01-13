@@ -3,10 +3,17 @@ package webService.metier;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import webService.utils.ConnectionToDB;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
 
+import webService.ConnectionToDB;
+
+@WebService(name="StepManagerWS")
 public abstract class StepManager {
-	public static void addStep(Step step, int order, int recipeId) {
+	
+	@WebMethod(operationName="addStep")
+	public static void addStep(@WebParam(name="step")Step step, @WebParam(name="order")int order, @WebParam(name="recipeId")int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		//failles d'injection SQL...
@@ -29,7 +36,7 @@ public abstract class StepManager {
 			connection.close();
 		}
 	}
-	
+	@WebMethod(operationName="getLastStepId")
 	public static int getLastStepId() {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();

@@ -2,6 +2,9 @@ package webService.metier;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Recipe {
 	private int id;
 	private String name;

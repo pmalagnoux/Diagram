@@ -5,10 +5,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import webService.utils.ConnectionToDB;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
 
+import webService.ConnectionToDB;
+
+@WebService(name="RecipeManagerWS")
 public abstract class RecipeManager {
-	public static void addRecipe(Recipe recipe) {
+	
+	@WebMethod(operationName="recipe")
+	public static void addRecipe(@WebParam(name="recipe")Recipe recipe) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		//failles d'injection SQL...
@@ -30,7 +37,7 @@ public abstract class RecipeManager {
 			connection.close();
 		}
 	}
-	
+	@WebMethod(operationName="getLastRecipeId")
 	public static int getLastRecipeId() {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -60,7 +67,8 @@ public abstract class RecipeManager {
 	 * @param maxCookingTime
 	 * @return recipes
 	 */
-	public static List<Recipe> getRecipes(int maxDifficulty, int recipeType, int maxCookingTime){
+	@WebMethod(operationName="getRecipes")
+	public static List<Recipe> getRecipes(@WebParam(name="maxDifficulty")int maxDifficulty, @WebParam(name="recipeType")int recipeType, @WebParam(name="maxCookingTime")int maxCookingTime){
 		List<Recipe> result = new ArrayList<Recipe>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();

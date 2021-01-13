@@ -5,9 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import webService.utils.ConnectionToDB;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
 
+import webService.ConnectionToDB;
+
+@WebService(name="TagManagerWS")
 public abstract class TagManager {
+	@WebMethod(operationName="getTags")
 	public static List<Tag> getTags(){
 		List<Tag> result = new ArrayList<Tag>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -38,7 +44,8 @@ public abstract class TagManager {
 	 * @param tag
 	 * @param recipeId
 	 */
-	public static void addTag(Tag tag, int recipeId) {
+	@WebMethod(operationName="addTag")
+	public static void addTag(@WebParam(name="tag") Tag tag, @WebParam(name="recipeId") int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		//failles d'injection SQL...
