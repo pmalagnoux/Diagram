@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import client.EJBs.AccountManager;
-import client.EJBs.Ingredient;
-import client.EJBs.IngredientManager;
-import client.EJBs.Recipe;
-import client.EJBs.RecipeManager;
-import client.EJBs.Step;
-import client.EJBs.StepManager;
-import client.EJBs.Tag;
-import client.EJBs.TagManager;
-import client.EJBs.Ustensil;
-import client.EJBs.UstensilManager;
+import client.metier.AccountManager;
+import client.metier.Ingredient;
+import client.metier.IngredientManager;
+import client.metier.Recipe;
+import client.metier.RecipeManager;
+import client.metier.Step;
+import client.metier.StepManager;
+import client.metier.Tag;
+import client.metier.TagManager;
+import client.metier.Ustensil;
+import client.metier.UstensilManager;
 
 /**
  * Servlet implementation class RecipeCreation

@@ -1,10 +1,6 @@
 package client.servlet;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import client.EJBs.Account;
-import client.EJBs.AccountManager;
+import client.metier.Account;
+import client.metier.AccountManager;
+import webservice.SecuriteService;
+import webservice.SecuriteWS;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -44,7 +42,10 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
-		String password = encrypt(request.getParameter("password"));
+		
+		SecuriteWS stub = new SecuriteService().getSecuriteWSPort();
+		
+		String password = stub.encrypt(request.getParameter("password"));
 		Account account = new Account(password,login,email);
 
 		System.out.println(account.toString());
@@ -52,21 +53,7 @@ public class RegisterServlet extends HttpServlet {
 		//CHECK UNIQUE USERNAME
 		this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 	}
-	
-	private static String encrypt(String password) {
-		MessageDigest digest;
-		try {
-			digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-			String encoded = Base64.getEncoder().encodeToString(hash);
-			return encoded;
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+
 	
 	public static boolean mailIsValid(String email) {
         if (email.endsWith(".fr") || email.endsWith(".com") ) {

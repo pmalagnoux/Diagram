@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import client.EJBs.DifficultyManager;
-import client.EJBs.IngredientManager;
-import client.EJBs.RecipeTypeManager;
-import client.EJBs.TagManager;
-import client.EJBs.UstensilManager;
+import client.metier.DifficultyManager;
+import client.metier.IngredientManager;
+import client.metier.RecipeTypeManager;
+import client.metier.TagManager;
+import client.metier.UstensilManager;
 
 /**
  * Servlet implementation class RecipeCreationServlet

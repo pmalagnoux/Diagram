@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import client.EJBs.DifficultyManager;
-import client.EJBs.RecipeTypeManager;
+import client.metier.DifficultyManager;
+import client.metier.RecipeTypeManager;
 
 /**
  * Servlet implementation class IndexServlet
