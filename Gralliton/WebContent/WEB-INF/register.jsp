@@ -14,14 +14,26 @@
 
 
 <body>
-
-	<c:out escapeXml="false" value="<h1>Inscription</h1>"></c:out>
+<div class="d-flex align-items-center justify-content-center" style="height: 600px">
 	<form action="" method="post">
-		<input type="text" class="form-control" placeholder="Login" id="login" name="login">
-		<input type="text" class="form-control" placeholder="Email" id="email" name="email">
-		<input type="password" class="form-control" placeholder="Mot de passe"  id="password" name="password">
+		<div class="form-group">
+			<label>Login</label>
+			<input type="text" class="form-control" placeholder="Login" id="login" name="login">
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+			<input type="text" class="form-control" placeholder="Email" id="email" name="email">
+		</div>
+		<div class="form-group">
+			<label>Mot de passe</label>
+			<input type="password" class="form-control" placeholder="Mot de passe"  id="password" name="password">
+		</div>
 		<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">M'inscrire</button>
 	</form>
-
+</div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </html>

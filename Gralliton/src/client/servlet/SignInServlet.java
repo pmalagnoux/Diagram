@@ -51,7 +51,7 @@ public class SignInServlet extends HttpServlet {
 			}
 		}
 		else {	// n'est pas connecté
-			request.setAttribute("wrongLogPass", "wrongLogPass");
+			request.setAttribute("wrongLogPass", "wrongLogPass"); //REFAIRE
 			doGet(request, response);
 		}
 			

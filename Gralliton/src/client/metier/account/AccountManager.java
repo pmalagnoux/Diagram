@@ -40,8 +40,8 @@ public abstract class AccountManager {
 			
 			//Récupération du login depuis la session
 			HttpSession session = request.getSession();	
-			String username = (String) session.getAttribute("userLogin");
-			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id` FROM `account` WHERE `username` = \"" + username + "\";"));
+			Account userAccount = (Account) session.getAttribute("userAccount");
+			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id` FROM `account` WHERE `username` = \"" + userAccount.getLogin() + "\";"));
 			connection.getResultSet().next();
 			return connection.getResultSet().getInt("id");
 			

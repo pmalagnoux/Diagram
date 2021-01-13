@@ -36,7 +36,6 @@ public class Authentication {
 					break;
 				}
 			}
-			
 		} catch (SQLException e) {
 			System.out.println("La BD n'est pas connectée");
 		}

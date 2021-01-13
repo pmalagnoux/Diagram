@@ -14,13 +14,19 @@
 
 
 <body>
-
-<c:out escapeXml="false" value="<h1>Je m'identifie</h1>"></c:out>
-<form action="" method="post">
-	<input type="text" class="form-control" placeholder="Login" id="login" name="login">
-	<input type="password" class="form-control" placeholder="Mot de passe"  id="password" name="password">
-	<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Me connecter</button>
-</form>
+<div class="d-flex align-items-center justify-content-center" style="height: 500px">
+	<form action="" method="post">
+		<div class="form-group">
+			<label>Login</label>
+			<input type="text" class="form-control" placeholder="Login" id="login" name="login">
+		</div>
+		<div class="form-group">
+			<label>Mot de passe</label>
+			<input type="password" class="form-control" placeholder="Mot de passe"  id="password" name="password">
+		</div>
+		<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Me connecter</button>
+	</form>
+</div>
 <!--  
 <c:if test="${wrongLogPass == wrongLogPass}">
 	<c:out value="Mauvais login ou mdp"></c:out>
