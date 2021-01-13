@@ -61,7 +61,7 @@ public abstract class RecipeManager {
 	 * @param maxCookingTime
 	 * @return recipes
 	 */
-	public static List<Recipe> getRecipes(int maxDifficulty, int recipeType, int maxCookingTime){
+	public static List<Recipe> getRecipes(int maxDifficulty, int recipeType, int maxCookingTime, String keyWord){
 		List<Recipe> result = new ArrayList<Recipe>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -69,40 +69,54 @@ public abstract class RecipeManager {
 		//Construction de la requète
 		String req = "SELECT * FROM `recipe`";
 		int firstCriterion = 0;
-		if(maxCookingTime == 0 && recipeType == 0 && maxDifficulty == 0) { // aucune selection
+		if(maxCookingTime == 0 && recipeType == 0 && maxDifficulty == 0 && keyWord.equals("")) { // aucun filtre
 			req += ";";
 			
 		}else {
 			req += " WHERE";
 			// Premier critère
-			if(maxCookingTime != 0) { 
+			if(!keyWord.equals("")) { 
 				firstCriterion = 1;
+				req += " `id` IN (SELECT DISTINCT `recipe`.`id` "
+							+ "FROM `ingredient`, `recipe`, `recipeingredient` "
+							+ "WHERE `ingredient`.`id`=`recipeingredient`.`ingredient_id` "
+							+ "AND `recipe`.`id`=`recipeingredient`.`recipe_id` "
+							+ "AND `ingredient`.`name` LIKE '%"+keyWord+"%' "
+							+ "OR `recipe`.`name` LIKE '%"+keyWord+"%')";
+			}
+			if(maxCookingTime != 0) { 
+				firstCriterion = 2;
 				req += " `preparationTime` + `cookingTime` <= " + maxCookingTime;
 			}
 			else if(recipeType != 0) {
-				firstCriterion = 2;
+				firstCriterion = 3;
 				req += " `recipeType_id` =  " + recipeType;
 			}
 			else if(maxDifficulty != 0) {
-				firstCriterion = 3;
+				firstCriterion = 4;
 				req += " `difficulty_id` <= " + maxDifficulty;
 			}
 			
 			// Autres critères
-			if(maxCookingTime != 0 && firstCriterion != 1) {
+			if(firstCriterion != 1 && !keyWord.equals("")) {
+				req += " AND `id` IN (SELECT DISTINCT `recipe`.`id` "
+						+ "FROM `ingredient`, `recipe`, `recipeingredient` "
+						+ "WHERE `ingredient`.`id`=`recipeingredient`.`ingredient_id` "
+						+ "AND `recipe`.`id`=`recipeingredient`.`recipe_id` "
+						+ "AND `ingredient`.`name` LIKE '%"+keyWord+"%' "
+						+ "OR `recipe`.`name` LIKE '%"+keyWord+"%')";
+			}
+			if(firstCriterion != 2 && maxCookingTime != 0) {
 				req += " AND `preparationTime` + `cookingTime` <= " + maxCookingTime;
 			}
-			if(recipeType != 0 && firstCriterion != 2) {
+			if(firstCriterion != 3 && recipeType != 0) {
 				req += " AND `recipeType_id` =  " + recipeType;
 			}
-			if(maxDifficulty != 0 && firstCriterion != 3) {
+			if(firstCriterion != 4 && maxDifficulty != 0) {
 				req += " AND `difficulty_id` <= " + maxDifficulty;
 			}
 			req += ";";
 		}
-		
-		
-		// RECHERCHE PAR MOT CLE, PLUSIEURS MOTS CLE
 		
 		//Gestion des recettes sans les tags
 		try {

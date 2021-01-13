@@ -48,6 +48,8 @@ public class RecipeSearchServlet extends HttpServlet {
 		}
 		keyWord = request.getParameter("keyWord");
 		
+		//STUB
+		
 		request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime,keyWord));
 		request.setAttribute("difficulties", DifficultyManager.getDifficulties());
 		request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
