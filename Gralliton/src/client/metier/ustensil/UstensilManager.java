@@ -1,4 +1,4 @@
-package client.metier;
+package client.metier.ustensil;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,25 +7,26 @@ import java.util.List;
 
 import client.utils.ConnectionToDB;
 
-public abstract class TagManager {
-	public static List<Tag> getTags(){
-		List<Tag> result = new ArrayList<Tag>();
+public abstract class UstensilManager {
+	public static List<Ustensil> getUstensils(){
+		List<Ustensil> result = new ArrayList<Ustensil>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
 			//execution d'une requête et récupération de résultat dans l'objet resultSet
-			connection.setResultSet(connection.getStatement().executeQuery("SELECT * FROM `tag`;"));
+			connection.setResultSet(connection.getStatement().executeQuery("SELECT * FROM ustensil;"));
+			
 			//récupération des données
 			while(connection.getResultSet().next()) {
 				int id = connection.getResultSet().getInt("id");
-				String name = connection.getResultSet().getString("tagName");
-				result.add(new Tag(id, name));
+				String name = connection.getResultSet().getString("name");
+				result.add(new Ustensil(id, name));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (tag)");
+			System.out.println("Problème de selection dans la BD (ustensil)");
 		}
 		finally {
 			connection.close();
@@ -34,18 +35,20 @@ public abstract class TagManager {
 	}
 	
 	/**
-	 * Remplit la table recipetag(recipe_id,tag_id)
-	 * @param tag
+	 * Remplit la table recipeustensil(quantity,recipe_id,ustensil_id)
+	 * @param ustensil
+	 * @param quantity
 	 * @param recipeId
 	 */
-	public static void addTag(Tag tag, int recipeId) {
+	public static void addUstensil(Ustensil ustensil, int quantity, int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		//failles d'injection SQL...
 		try {
-			PreparedStatement preparedStatement = connection.getConnection().prepareStatement("INSERT INTO `recipetag`(`recipe_id`, `tag_id`) VALUES (?,?);");
-			preparedStatement.setInt(1, recipeId);
-			preparedStatement.setInt(2, tag.getId());
+			PreparedStatement preparedStatement = connection.getConnection().prepareStatement("INSERT INTO `recipeustensil`(`quantity`, `recipe_id`, `ustensil_id`) VALUES (?,?,?);");
+			preparedStatement.setInt(1, quantity);
+			preparedStatement.setInt(2, recipeId);
+			preparedStatement.setInt(3, ustensil.getId());
 			
 			// executer la requête
 			preparedStatement.executeUpdate();

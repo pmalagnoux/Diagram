@@ -1,15 +1,24 @@
-package client.metier;
+package client.metier.ingredient;
 
-public class RecipeType {
+public class Ingredient {
 	private int id;
 	private String name;
 	
-	public RecipeType(int id, String name) {
+	
+	public Ingredient(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public RecipeType() {
+	public Ingredient(int id) {
+		super();
+		this.id = id;
+	}
+	public Ingredient(String name) {
+		super();
+		this.name = name;
+	}
+	public Ingredient() {
 		super();
 	}
 	public int getId() {
@@ -24,4 +33,6 @@ public class RecipeType {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
 }

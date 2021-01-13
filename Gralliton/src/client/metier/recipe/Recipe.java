@@ -1,6 +1,8 @@
-package client.metier;
+package client.metier.recipe;
 
 import java.util.List;
+
+import client.metier.tag.Tag;
 
 public class Recipe {
 	private int id;

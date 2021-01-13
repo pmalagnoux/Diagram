@@ -1,15 +1,15 @@
-package client.metier;
+package client.metier.tag;
 
-public class Difficulty {
+public class Tag {
 	private int id;
 	private String name;
 	
-	public Difficulty(int id, String name) {
+	public Tag(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public Difficulty() {
+	public Tag() {
 		super();
 	}
 	public int getId() {
@@ -24,4 +24,9 @@ public class Difficulty {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Tag(int id) {
+		super();
+		this.id = id;
+	}
+	
 }

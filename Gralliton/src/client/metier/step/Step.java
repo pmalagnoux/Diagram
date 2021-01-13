@@ -1,4 +1,4 @@
-package client.metier;
+package client.metier.step;
 
 public class Step {
 	private int id;

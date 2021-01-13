@@ -1,10 +1,17 @@
-package client.metier;
+package client.metier.recipeType;
 
-public class Ustensil {
+public class RecipeType {
 	private int id;
 	private String name;
 	
-	
+	public RecipeType(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	public RecipeType() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
@@ -17,17 +24,4 @@ public class Ustensil {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Ustensil(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-	public Ustensil() {
-		super();
-	}
-	public Ustensil(int id) {
-		super();
-		this.id = id;
-	}
-	
 }

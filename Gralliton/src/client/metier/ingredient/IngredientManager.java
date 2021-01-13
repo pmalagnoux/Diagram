@@ -1,4 +1,4 @@
-package client.metier;
+package client.metier.ingredient;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

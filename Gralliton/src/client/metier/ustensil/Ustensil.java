@@ -1,17 +1,10 @@
-package client.metier;
+package client.metier.ustensil;
 
-public class Tag {
+public class Ustensil {
 	private int id;
 	private String name;
 	
-	public Tag(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-	public Tag() {
-		super();
-	}
+	
 	public int getId() {
 		return id;
 	}
@@ -24,7 +17,15 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Tag(int id) {
+	public Ustensil(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	public Ustensil() {
+		super();
+	}
+	public Ustensil(int id) {
 		super();
 		this.id = id;
 	}

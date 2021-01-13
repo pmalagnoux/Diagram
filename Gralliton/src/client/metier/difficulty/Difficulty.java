@@ -1,24 +1,15 @@
-package client.metier;
+package client.metier.difficulty;
 
-public class Ingredient {
+public class Difficulty {
 	private int id;
 	private String name;
 	
-	
-	public Ingredient(int id, String name) {
+	public Difficulty(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public Ingredient(int id) {
-		super();
-		this.id = id;
-	}
-	public Ingredient(String name) {
-		super();
-		this.name = name;
-	}
-	public Ingredient() {
+	public Difficulty() {
 		super();
 	}
 	public int getId() {
@@ -33,6 +24,4 @@ public class Ingredient {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 }

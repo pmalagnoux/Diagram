@@ -1,4 +1,4 @@
-package client.metier;
+package client.metier.account;
 
 public class Account {
 	private int id;

@@ -1,10 +1,11 @@
-package client.metier;
+package client.metier.recipe;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.metier.tag.Tag;
 import client.utils.ConnectionToDB;
 
 public abstract class RecipeManager {
@@ -140,67 +141,6 @@ public abstract class RecipeManager {
 					tagsID.add(new Tag(tagID, tagName));
 				}
 				result.get(i).setTags(tagsID);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipetag/tag)");
-			return new ArrayList<Recipe>(); // retourne liste vide si erreur
-		}
-		finally {
-			connection.close();
-		}
-		return result;
-	}
-	
-	/**
-	 * Retourne toutes les recettes de la base de données
-	 * @return recipies
-	 */
-	public static List<Recipe> getRecipes(/*int maxDifficulty, int recipeType, int maxCookingTime*/){
-		List<Recipe> result = new ArrayList<Recipe>();
-		ConnectionToDB connection = new ConnectionToDB();
-		connection.open();
-		
-		//Gestion des recettes sans les tags
-		try {
-			connection.setStatement(connection.getConnection().createStatement());
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
-			connection.setResultSet(connection.getStatement().executeQuery("SELECT * FROM `recipe` ORDER BY `id`;"));
-			//récupération des données
-			while(connection.getResultSet().next()) {
-				int id = connection.getResultSet().getInt("id");
-				String name = connection.getResultSet().getString("name");
-				int preparationTime = connection.getResultSet().getInt("preparationTime");
-				int cookingTime = connection.getResultSet().getInt("cookingTime");
-				int quantity = connection.getResultSet().getInt("quantity");
-				int account_id = connection.getResultSet().getInt("account_id");
-				int difficulty_id = connection.getResultSet().getInt("difficulty_id");
-				int recipeType_id = connection.getResultSet().getInt("recipeType_id");
-				int likeNumber = connection.getResultSet().getInt("likeNumber");
-				result.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipe)");
-			return new ArrayList<Recipe>(); // retourne liste vide si erreur
-		}
-		//Ajout des tags
-		try {
-
-			connection.setResultSet(connection.getStatement().executeQuery("SELECT `tagName`,`recipe_id`,`id` FROM `tag`,`recipetag` WHERE `tag_id`=`id` ORDER BY `recipe_id`;"));
-			
-			List<Tag> tagsID = new ArrayList<Tag>();
-			int recipeID = -1;
-			while(connection.getResultSet().next()) {
-				if(connection.getResultSet().getInt("recipe_id") != recipeID) {
-					recipeID = connection.getResultSet().getInt("recipe_id");
-					tagsID = new ArrayList<Tag>();
-				}
-				String tagName = connection.getResultSet().getString("tagName");
-				int tagID = connection.getResultSet().getInt("id");
-				tagsID.add(new Tag(tagID, tagName));
-				result.get(recipeID-1).setTags(tagsID); // -1 car premier indice = 0
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
