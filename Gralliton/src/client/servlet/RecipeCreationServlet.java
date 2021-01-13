@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import client.metier.AccountManager;
-import client.metier.Ingredient;
-import client.metier.IngredientManager;
-import client.metier.Recipe;
-import client.metier.RecipeManager;
-import client.metier.Step;
-import client.metier.StepManager;
-import client.metier.Tag;
-import client.metier.TagManager;
-import client.metier.Ustensil;
-import client.metier.UstensilManager;
+import client.metier.account.AccountManager;
+import client.metier.ingredient.Ingredient;
+import client.metier.ingredient.IngredientManager;
+import client.metier.recipe.Recipe;
+import client.metier.recipe.RecipeManager;
+import client.metier.step.Step;
+import client.metier.step.StepManager;
+import client.metier.tag.Tag;
+import client.metier.tag.TagManager;
+import client.metier.ustensil.Ustensil;
+import client.metier.ustensil.UstensilManager;
 
 /**
  * Servlet implementation class RecipeCreation

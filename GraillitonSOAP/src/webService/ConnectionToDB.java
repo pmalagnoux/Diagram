@@ -55,7 +55,7 @@ public class ConnectionToDB {
 			System.out.println("La BD n'est pas connectée");
 		}
 	}
-	@WebMethod(operationName="getUstensils")
+	@WebMethod(operationName="close")
 	public void close() {
 		try {
 			if(this.connection!=null) connection.close();
