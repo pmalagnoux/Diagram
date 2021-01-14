@@ -14,26 +14,32 @@
 
 <c:forEach items="${recipes}" var="recipe">
 	<div style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-		<c:out escapeXml="false" value="<h1>${ recipe.name}</h1>"></c:out>
-		<c:forEach items="${difficulties}" var="diff">
-			<c:if test="${diff.id == recipe.difficulty}">
-				<c:out value="${ diff.name}"></c:out>
-			</c:if>
-		</c:forEach>
-		<c:forEach items="${recipeTypes}" var="rt">
-			<c:if test="${rt.id == recipe.type}">
-				<c:out value="${ rt.name}"></c:out>
-			</c:if>
-		</c:forEach>
-		<c:forEach items="${accounts}" var="account">
-			<c:if test="${account.id == recipe.account}">
-				<c:out value="${ account.login}"></c:out>
-			</c:if>
-		</c:forEach>
-		<c:forEach items="${recipe.tags}" var="tag"> <!-- tags de la recette -->
-			<c:out value="${tag.name}"></c:out>
-		</c:forEach>
-		<c:out value="Temps de cuisine : ${recipe.cookingTime + recipe.preparationTime}"></c:out>
+		<form action="" method="post">
+			<c:out escapeXml="false" value="<h1>${ recipe.name}</h1>"></c:out>
+			<c:forEach items="${difficulties}" var="diff">
+				<c:if test="${diff.id == recipe.difficulty}">
+					<c:out value="${ diff.name}"></c:out>
+				</c:if>
+			</c:forEach>
+			<c:forEach items="${recipeTypes}" var="rt">
+				<c:if test="${rt.id == recipe.type}">
+					<c:out value="${ rt.name}"></c:out>
+				</c:if>
+			</c:forEach>
+			<c:forEach items="${accounts}" var="account">
+				<c:if test="${account.id == recipe.account}">
+					<c:out value="${account.login}"></c:out>
+				</c:if>
+			</c:forEach>
+			<c:forEach items="${recipe.tags}" var="tag"> <!-- tags de la recette -->
+				<c:out value="${tag.name}"></c:out>
+			</c:forEach>
+			<c:out value="Temps de cuisine : ${recipe.cookingTime + recipe.preparationTime}"></c:out>
+			<c:when test="${!(empty sessionScope.userLogin) }">
+				<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7"> + </button>
+				<input type="hidden" class="form-control" id="recipeId" name="recipeId" value = "${recipe.id}">
+			</c:when>
+		</form>
 	</div>
 </c:forEach>
 

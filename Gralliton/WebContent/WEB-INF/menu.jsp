@@ -25,7 +25,7 @@
 			<a class="navbar-brand" href="register" style="color : #C7C7C7;">Register</a>
 		</c:when>
 		<c:otherwise>
-		<!-- Dropdown -->
+		<!-- Dropdown (interface membre)-->
 			<div class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style= "color : #C7C7C7;">
 		         Mon Compte
@@ -36,7 +36,7 @@
 		          <a class="dropdown-item" href="#">Mon Garde-Manger</a>
 		          <a class="dropdown-item" href="#">Mes Recettes</a>
 		          <a class="dropdown-item" href="creation-recette">Nouvelle Recette</a>
-		          <a class="dropdown-item" href="#">Mes Favoris</a>
+		          <a class="dropdown-item" href="favorite">Mes Favoris</a>
 		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="disconnection">Déconnexion</a>
 		        </div>

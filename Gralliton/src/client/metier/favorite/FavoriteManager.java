@@ -44,7 +44,9 @@ public abstract class FavoriteManager {
 	}
 	
 	public static List<Recipe> getFavorites(HttpServletRequest request){
+		System.out.println("oui1");
 		int accId = AccountManager.getCurrentAccountId(request);
+		System.out.println("non");
 		List<Favorite> resultid =new ArrayList<Favorite>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -65,7 +67,6 @@ public abstract class FavoriteManager {
 			return new ArrayList<Recipe>(); // retourne liste vide si erreur
 		}
 		List<Recipe> result = new ArrayList<Recipe>();
-		connection.open();
 		for(Favorite fav : resultid ) {
 			req = "SELECT * FROM `recipe` WHERE id = '"+ fav.getRecipe() + "';";
 

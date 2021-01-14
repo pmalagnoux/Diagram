@@ -40,8 +40,8 @@ public abstract class AccountManager {
 			
 			//Récupération du login depuis la session
 			HttpSession session = request.getSession();	
-			Account userAccount = (Account) session.getAttribute("userAccount");
-			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id` FROM `account` WHERE `username` = \"" + userAccount.getLogin() + "\";"));
+			String userLogin = (String) session.getAttribute("userLogin");
+			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id` FROM `account` WHERE `username` = '"+ userLogin +"';"));
 			connection.getResultSet().next();
 			return connection.getResultSet().getInt("id");
 			
@@ -79,4 +79,38 @@ public abstract class AccountManager {
 		}
 		return result;
 	}
+	
+	public static boolean[] isAvailable(String email, String login) {
+		boolean[] result = new boolean[] {false,false};
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		try {
+			String req = "SELECT COUNT(*)as nb FROM `account` WHERE `username` = '"+ login +"';";
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			connection.getResultSet().next();
+			if(connection.getResultSet().getInt("nb")==0) result[1] = true;
+
+				
+				
+			req ="SELECT COUNT(*) as nb FROM `account` WHERE `mailAddress` = '"+ email +"';";
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			connection.getResultSet().next();
+			if(connection.getResultSet().getInt("nb")==0) result[0] = true;
+			
+		} catch (SQLException e) {
+			System.out.println("Erreur de connection (account)");
+			return new boolean[]{false,false};
+		}
+		finally {
+			connection.close();
+		}
+		 
+		return result;
+	}
+	
+
 }

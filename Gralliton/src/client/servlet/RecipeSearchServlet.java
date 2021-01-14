@@ -7,9 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import client.metier.account.AccountManager;
 import client.metier.difficulty.DifficultyManager;
+import client.metier.favorite.FavoriteManager;
 import client.metier.recipe.RecipeManager;
 import client.metier.recipeType.RecipeTypeManager;
 
@@ -61,7 +63,14 @@ public class RecipeSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		if(session.getAttribute("userLogin") != null && AccountManager.getCurrentAccountId(request) !=0) {
+			String recipeId = request.getParameter("recipeID");
+			FavoriteManager.addFavorite(AccountManager.getCurrentAccountId(request),Integer.parseInt(recipeId));
+			doGet(request, response);
+		}
+		
+		
 	}
 
 }

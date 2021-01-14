@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import client.metier.account.Account;
 import client.metier.account.AccountManager;
+import client.metier.favorite.FavoriteManager;
 import webservice.SecuriteService;
 import webservice.SecuriteWS;
 
@@ -42,26 +43,25 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
+		boolean[] areAvailable = AccountManager.isAvailable(email, login);
+		if (!areAvailable[0]) {
+			request.setAttribute("emailValid",false);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+		}
+		else if (!areAvailable[1]) {
+			request.setAttribute("loginValid",false);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+		}
 		
-		SecuriteWS stub = new SecuriteService().getSecuriteWSPort();
-		
-		String password = stub.encrypt(request.getParameter("password"));
-		Account account = new Account(password,login,email);
-
-		System.out.println(account.toString());
-		AccountManager.addAccount(account);
-		//CHECK UNIQUE USERNAME
-		this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
+		else {
+			SecuriteWS stub = new SecuriteService().getSecuriteWSPort();
+			
+			String password = stub.encrypt(request.getParameter("password"));
+			Account account = new Account(password,login,email);
+			AccountManager.addAccount(account);
+			
+			this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
+		}
 	}
-
-	
-	public static boolean mailIsValid(String email) {
-        if (email.endsWith(".fr") || email.endsWith(".com") ) {
-            if (email.indexOf("@")>0) {
-                return true;
-            }
-        }
-        return false;
-    }
 	
 }

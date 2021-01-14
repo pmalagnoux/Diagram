@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import client.metier.account.AccountManager;
 import client.metier.difficulty.DifficultyManager;
 import client.metier.favorite.FavoriteManager;
-import client.metier.recipe.RecipeManager;
 import client.metier.recipeType.RecipeTypeManager;
 
 /**
@@ -35,7 +34,6 @@ public class FavoriteServlet extends HttpServlet {
 		request.setAttribute("favoriteRecipes", FavoriteManager.getFavorites(request));
 		request.setAttribute("difficulties", DifficultyManager.getDifficulties());
 		request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
-		request.setAttribute("accounts", AccountManager.getAccounts());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/favorite.jsp").forward(request, response);
 	}
 
