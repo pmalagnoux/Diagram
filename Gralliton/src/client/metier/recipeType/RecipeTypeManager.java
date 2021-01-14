@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.metier.difficulty.Difficulty;
 import client.utils.ConnectionToDB;
 
 public abstract class RecipeTypeManager {
@@ -31,5 +32,29 @@ public abstract class RecipeTypeManager {
 			connection.close();
 		}
 		return result;
+	}
+	
+	public static RecipeType getTypeById(int recipeId) {
+		RecipeType result ;
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `name` FROM `recipetype`, `recipe` WHERE `recipetype`.`id` = `recipe`.`recipeType_id` AND `recipe`.`id` = '"+recipeId+"';";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			connection.getResultSet().next();
+				result = new RecipeType(connection.getResultSet().getString("name"));
+			
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (recipeType) getTypeById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
 	}
 }

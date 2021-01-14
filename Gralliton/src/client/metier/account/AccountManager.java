@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import client.metier.difficulty.Difficulty;
 import client.utils.ConnectionToDB;
 
 public abstract class AccountManager {
@@ -110,6 +111,29 @@ public abstract class AccountManager {
 		}
 		 
 		return result;
+	}
+	public static Account getAccountById(int recipeId) {
+		Account result ;
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `username` FROM `account`,`recipe` WHERE `account`.`id` = `recipe`.`account_id` AND `recipe`.`id` = '"+recipeId+"';";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			connection.getResultSet().next();
+				result = new Account(connection.getResultSet().getString("username"));
+			
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (account) getAccountById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
 	}
 	
 

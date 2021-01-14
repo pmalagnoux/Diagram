@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.metier.tag.Tag;
 import client.utils.ConnectionToDB;
 
 public abstract class UstensilManager {
@@ -59,4 +60,33 @@ public abstract class UstensilManager {
 			connection.close();
 		}
 	}
+	
+	public static List<Ustensil> getUstensilsById(int recipeId) {
+		List<Ustensil> result = new ArrayList<Ustensil>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `name` FROM `ustensil`, `recipeustensil` WHERE `ustensil`.`id` = `recipeustensil`.`ustensil_id` AND `recipeustensil`.`recipe_id` = '"+recipeId+"';";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			while(connection.getResultSet().next()) {
+				result.add( new Ustensil(connection.getResultSet().getString("name")));
+			}
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (Ustensil) getUstensilsById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 }

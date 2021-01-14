@@ -28,5 +28,9 @@ public class Tag {
 		super();
 		this.id = id;
 	}
+	public Tag(String name) {
+		super();
+		this.name = name;
+	}
 	
 }

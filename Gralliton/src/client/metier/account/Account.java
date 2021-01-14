@@ -49,6 +49,10 @@ public class Account {
 		this.id = id;
 		this.login = login;
 	}
+	public Account(String login) {
+		super();
+		this.login = login;
+	}
 	
 	
 }

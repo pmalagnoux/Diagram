@@ -2,6 +2,8 @@ package client.metier.step;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import client.utils.ConnectionToDB;
 
@@ -51,5 +53,28 @@ public abstract class StepManager {
 			connection.close();
 		}
 		return 0; // GéRER LE RETURN 0
+	}
+	public static List<Step> getStepsById(int recipeId) {
+		List<Step> result = new ArrayList<Step>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `content` FROM `step`, `recipestep` WHERE `step`.`id` = `recipestep`.`step_id` AND `recipestep`.`recipe_id` = '"+recipeId+"' ORDER BY `step`.`id`;";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			while(connection.getResultSet().next()) {
+				result.add( new Step(connection.getResultSet().getString("content")));
+			}
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (step) getStepsById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
 	}
 }

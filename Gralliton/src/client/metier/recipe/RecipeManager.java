@@ -46,12 +46,47 @@ public abstract class RecipeManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipe)");
+			System.out.println("Problème de selection dans la BD (recipe) getLastRecipeId");
 		}
 		finally {
 			connection.close();
 		}
 		return 0; // GéRER LE RETURN 0
+	}
+	
+	
+	public static Recipe getRecipeById(int recipeId) {
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			
+			connection.setResultSet(connection.getStatement().executeQuery("SELECT * FROM `recipe` WHERE `id` = '"+recipeId+"';"));
+			connection.getResultSet().next();
+			
+			int id = connection.getResultSet().getInt("id");
+			String name = connection.getResultSet().getString("name");
+			int preparationTime = connection.getResultSet().getInt("preparationTime");
+			int cookingTime = connection.getResultSet().getInt("cookingTime");
+			int quantity = connection.getResultSet().getInt("quantity");
+			int account_id = connection.getResultSet().getInt("account_id");
+			int difficulty_id = connection.getResultSet().getInt("difficulty_id");
+			int recipeType_id = connection.getResultSet().getInt("recipeType_id");
+			int likeNumber = connection.getResultSet().getInt("likeNumber");
+			
+			Recipe recipe = new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id);
+			return recipe;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (recipe) getRecipeById");
+		}
+		finally {
+			connection.close();
+		}
+		return null; 
 	}
 	
 	/**
@@ -130,7 +165,6 @@ public abstract class RecipeManager {
 		
 		// ---------- Fin de la requète ----------
 		
-		// SELECT * FROM `recipe` WHERE `id` IN (SELECT DISTINCT `recipe`.`id` FROM `ingredient`, `recipe`, `recipeingredient`,`ingredienttype` WHERE `ingredient`.`id`=`recipeingredient`.`ingredient_id` AND `recipe`.`id`=`recipeingredient`.`recipe_id` AND( `ingredient`.`name` LIKE '%fromage%' OR `recipe`.`name` LIKE '%fromage%' OR `recipeingredient`.`ingredient_id` IN (SELECT `ingredient`.`id` FROM `ingredient`, `ingredienttype` WHERE `ingredient`.`ingredienttype_id`=`ingredienttype`.`id` AND `ingredienttype`.`name` LIKE '%fromage%')))
 		
 		// Recherche des recettes sans les tags
 		try {

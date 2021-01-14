@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.metier.step.Step;
 import client.utils.ConnectionToDB;
 
 public abstract class TagManager {
@@ -56,4 +57,29 @@ public abstract class TagManager {
 			connection.close();
 		}
 	}
+	
+	public static List<Tag> getTagsById(int recipeId) {
+		List<Tag> result = new ArrayList<Tag>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `tagName` FROM `tag`, `recipetag` WHERE `tag`.`id` = `recipetag`.`tag_id` AND `recipetag`.`recipe_id` = '"+recipeId+"';";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			while(connection.getResultSet().next()) {
+				result.add( new Tag(connection.getResultSet().getString("tagName")));
+			}
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (Tag) getTagsById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
+	}
+	
 }

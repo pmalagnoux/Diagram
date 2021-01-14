@@ -15,7 +15,7 @@
     	<input class="form-control" type="text" placeholder="Search" aria-label="Search" id="keyWord" name="keyWord">
       	<button class="btn btn-rounded ml-sm-2" type="submit" style= "background-color: #C7C7C7">Go</button>
     </form>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" style= "background-color: #C7C7C7" aria-expanded="false" aria-label="Toggle navigation">Recherche avancée</button>
+    <button class="mr-3 btn btn-primary" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" style= "background-color: #C7C7C7" aria-expanded="false" aria-label="Toggle navigation">Recherche avancée</button>
 
   
   	<c:choose>
@@ -45,13 +45,13 @@
 	</c:choose>
 </nav>
 	
-<!-- Contenu caché -->
+<!-- Contenu caché - recherche avancée -->
 <div class="collapse navbar-collapse pt-3 pb-3" id="navbarSupportedContent" style= "background-color: #999999">
 	<h2 class="ml-3">Recherche avancée</h2>
 	<form action="rechercheRecette" method="post" class="ml-4">
 		<div class="form-row">
 			<div class="col-auto mt-3">
-	     		<input class="form-control" type="text" placeholder="risotto, cèpes, ..." aria-label="Search" id="keyWord" name="keyWord">
+	     		<input class="form-control" type="text" placeholder="risotto, fromage, ..." aria-label="Search" id="keyWord" name="keyWord">
 	     	</div>
 	  	</div>
       	<div class="form-row">

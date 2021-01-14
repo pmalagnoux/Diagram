@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.metier.ingredient.Ingredient;
 import client.utils.ConnectionToDB;
 
 public abstract class DifficultyManager {
@@ -32,4 +33,29 @@ public abstract class DifficultyManager {
 		}
 		return result;
 	}
+	
+	public static Difficulty getDifficultyById(int recipeId) {
+		Difficulty result ;
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `name` FROM `difficulty`, `recipe` WHERE `ingredient`.`id` = `recipe`.`difficulty_id` AND `recipe`.`id` = '"+recipeId+"';";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			connection.getResultSet().next();
+				result = new Difficulty(connection.getResultSet().getString("name"));
+			
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (difficulty) getdifficultyById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
+	}
+	
 }

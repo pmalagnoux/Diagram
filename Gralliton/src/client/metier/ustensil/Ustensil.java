@@ -29,5 +29,9 @@ public class Ustensil {
 		super();
 		this.id = id;
 	}
+	public Ustensil(String name) {
+		super();
+		this.name = name;
+	}
 	
 }

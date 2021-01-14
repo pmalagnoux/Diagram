@@ -24,4 +24,8 @@ public class Difficulty {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Difficulty(String name) {
+		super();
+		this.name = name;
+	}
 }

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.metier.tag.Tag;
 import client.utils.ConnectionToDB;
 
 public abstract class IngredientManager {
@@ -59,4 +60,31 @@ public abstract class IngredientManager {
 			connection.close();
 		}
 	}
+	
+	public static List<Ingredient> getIngredientsById(int recipeId) {
+		List<Ingredient> result = new ArrayList<Ingredient>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			String req = "SELECT `name`,`recipeingredient`.`quantity` FROM `ingredient`, `recipeingredient` WHERE `ingredient`.`id` = `recipeingredient`.`ingredient_id` AND `recipeingredient`.`recipe_id` = '"+recipeId+"';";
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			while(connection.getResultSet().next()) {
+				result.add( new Ingredient(connection.getResultSet().getString("name"),connection.getResultSet().getDouble("quantity")));
+			}
+			return result;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (Ingredient) getIngredientssById");
+		}
+		finally {
+			connection.close();
+		}
+		return null;
+	}
+	
+	
+	
 }

@@ -24,4 +24,8 @@ public class RecipeType {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public RecipeType(String name) {
+		super();
+		this.name = name;
+	}
 }
