@@ -35,10 +35,10 @@
 				<c:out value="${tag.name}"></c:out>
 			</c:forEach>
 			<c:out value="Temps de cuisine : ${recipe.cookingTime + recipe.preparationTime}"></c:out>
-			<c:when test="${!(empty sessionScope.userLogin) }">
+			<c:if test="${!(empty sessionScope.userLogin) }">
 				<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7"> + </button>
 				<input type="hidden" class="form-control" id="recipeId" name="recipeId" value = "${recipe.id}">
-			</c:when>
+			</c:if>
 		</form>
 	</div>
 </c:forEach>

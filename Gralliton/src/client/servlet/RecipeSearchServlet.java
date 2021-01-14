@@ -35,41 +35,46 @@ public class RecipeSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cookingTime = 0;
-		int difficulty = 0;
-		int recipeType = 0;
-		String keyWord = "";
-		
-		if(request.getParameter("cookingTime") != null) {
-			cookingTime = Integer.parseInt(request.getParameter("cookingTime"));
-		}
-		if(request.getParameter("difficulty") != null) {
-			difficulty = Integer.parseInt(request.getParameter("difficulty"));
-		}
-		if(request.getParameter("recipeType") != null) {
-			recipeType = Integer.parseInt(request.getParameter("recipeType"));
-		}
-		keyWord = request.getParameter("keyWord");
-		
-		//STUB
-		
-		request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime,keyWord));
-		request.setAttribute("difficulties", DifficultyManager.getDifficulties());
-		request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
-		request.setAttribute("accounts", AccountManager.getAccounts());
-		this.getServletContext().getRequestDispatcher("/WEB-INF/recipeSearch.jsp").forward(request, response);
+        int difficulty = 0;
+        int recipeType = 0;
+        String keyWord = "";
+
+        if(request.getParameter("cookingTime") != null) {
+            cookingTime = Integer.parseInt(request.getParameter("cookingTime"));
+        }
+        if(request.getParameter("difficulty") != null) {
+            difficulty = Integer.parseInt(request.getParameter("difficulty"));
+        }
+        if(request.getParameter("recipeType") != null) {
+            recipeType = Integer.parseInt(request.getParameter("recipeType"));
+        }
+        if(request.getParameter("keyWord") != null) {
+            keyWord = request.getParameter("keyWord");
+        }
+
+
+        //STUB
+
+        request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime,keyWord));
+        request.setAttribute("difficulties", DifficultyManager.getDifficulties());
+        request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
+        request.setAttribute("accounts", AccountManager.getAccounts());
+        this.getServletContext().getRequestDispatcher("/WEB-INF/recipeSearch.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userLogin") != null && AccountManager.getCurrentAccountId(request) !=0) {
-			String recipeId = request.getParameter("recipeID");
+			String recipeId = request.getParameter("recipeId");
 			FavoriteManager.addFavorite(AccountManager.getCurrentAccountId(request),Integer.parseInt(recipeId));
-			doGet(request, response);
+			
 		}
-		
+		*/
+		doGet(request, response);
 		
 	}
 
