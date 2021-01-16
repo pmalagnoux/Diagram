@@ -31,7 +31,7 @@ public abstract class AccountManager {
 		}
 	}
 	
-	public static int getCurrentAccountId(HttpServletRequest request) {//TODO A modifier en String Login
+	public static int getCurrentAccountId(String userLogin) {//TODO A modifier en String Login
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		
@@ -39,9 +39,6 @@ public abstract class AccountManager {
 			connection.setStatement(connection.getConnection().createStatement());
 			//execution d'une requête et récupération de résultat dans l'objet resultSet
 			
-			//Récupération du login depuis la session
-			HttpSession session = request.getSession();	
-			String userLogin = (String) session.getAttribute("userLogin");
 			connection.setResultSet(connection.getStatement().executeQuery("SELECT `id` FROM `account` WHERE `username` = '"+ userLogin +"';"));
 			connection.getResultSet().next();
 			return connection.getResultSet().getInt("id");

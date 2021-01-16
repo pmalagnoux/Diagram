@@ -46,15 +46,16 @@ public class RecipeCreationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();	
-
+		HttpSession session = request.getSession();
+		String userLogin = (String) session.getAttribute("userLogin");
+		
 		String title = (String) session.getAttribute("title");
 		int preparationTime = Integer.parseInt((String) session.getAttribute("preparationTime"));
 		int cookingTime = Integer.parseInt((String) session.getAttribute("cookingTime"));
 		int personCount = Integer.parseInt((String) session.getAttribute("personCount"));
 		int difficulty = Integer.parseInt((String) session.getAttribute("difficulty"));
 		int recipeType = Integer.parseInt((String) session.getAttribute("recipeType"));
-		Recipe recipe = new Recipe(title, preparationTime, cookingTime, personCount, AccountManager.getCurrentAccountId(request), difficulty, recipeType);
+		Recipe recipe = new Recipe(title, preparationTime, cookingTime, personCount, AccountManager.getCurrentAccountId(userLogin), difficulty, recipeType);
 		//Insertion BD
 		RecipeManager.addRecipe(recipe);
 		

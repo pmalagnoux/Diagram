@@ -62,7 +62,9 @@ public class DetailledRecipeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		int userId = AccountManager.getCurrentAccountId(request);
+		String userLogin = (String) session.getAttribute("userLogin");
+		
+		int userId = AccountManager.getCurrentAccountId(userLogin);
 		
 		if(session.getAttribute("userLogin") != null /*&& userId !=0*/) { // Utilisateur est connecté    // Utile de check pour userId !=0 ? car tout le temps != 0
 			int recipeId = Integer.parseInt(request.getParameter("recipeId")); // Paramètre jamais nul ici
