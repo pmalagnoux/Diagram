@@ -51,8 +51,7 @@ public class RecipeSearchServlet extends HttpServlet {
         if(request.getParameter("keyWord") != null) {
             keyWord = request.getParameter("keyWord");
         }
-
-
+        
         //STUB
 
         request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime,keyWord));

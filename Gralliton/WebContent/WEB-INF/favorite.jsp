@@ -10,21 +10,33 @@
 <body>
 <body style= "background-color:#484d50; color:white">
 <%@ include file="menu.jsp"%>
-<c:forEach items="${favoriteRecipes}" var="favorite">
-	<div style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-		<c:out escapeXml="false" value="<h1>${favorite.name}</h1>"></c:out>
-		<c:forEach items="${difficulties}" var="diff">
-			<c:if test="${diff.id == favorite.difficulty}">
-				<c:out value="${diff.name}"></c:out>
-			</c:if>
-		</c:forEach>
-		<c:forEach items="${recipeTypes}" var="rt">
-			<c:if test="${rt.id == favorite.type}">
-				<c:out value="${rt.name}"></c:out>
-			</c:if>
-		</c:forEach>
 
-		<c:out value="Temps de cuisine : ${recipe.cookingTime + recipe.preparationTime}"></c:out>
+<div class="ml-5 d-flex align-items-center justify-content-center" style="height: 200px">
+	<c:out escapeXml="false" value="<h1>Mes favoris</h1>"></c:out>
+</div>
+<c:forEach items="${favoriteRecipes}" var="favoriteRecipe">
+	<div class="rounded container mb-5 mx-auto position-relative" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
+		<a href="detailledrecipe?recipeId=${favoriteRecipe.id}" class="stretched-link"></a>
+		<div class="row ml-1">
+			<c:out escapeXml="false" value="<h1>${favoriteRecipe.name}</h1>"></c:out>
+		</div>
+		<div class="row ml-1">
+			<c:forEach items="${difficulties}" var="diff">
+				<c:if test="${diff.id == favoriteRecipe.difficulty}">
+					<c:out value="Difficulté : ${diff.name}"></c:out>
+				</c:if>
+			</c:forEach>
+		</div>
+		<div class="row ml-1">
+			<c:forEach items="${recipeTypes}" var="rt">
+				<c:if test="${rt.id == favoriteRecipe.type}">
+					<c:out value="Type : ${rt.name}"></c:out>
+				</c:if>
+			</c:forEach>
+		</div>
+		<div class="row ml-1">
+			<c:out value="Temps de cuisine : ${favoriteRecipe.cookingTime + favoriteRecipe.preparationTime} min"></c:out>
+		</div>
 	</div>
 </c:forEach>
 </body>

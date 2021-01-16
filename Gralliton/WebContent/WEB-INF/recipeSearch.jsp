@@ -14,8 +14,8 @@
 
 <c:forEach items="${recipes}" var="recipe">
 
-	<div class="rounded container mt-5 mx-auto" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-		<form action="" method="post">
+	<div class="rounded container mt-5 mx-auto position-relative" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
+		<a href="detailledrecipe?recipeId=${recipe.id}" class="stretched-link"></a>
 			<div class="row ml-1">
 				<c:out escapeXml="false" value="<h1>${ recipe.name}</h1>"></c:out>
 			</div>
@@ -63,7 +63,6 @@
 				<input type="hidden" class="form-control" id="recipeId" name="recipeId" value = "${recipe.id}">
 			</c:if>
 			-->
-		</form>
 	</div>
 </c:forEach>
 

@@ -12,16 +12,17 @@
 <%@ include file="menu.jsp"%>
 
 <!-- Titre + petites infos-->
+<c:if test="${!(empty recipe) }">
 	<div class="rounded container mt-5 mx-auto" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
 		<div class="row ml-1">
 			<div class="col-sm">
-				<c:out escapeXml="false" value="<h1>${recipe.name}</h1>"></c:out>
+				<c:out escapeXml="false" value="<h1>${recipe.name}</h1>"></c:out> <!-- BOOSTRAPPER -->
 			</div>
 			<div class="col-sm">
 				<c:if test="${!(empty sessionScope.userLogin) }">
 					<form action = "" method = "post">
 						<input type="hidden" class="form-control" id="recipeId" name="recipeId" value = "${recipe.id}">	
-						<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7"> + </button>
+						<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7" onclick="addNotification()"> + </button>
 					</form>
 					
 				</c:if>
@@ -117,6 +118,19 @@
 			</div>
 		</div>
 	</div>
+</c:if>
+<c:if test="${empty recipe}">
+	<div class="d-flex align-items-center justify-content-center" style="height: 500px">
+		<c:out escapeXml="false" value="<h1>Aucune recette sélectionnée</h1>"></c:out>
+	</div>
+</c:if>
+
+<script type="text/javascript">
+	function addNotification() {
+		alert("Recette ajoutée à vos favoris !");
+	}
+</script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>

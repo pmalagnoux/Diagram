@@ -12,68 +12,72 @@
 <body style= "background-color:#484d50; color:white">
 <%@ include file="menu.jsp"%>
 
-<c:out escapeXml="false" value="<h1>Nouvelle recette</h1>"></c:out>
-<form action="" method="post" onsubmit="return validateForm()">
-	<div class="form-row">
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Titre" id="title" name="title">
+<div class="d-flex align-items-center justify-content-center" style="height: 200px">
+		<c:out escapeXml="false" value="<h1>Nouvelle recette</h1>"></c:out>
+</div>
+<div class="d-flex align-items-center justify-content-center" style="height: 200px">
+	<form action="" method="post" onsubmit="return validateForm()">
+		<div class="form-row">
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Titre" id="title" name="title">
+			</div>
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Nombre d'ingrédients" id="ingredientsCount" name="ingredientsCount">
+			</div>
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Nombre d'ustensiles" id="utensilsCount" name="utensilsCount">
+			</div>
 		</div>
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Nombre d'ingrédients" id="ingredientsCount" name="ingredientsCount">
+		<div class="form-row">
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Temps de préparation" id="preparationTime" name="preparationTime">
+			</div>
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Temps de cuisson" id="cookingTime" name="cookingTime">
+			</div>
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Nombre de personnes" id="personCount" name="personCount">
+			</div>
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Nombre tags" id="tagsCount" name="tagsCount">
+			</div>
 		</div>
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Nombre d'ustensiles" id="utensilsCount" name="utensilsCount">
+		<div class="form-row">
+			<div class="col-auto mt-3">
+				<select class="form-control" id="difficulty" name="difficulty">
+					<option selected>Difficulté...</option>
+					<c:forEach items="${difficulties}" var="difficulty">
+						<option value="${difficulty.id}">${difficulty.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-auto mt-3">
+				<select class="form-control" id="recipeType" name="recipeType">
+					<option selected>Type de recette...</option>
+					<c:forEach items="${recipeTypes}" var="type">
+						<option value="${type.id}">${type.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-auto mt-3">
+				<input type="text" class="form-control" placeholder="Nombre d'étapes" id="stepsCount" name="stepsCount">
+			</div>
 		</div>
-	</div>
-	<div class="form-row">
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Temps de préparation" id="preparationTime" name="preparationTime">
-		</div>
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Temps de cuisson" id="cookingTime" name="cookingTime">
-		</div>
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Nombre de personnes" id="personCount" name="personCount">
-		</div>
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Nombre tags" id="tagsCount" name="tagsCount">
-		</div>
-	</div>
-	<div class="form-row">
-		<div class="col-auto mt-3">
-			<select class="form-control" id="difficulty" name="difficulty">
-				<option selected>Difficulté...</option>
-				<c:forEach items="${difficulties}" var="difficulty">
-					<option value="${difficulty.id}">${difficulty.name}</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div class="col-auto mt-3">
-			<select class="form-control" id="recipeType" name="recipeType">
 				
-				<option selected>Type de recette...</option>
-				<c:forEach items="${recipeTypes}" var="type">
-					<option value="${type.id}">${type.name}</option>
-				</c:forEach>
-			</select>
+		<div class="form-row">
+			<div class="col-auto mt-3">
+				<!-- Telecharger image -->
+			</div>
+			<div class="col-auto mt-3">
+				<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Poursuivre</button>
+			</div>
 		</div>
-		<div class="col-auto mt-3">
-			<input type="text" class="form-control" placeholder="Nombre d'étapes" id="stepsCount" name="stepsCount">
-		</div>
-	</div>
-		
-	<div class="form-row">
-		<div class="col-auto mt-3">
-			<!-- Telecharger image -->
-		</div>
-		<div class="col-auto mt-3">
-			<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Poursuivre</button>
-		</div>
-	</div>
-</form>
+	</form>
+</div>
+
 
 <script type="text/javascript">
-	function validateForm(id) {
+	function validateForm() {
 		var title = document.getElementById("title").value;
 		var ingredientsCount = document.getElementById("ingredientsCount").value;
 		var utensilsCount = document.getElementById("utensilsCount").value;
