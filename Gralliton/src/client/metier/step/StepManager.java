@@ -61,10 +61,10 @@ public abstract class StepManager {
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			String req = "SELECT `content` FROM `step`, `recipestep` WHERE `step`.`id` = `recipestep`.`step_id` AND `recipestep`.`recipe_id` = '"+recipeId+"' ORDER BY `step`.`id`;";
+			String req = "SELECT `recipestep`.`stepOrder` AS stepOrder, `content` FROM `step`, `recipestep` WHERE `step`.`id` = `recipestep`.`step_id` AND `recipestep`.`recipe_id` = '"+recipeId+"' ORDER BY `recipestep`.`stepOrder`;";
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			while(connection.getResultSet().next()) {
-				result.add( new Step(connection.getResultSet().getString("content")));
+				result.add(new Step(connection.getResultSet().getInt("stepOrder"), connection.getResultSet().getString("content")));
 			}
 			return result;
 		}

@@ -43,10 +43,7 @@ public abstract class FavoriteManager {
 		}
 	}
 	
-	public static List<Recipe> getFavorites(HttpServletRequest request){
-		System.out.println("oui1");
-		int accId = AccountManager.getCurrentAccountId(request);
-		System.out.println("non");
+	public static List<Recipe> getFavorites(int accId){
 		List<Favorite> resultid =new ArrayList<Favorite>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -67,27 +64,28 @@ public abstract class FavoriteManager {
 			return new ArrayList<Recipe>(); // retourne liste vide si erreur
 		}
 		List<Recipe> result = new ArrayList<Recipe>();
-		for(Favorite fav : resultid ) {
-			req = "SELECT * FROM `recipe` WHERE id = '"+ fav.getRecipe() + "';";
-
-			try {
-				connection.setStatement(connection.getConnection().createStatement());
-				//execution d'une requête et récupération de résultat dans l'objet resultSet
-				connection.setResultSet(connection.getStatement().executeQuery(req));
-				//récupération des données
-				while(connection.getResultSet().next()) {
-					int id = connection.getResultSet().getInt("id");
-					String name = connection.getResultSet().getString("name");
-					int preparationTime = connection.getResultSet().getInt("preparationTime");
-					int cookingTime = connection.getResultSet().getInt("cookingTime");
-					int quantity = connection.getResultSet().getInt("quantity");
-					int account_id = connection.getResultSet().getInt("account_id");
-					int difficulty_id = connection.getResultSet().getInt("difficulty_id");
-					int recipeType_id = connection.getResultSet().getInt("recipeType_id");
-					int likeNumber = connection.getResultSet().getInt("likeNumber");
-					result.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
-				}
+		try {
+			for(Favorite fav : resultid ) {
+				req = "SELECT * FROM `recipe` WHERE `id` = '"+ fav.getRecipe() + "';";
+	
 				
+					connection.setStatement(connection.getConnection().createStatement());
+					//execution d'une requête et récupération de résultat dans l'objet resultSet
+					connection.setResultSet(connection.getStatement().executeQuery(req));
+					//récupération des données
+					while(connection.getResultSet().next()) {
+						int id = connection.getResultSet().getInt("id");
+						String name = connection.getResultSet().getString("name");
+						int preparationTime = connection.getResultSet().getInt("preparationTime");
+						int cookingTime = connection.getResultSet().getInt("cookingTime");
+						int quantity = connection.getResultSet().getInt("quantity");
+						int account_id = connection.getResultSet().getInt("account_id");
+						int difficulty_id = connection.getResultSet().getInt("difficulty_id");
+						int recipeType_id = connection.getResultSet().getInt("recipeType_id");
+						int likeNumber = connection.getResultSet().getInt("likeNumber");
+						result.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
+					}
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("Problème de selection dans la BD (recipe)");
@@ -95,8 +93,7 @@ public abstract class FavoriteManager {
 			}
 			finally{
 				connection.close();
-			}
-		}	
+			}	
 		return result;
 	
 	}

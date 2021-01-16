@@ -17,6 +17,11 @@ public class Step {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public Step(int id, String content) {
+		super();
+		this.id = id;
+		this.content = content;
+	}
 	public Step(String content) {
 		super();
 		this.content = content;

@@ -41,7 +41,7 @@ public abstract class DifficultyManager {
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			String req = "SELECT `name` FROM `difficulty`, `recipe` WHERE `ingredient`.`id` = `recipe`.`difficulty_id` AND `recipe`.`id` = '"+recipeId+"';";
+			String req = "SELECT `difficulty`.`name` FROM `difficulty`, `recipe` WHERE `difficulty`.`id` = `recipe`.`difficulty_id` AND `recipe`.`id` = '"+recipeId+"';";
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			connection.getResultSet().next();
 				result = new Difficulty(connection.getResultSet().getString("name"));

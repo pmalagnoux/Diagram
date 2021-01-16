@@ -31,7 +31,7 @@ public abstract class AccountManager {
 		}
 	}
 	
-	public static int getCurrentAccountId(HttpServletRequest request) {
+	public static int getCurrentAccountId(HttpServletRequest request) {//TODO A modifier en String Login
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		

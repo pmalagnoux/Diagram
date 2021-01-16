@@ -41,7 +41,7 @@ public abstract class RecipeTypeManager {
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			String req = "SELECT `name` FROM `recipetype`, `recipe` WHERE `recipetype`.`id` = `recipe`.`recipeType_id` AND `recipe`.`id` = '"+recipeId+"';";
+			String req = "SELECT `recipetype`.`name` as name FROM `recipetype`, `recipe` WHERE `recipetype`.`id` = `recipe`.`recipeType_id` AND `recipe`.`id` = '"+recipeId+"';";
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			connection.getResultSet().next();
 				result = new RecipeType(connection.getResultSet().getString("name"));

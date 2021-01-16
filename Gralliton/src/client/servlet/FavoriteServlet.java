@@ -31,7 +31,8 @@ public class FavoriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		request.setAttribute("favoriteRecipes", FavoriteManager.getFavorites(request));
+		int accId = AccountManager.getCurrentAccountId(request);
+		request.setAttribute("favoriteRecipes", FavoriteManager.getFavorites(accId));
 		request.setAttribute("difficulties", DifficultyManager.getDifficulties());
 		request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/favorite.jsp").forward(request, response);

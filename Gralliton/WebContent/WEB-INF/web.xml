@@ -73,4 +73,15 @@
     <servlet-name>FavoriteServlet</servlet-name>
     <url-pattern>/favorite</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>DetailledRecipeServlet</servlet-name>
+    <servlet-class>client.servlet.DetailledRecipeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailledRecipeServlet</servlet-name>
+    <url-pattern>/detailledrecipe</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>

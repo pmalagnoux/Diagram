@@ -12,15 +12,15 @@
 <%@ include file="menu.jsp"%>
 <c:forEach items="${favoriteRecipes}" var="favorite">
 	<div style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-		<c:out escapeXml="false" value="<h1>${ favorite.name}</h1>"></c:out>
+		<c:out escapeXml="false" value="<h1>${favorite.name}</h1>"></c:out>
 		<c:forEach items="${difficulties}" var="diff">
 			<c:if test="${diff.id == favorite.difficulty}">
-				<c:out value="${ diff.name}"></c:out>
+				<c:out value="${diff.name}"></c:out>
 			</c:if>
 		</c:forEach>
 		<c:forEach items="${recipeTypes}" var="rt">
 			<c:if test="${rt.id == favorite.type}">
-				<c:out value="${ rt.name}"></c:out>
+				<c:out value="${rt.name}"></c:out>
 			</c:if>
 		</c:forEach>
 
