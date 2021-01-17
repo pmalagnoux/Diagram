@@ -18,7 +18,7 @@
 			<div class="col-sm">
 				<c:out escapeXml="false" value="<h1>${recipe.name}</h1>"></c:out> <!-- BOOSTRAPPER -->
 			</div>
-			<div class="col-sm">
+			<div class="col-sm mt-1">
 				<c:if test="${!(empty sessionScope.userLogin) }">
 					<form action = "" method = "post">
 						<input type="hidden" class="form-control" id="recipeId" name="recipeId" value = "${recipe.id}">	
@@ -30,7 +30,9 @@
 		</div>
 		
 		<div class="row ml-1">
-			<c:out value="Type : ${type.name}"></c:out>
+			<div class="col-sm">
+				<c:out value="Type : ${type.name}"></c:out>
+			</div>
 		</div>
 		<div class="row ml-1">
 				<div class="col-sm">
@@ -58,67 +60,45 @@
 	</div>
 	
 	<div class="container">
-		<div class="row justify-content-md-left">
-		 	<div class="col col-md-auto">
-			<!-- Ingredients -->
-			 	<table class="table rounded table-sm table-dark" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-			 		<thead>
-				    	<tr>
-					      <th scope="col"><h2>Ingredients</h2></th>
-					    </tr>
-				  	</thead>
-			 		<tbody>
-			 			<c:forEach items="${ingredients}" var="ingredient">
-							<tr>
-								<th>
-									<c:out value="  ${ingredient.quantity} unit ${ingredient.name}"></c:out>
-								</th>
-							</tr>
+		<div class="row">
+		 	<div class="col-sm-4">
+				<!-- Ingredients -->
+				<div class="row">
+				 	<div class="rounded container mt-3" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
+				 		<c:out escapeXml="false" value="<h2>Ingredients</h2>"></c:out>
+						<c:forEach items="${ingredients}" var="ingredient">
+							<div class="ml-1 row">
+								<c:out value="${ingredient.quantity} unit ${ingredient.name}"></c:out>
+							</div>
 						</c:forEach>
-			 		</tbody>
-			 	</table>
-			 	<!-- Ustensiles -->
-	 		 	<table class="table rounded table-sm table-dark" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-			 		<thead>
-				    	<tr>
-					      <th scope="col"><h2>Ustensiles</h2></th>
-					    </tr>
-				  	</thead>
-			 		<tbody>
-			 			<c:forEach items="${ustensils}" var="ustensil">
-							<tr>
-								<th>
-									<c:out value="  ${ustensil.name}"></c:out>
-								</th>
-							</tr>
+				 	</div>
+				 </div>	
+				 <!-- Ustensiles -->
+				 <div class="row">
+		 		 	<div class="rounded container mt-3" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
+						<c:out escapeXml="false" value="<h2>Ustensiles</h2>"></c:out>
+				 		<c:forEach items="${ustensils}" var="ustensil">
+			 			<div class="ml-1 row">
+								<c:out value="${ustensil.name}"></c:out>
+							</div>
 						</c:forEach>
-			 		</tbody>
-			 	</table>
+					</div>
+				</div>
 			</div>
 			
 			<!-- Steps -->
-			<div class="col col-lg-2">
+			<div class="col-sm-8">
 				<c:forEach items="${steps}" var="step">
-					<table class="table rounded table-sm table-dark" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-				 		<thead>
-					    	<tr>
-						      <th scope="col"><h2><c:out value="Etape ${step.id} :"></c:out></h2></th>
-						    </tr>
-					  	</thead>
-				 		<tbody>
-				 			<tr>
-							<tr>
-								<th>
-									<c:out value="${step.content}"></c:out>
-								</th>
-							</tr>
-				 		</tbody>
-				 	</table>
+					<div class="rounded container mt-3" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
+				 		<c:out escapeXml="false" value="<h2>Etape ${step.id} :</h2>"></c:out>
+				 		<c:out value="${step.content}"></c:out><br>
+					</div>			
 			 	</c:forEach>
 			</div>
 		</div>
 	</div>
 </c:if>
+
 <c:if test="${empty recipe}">
 	<div class="d-flex align-items-center justify-content-center" style="height: 500px">
 		<c:out escapeXml="false" value="<h1>Aucune recette sélectionnée</h1>"></c:out>

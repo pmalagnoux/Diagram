@@ -90,7 +90,7 @@ public abstract class RecipeManager {
 	}
 	
 	/**
-	 * 
+	 * Selectionne dans la BD les recettes correspondantes aux filtres en paramètres
 	 * @param maxDifficulty
 	 * @param recipeType
 	 * @param maxCookingTime
@@ -183,6 +183,60 @@ public abstract class RecipeManager {
 				int recipeType_id = connection.getResultSet().getInt("recipeType_id");
 				int likeNumber = connection.getResultSet().getInt("likeNumber");
 				result.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (recipe)");
+			return new ArrayList<Recipe>(); // retourne liste vide si erreur
+		}
+		// Ajout des tags
+		try {
+
+			for(int i = 0; i<result.size();i++) { // pour chaque recette
+				//récupération des tags correspondant la recette i
+				connection.setResultSet(connection.getStatement().executeQuery("SELECT `tagName`, `id` FROM `tag`,`recipetag` WHERE `tag_id`=`id` AND `recipe_id`="+result.get(i).getId()+";"));
+				List<Tag> tagsID = new ArrayList<Tag>();
+				while(connection.getResultSet().next()) {
+					String tagName = connection.getResultSet().getString("tagName");
+					int tagID = connection.getResultSet().getInt("id");
+					tagsID.add(new Tag(tagID, tagName));
+				}
+				result.get(i).setTags(tagsID);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problème de selection dans la BD (recipetag/tag)");
+			return new ArrayList<Recipe>(); // retourne liste vide si erreur
+		}
+		finally {
+			connection.close();
+		}
+		return result;
+	}
+	
+	/**
+	 * Selectionne un nombre aléatoire de recette dans la BD
+	 * @param recipeNumber
+	 * @return
+	 */
+	public static List<Recipe> getRandomRecipes(int recipeNumber){
+		List<Recipe> result = new ArrayList<Recipe>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+				
+		String req = "SELECT * FROM `recipe` ORDER BY RAND() LIMIT "+recipeNumber+";";
+		
+		// Recherche des recettes sans les tags
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			//récupération des données
+			while(connection.getResultSet().next()) {
+				int id = connection.getResultSet().getInt("id");
+				String name = connection.getResultSet().getString("name");
+				result.add(new Recipe(id,name));
 			}
 			
 		} catch (SQLException e) {

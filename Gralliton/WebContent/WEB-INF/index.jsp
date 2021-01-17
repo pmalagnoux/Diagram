@@ -12,6 +12,11 @@
 <body style= "background-color:#484d50; color:white">
 <%@ include file="menu.jsp"%>
 
+
+
+
+
+  
 <!-- Carrousel  -->
 <div class="container">
 	<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="7000">
@@ -65,12 +70,6 @@
 		</a>
 	</div>
 </div>
-
-
-
-
-
-
 
 
 
