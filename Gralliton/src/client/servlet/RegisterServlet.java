@@ -44,17 +44,21 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
 		boolean[] areAvailable = AccountManager.isAvailable(email, login);
+		SecuriteWS stub = new SecuriteService().getSecuriteWSPort();
 		if (!areAvailable[0]) {
-			request.setAttribute("emailValid",false);
+			request.setAttribute("emailNotAvailable",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
 		else if (!areAvailable[1]) {
-			request.setAttribute("loginValid",false);
+			request.setAttribute("loginNotAvailable",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
-		
+		else if (!stub.mailIsValid(email)) {
+			request.setAttribute("emailNotValid",true);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+		}
 		else {
-			SecuriteWS stub = new SecuriteService().getSecuriteWSPort();
+			
 			
 			String password = stub.encrypt(request.getParameter("password"));
 			Account account = new Account(password,login,email);

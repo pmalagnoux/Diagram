@@ -44,14 +44,10 @@ public class SignInServlet extends HttpServlet {
 		authentication.access(request);
 		HttpSession session = request.getSession();	
 		if(session.getAttribute("userLogin") != null) { // est connecté
-			try{
-				this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+			this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 		}
 		else {	// n'est pas connecté
-			request.setAttribute("wrongLogPass", "wrongLogPass"); //REFAIRE
+			request.setAttribute("wrongLogPass", true);
 			doGet(request, response);
 		}
 			

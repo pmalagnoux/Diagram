@@ -27,11 +27,12 @@
 		<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">Me connecter</button>
 	</form>
 </div>
-<!--  
-<c:if test="${wrongLogPass == wrongLogPass}">
-	<c:out value="Mauvais login ou mdp"></c:out>
+
+<c:if test="${wrongLogPass}">
+	<script type="text/javascript">
+		alert("Login ou mot de passe erroné !");
+	</script>
 </c:if>
--->
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

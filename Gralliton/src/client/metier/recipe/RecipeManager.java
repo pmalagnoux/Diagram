@@ -268,4 +268,36 @@ public abstract class RecipeManager {
 		}
 		return result;
 	}
+	
+	public static List<Recipe> getRecipesbyAccountId(int accountId){
+		 List<Recipe> myRecipes = new ArrayList<Recipe>();
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		String req = "SELECT * FROM `recipe` WHERE `account_id` = '"+ accountId +"';";
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			while(connection.getResultSet().next()) {
+				int id = connection.getResultSet().getInt("id");
+				String name = connection.getResultSet().getString("name");
+				int preparationTime = connection.getResultSet().getInt("preparationTime");
+				int cookingTime = connection.getResultSet().getInt("cookingTime");
+				int quantity = connection.getResultSet().getInt("quantity");
+				int account_id = connection.getResultSet().getInt("account_id");
+				int difficulty_id = connection.getResultSet().getInt("difficulty_id");
+				int recipeType_id = connection.getResultSet().getInt("recipeType_id");
+				int likeNumber = connection.getResultSet().getInt("likeNumber");
+				myRecipes.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
+			}
+			
+		}catch (SQLException e) {
+			System.out.println("Problème dans la BD (recipe)");
+			e.printStackTrace();
+		}
+		finally {
+			connection.close();
+		}
+		return myRecipes;
+	}
 }

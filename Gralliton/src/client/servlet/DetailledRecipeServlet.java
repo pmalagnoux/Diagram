@@ -52,6 +52,16 @@ public class DetailledRecipeServlet extends HttpServlet {
 			request.setAttribute("ingredients",IngredientManager.getIngredientsById(recipeId));
 			request.setAttribute("ustensils",UstensilManager.getUstensilsById(recipeId));
 			request.setAttribute("account",AccountManager.getAccountById(recipeId));
+			
+			HttpSession session = request.getSession();
+			String userLogin = (String) session.getAttribute("userLogin");
+			
+			if(FavoriteManager.isFavorite(AccountManager.getCurrentAccountId(userLogin), recipeId)) {
+				request.setAttribute("isFavorite",true);
+			}
+			else {
+				request.setAttribute("isFavorite",false);
+			}
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/detailledRecipe.jsp").forward(request, response);
 	}
@@ -66,17 +76,18 @@ public class DetailledRecipeServlet extends HttpServlet {
 		
 		int userId = AccountManager.getCurrentAccountId(userLogin);
 		
-		if(session.getAttribute("userLogin") != null /*&& userId !=0*/) { // Utilisateur est connecté    // Utile de check pour userId !=0 ? car tout le temps != 0
-			int recipeId = Integer.parseInt(request.getParameter("recipeId")); // Paramètre jamais nul ici
-			List<Recipe> favoriteRecipes = FavoriteManager.getFavorites(userId);
+		if(userLogin != null && request.getParameter("recipeIdAdd") != null) { // Utilisateur est connectï¿½ et ajoutï¿½ favoris et selectionnï¿½
+			int recipeId = Integer.parseInt(request.getParameter("recipeIdAdd")); 
 			
-			boolean isIn = false;
-			for(Recipe recipe : favoriteRecipes) {
-				if (recipe.getId() == recipeId) {
-					isIn = true;
-				}
- 			}
-			if (!isIn) FavoriteManager.addFavorite(userId,recipeId);
+			if(!FavoriteManager.isFavorite(AccountManager.getCurrentAccountId(userLogin), recipeId))
+				FavoriteManager.addFavorite(userId,recipeId);
+		}
+		else if(userLogin != null && request.getParameter("recipeIdDel") != null) { // Utilisateur est connectï¿½ et suppression favoris et selectionnï¿½
+			
+			int recipeId = Integer.parseInt(request.getParameter("recipeIdDel")); 
+			
+			if(FavoriteManager.isFavorite(AccountManager.getCurrentAccountId(userLogin), recipeId))
+				FavoriteManager.removeFavorite(userId,recipeId);
 		}
 		doGet(request, response);
 	}

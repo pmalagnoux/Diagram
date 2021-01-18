@@ -19,10 +19,16 @@
 				<c:out escapeXml="false" value="<h1>${recipe.name}</h1>"></c:out> <!-- BOOSTRAPPER -->
 			</div>
 			<div class="col-sm mt-1">
-				<c:if test="${!(empty sessionScope.userLogin) }">
+				<c:if test="${!(empty sessionScope.userLogin) && !isFavorite}">	<!-- Ajout aux favoris -->
 					<form action = "" method = "post">
-						<input type="hidden" class="form-control" id="recipeId" name="recipeId" value = "${recipe.id}">	
-						<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7" onclick="addNotification()"> + </button>
+						<input type="hidden" class="form-control" id="recipeIdAdd" name="recipeIdAdd" value = "${recipe.id}">	
+						<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7" onclick="addNotification()"> Add </button>
+					</form>
+				</c:if>
+				<c:if test="${!(empty sessionScope.userLogin) && isFavorite}"> <!-- Suppression des favoris -->
+					<form action = "" method = "post">
+						<input type="hidden" class="form-control" id="recipeIdDel" name="recipeIdDel" value = "${recipe.id}">	
+						<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7" onclick="delNotification()"> Del </button>
 					</form>
 					
 				</c:if>
@@ -108,6 +114,9 @@
 <script type="text/javascript">
 	function addNotification() {
 		alert("Recette ajoutée à vos favoris !");
+	}
+	function delNotification() {
+		alert("Recette supprimée des favoris !");
 	}
 </script>
 

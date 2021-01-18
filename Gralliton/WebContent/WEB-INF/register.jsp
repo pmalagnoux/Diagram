@@ -31,6 +31,21 @@
 		<button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" style="background-color: #C7C7C7">M'inscrire</button>
 	</form>
 </div>
+<c:if test="${emailNotAvailable}">
+	<script type="text/javascript">
+		alert("Adresse mail déjà utilisée !");
+	</script>
+</c:if>
+<c:if test="${loginNotAvailable}">
+	<script type="text/javascript">
+		alert("Login déjà utilisé !");
+	</script>
+</c:if>
+<c:if test="${emailNotValid}">
+	<script type="text/javascript">
+		alert("Adresse mail non valide !");
+	</script>
+</c:if>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

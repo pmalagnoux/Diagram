@@ -34,9 +34,9 @@
 		          <a class="dropdown-item" href="#"><c:out value="${sessionScope.userLogin}"></c:out></a>
 		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="#">Mon Garde-Manger</a>
-		          <a class="dropdown-item" href="#">Mes Recettes</a>
+		          <a class="dropdown-item" href="mes-recettes">Mes Recettes</a>
 		          <a class="dropdown-item" href="creation-recette">Nouvelle Recette</a>
-		          <a class="dropdown-item" href="favorite">Mes Favoris</a>
+		          <a class="dropdown-item" href="mes-favoris">Mes Favoris</a>
 		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="disconnection">Déconnexion</a>
 		        </div>

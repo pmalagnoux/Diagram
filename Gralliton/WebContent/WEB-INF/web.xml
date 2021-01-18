@@ -71,7 +71,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>FavoriteServlet</servlet-name>
-    <url-pattern>/favorite</url-pattern>
+    <url-pattern>/mes-favoris</url-pattern>
   </servlet-mapping>
   
     <servlet>
@@ -81,6 +81,15 @@
   <servlet-mapping>
     <servlet-name>DetailledRecipeServlet</servlet-name>
     <url-pattern>/detailledrecipe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MyRecipesServlet</servlet-name>
+    <servlet-class>client.servlet.MyRecipesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyRecipesServlet</servlet-name>
+    <url-pattern>/mes-recettes</url-pattern>
   </servlet-mapping>
   
   

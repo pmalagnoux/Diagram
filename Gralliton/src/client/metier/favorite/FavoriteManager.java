@@ -31,12 +31,12 @@ public abstract class FavoriteManager {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();	
 		try {
-			PreparedStatement preparedStatement = connection.getConnection().prepareStatement("DELETE FROM `favoriterecipe` WHERE `account_id` = ? AND `recipe_id`VALUES = ?;");
+			PreparedStatement preparedStatement = connection.getConnection().prepareStatement("DELETE FROM `favoriterecipe` WHERE `account_id` = ? AND `recipe_id` = ?;");
 			preparedStatement.setInt(1, accountId);
 			preparedStatement.setInt(2, recipeId);
 			preparedStatement.executeUpdate();	
 		} catch (SQLException e) {
-			System.out.println("Problème dans la BD (favoriterecipe)");
+			System.out.println("Problème delete dans la BD (favoriterecipe)");
 		}
 		finally {
 			connection.close();
@@ -48,6 +48,7 @@ public abstract class FavoriteManager {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		String req = "SELECT * FROM `favoriterecipe` WHERE `account_id` = '"+ accId +"';";
+		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
 			//execution d'une requête et récupération de résultat dans l'objet resultSet
@@ -96,6 +97,31 @@ public abstract class FavoriteManager {
 			}	
 		return result;
 	
+	}
+	
+	/**
+	 * Selectionne le nombre de recettes correspondantes à l'ID de recette et l'ID de compte en paramètres.
+	 * @param accountId
+	 * @param recipeId
+	 * @return
+	 */
+	public static boolean isFavorite(int accountId, int recipeId){
+		ConnectionToDB connection = new ConnectionToDB();
+		connection.open();
+		String req = "SELECT COUNT(*) FROM `favoriterecipe` WHERE `account_id` = '"+ accountId +"' AND `recipe_id` = '"+ recipeId +"';";
+		try {
+			connection.setStatement(connection.getConnection().createStatement());
+			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			connection.setResultSet(connection.getStatement().executeQuery(req));
+			connection.getResultSet().next();
+			
+			if(connection.getResultSet().getInt("COUNT(*)") != 0) return true;
+			
+		} catch(SQLException e) {
+			System.out.println("Problème select COUNT dans la BD (favoriterecipe)");
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 

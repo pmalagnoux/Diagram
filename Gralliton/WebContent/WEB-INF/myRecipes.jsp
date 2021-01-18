@@ -9,17 +9,16 @@
 </head>
 <body style= "background-color:#484d50; color:white">
 <%@ include file="menu.jsp"%>
-
 <c:choose>
 	<c:when test="${!(empty sessionScope.userLogin)}">
 		<div class="ml-5 d-flex align-items-center justify-content-center" style="height: 200px">
-			<c:out escapeXml="false" value="<h1>Mes favoris</h1>"></c:out>
+			<c:out escapeXml="false" value="<h1>Mes Recettes</h1>"></c:out>
 		</div>
-		<c:forEach items="${favoriteRecipes}" var="favoriteRecipe">
+		<c:forEach items="${myRecipes}" var="myRecipe">
 			<div class="rounded container mb-5 mx-auto position-relative" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
-				<a href="detailledrecipe?recipeId=${favoriteRecipe.id}" class="stretched-link"></a>
+				<a href="detailledrecipe?recipeId=${myRecipe.id}" class="stretched-link"></a>
 				<div class="row ml-1">
-					<c:out escapeXml="false" value="<h1>${favoriteRecipe.name}</h1>"></c:out>
+					<c:out escapeXml="false" value="<h1>${myRecipe.name}</h1>"></c:out>
 				</div>
 				<div class="row ml-1">
 					<c:forEach items="${difficulties}" var="diff">
@@ -36,7 +35,7 @@
 					</c:forEach>
 				</div>
 				<div class="row ml-1">
-					<c:out value="Temps de cuisine : ${favoriteRecipe.cookingTime + favoriteRecipe.preparationTime} min"></c:out>
+					<c:out value="Temps de cuisine : ${myRecipe.cookingTime + myRecipe.preparationTime} min"></c:out>
 				</div>
 			</div>
 		</c:forEach>
@@ -47,10 +46,9 @@
 				<c:out escapeXml="false" value="<h1>Accès refusé ! Vous devez être connecté !</h1>"></c:out>
 		</div>
 	</c:otherwise>	
-</c:choose>		
-		
-</body>
+</c:choose>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
 </html>
