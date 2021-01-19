@@ -13,8 +13,7 @@
 	<%@ include file="menu.jsp"%>
 	
 	<c:choose>
-		<!-- Interface membre -->
-		<c:when test="${!(empty sessionScope.userLogin)}">
+		<c:when test="${!(empty sessionScope.userLogin)}"> <!-- Interface membre -->
 			<div class="d-flex align-items-center justify-content-center" style="height: 200px">
 					<c:out escapeXml="false" value="<h1>Nouvelle recette</h1>"></c:out>
 			</div>
@@ -88,8 +87,7 @@
 				</form>
 			</div>
 		</c:when>
-		<!-- Interface visiteur -->
-		<c:otherwise>
+		<c:otherwise> <!-- Interface visiteur -->
 			<div class="d-flex align-items-center justify-content-center" style="height: 200px">
 					<c:out escapeXml="false" value="<h1>Accès refusé ! Vous devez être connecté !</h1>"></c:out>
 			</div>

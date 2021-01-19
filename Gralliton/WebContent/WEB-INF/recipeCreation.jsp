@@ -13,12 +13,11 @@
 		<%@ include file="menu.jsp"%>
 		
 		<c:choose>
-			<!-- Interface Membre -->
-			<c:when test="${!(empty sessionScope.userLogin)}">
+			<c:when test="${!(empty sessionScope.userLogin)}"> <!-- Interface Membre -->
 				<div class="ml-5 d-flex align-items-center justify-content-center" style="height: 200px">
 					<c:out escapeXml="false" value="<h1>Nouvelle recette</h1>"></c:out>
 				</div>
-				<div class="d-flex align-items-center justify-content-center" style="height: 200px">
+				<div class="d-flex align-items-center justify-content-center">
 					<form action="RecipeCreationServlet" method="post">
 						<!-- Étapes -->
 						<br><c:out escapeXml="false" value="<h2>Étapes de la recette</h2>"></c:out>
@@ -82,8 +81,8 @@
 					</form>
 				</div>
 			</c:when>
-			<!-- Interface visiteur -->
-			<c:otherwise>
+			
+			<c:otherwise> <!-- Interface visiteur -->
 				<div class="d-flex align-items-center justify-content-center" style="height: 200px">
 						<c:out escapeXml="false" value="<h1>Accès refusé ! Vous devez être connecté !</h1>"></c:out>
 				</div>

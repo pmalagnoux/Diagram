@@ -12,8 +12,7 @@
 		<%@ include file="menu.jsp"%>
 		
 		<c:choose>
-			<!-- Interface Membre -->
-			<c:when test="${!(empty sessionScope.userLogin)}">
+			<c:when test="${!(empty sessionScope.userLogin)}"> <!-- Interface Membre -->
 				<div class="ml-5 d-flex align-items-center justify-content-center" style="height: 200px">
 					<c:out escapeXml="false" value="<h1>Mes Recettes</h1>"></c:out>
 				</div>
@@ -43,8 +42,8 @@
 					</div>
 				</c:forEach>
 			</c:when>
-			<!-- Interface visiteur -->
-			<c:otherwise>
+			
+			<c:otherwise> <!-- Interface visiteur -->
 				<div class="d-flex align-items-center justify-content-center" style="height: 200px">
 						<c:out escapeXml="false" value="<h1>Accès refusé ! Vous devez être connecté !</h1>"></c:out>
 				</div>
