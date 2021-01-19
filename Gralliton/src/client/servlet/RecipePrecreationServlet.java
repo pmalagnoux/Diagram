@@ -8,34 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import client.metier.difficulty.DifficultyManager;
-import client.metier.ingredient.IngredientManager;
-import client.metier.recipeType.RecipeTypeManager;
-import client.metier.tag.TagManager;
-import client.metier.ustensil.UstensilManager;
+import webservice.WS;
+import webservice.WebServiceSOAPService;
 
-/**
- * Servlet implementation class RecipeCreationServlet
- */
 @WebServlet("/RecipePrecreationServlet")
 public class RecipePrecreationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	
     public RecipePrecreationServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setAttribute("difficulties", DifficultyManager.getDifficulties());
-		request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
+		WS stub = new WebServiceSOAPService().getWSPort();
+		request.setAttribute("difficulties", stub.getDifficulties());
+		request.setAttribute("recipeTypes", stub.getRecipeTypes());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/recipePrecreation.jsp").forward(request, response);
 	}
 
@@ -44,7 +31,8 @@ public class RecipePrecreationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();	
-
+		WS stub = new WebServiceSOAPService().getWSPort();
+		
 		session.setAttribute("title", request.getParameter("title"));
 		session.setAttribute("preparationTime", request.getParameter("preparationTime"));
 		session.setAttribute("cookingTime", request.getParameter("cookingTime"));
@@ -56,9 +44,9 @@ public class RecipePrecreationServlet extends HttpServlet {
 		request.setAttribute("tagsCount", request.getParameter("tagsCount"));
 		request.setAttribute("ingredientsCount", request.getParameter("ingredientsCount"));
 		request.setAttribute("stepsCount", request.getParameter("stepsCount"));
-		request.setAttribute("ustensils", UstensilManager.getUstensils());
-		request.setAttribute("ingredients", IngredientManager.getIngredients());
-		request.setAttribute("tags", TagManager.getTags());
+		request.setAttribute("ustensils", stub.getUstensils());
+		request.setAttribute("ingredients", stub.getIngredients());
+		request.setAttribute("tags", stub.getTags());
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/recipeCreation.jsp").forward(request, response);
 	}

@@ -1,0 +1,62 @@
+
+package webservice;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Classe Java pour getIngredient5Response complex type.
+ * 
+ * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * 
+ * <pre>
+ * &lt;complexType name="getIngredient5Response">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="return" type="{http://webservice/}ingredient" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "getIngredient5Response", propOrder = {
+    "_return"
+})
+public class GetIngredient5Response {
+
+    @XmlElement(name = "return")
+    protected Ingredient _return;
+
+    /**
+     * Obtient la valeur de la propriété return.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Ingredient }
+     *     
+     */
+    public Ingredient getReturn() {
+        return _return;
+    }
+
+    /**
+     * Définit la valeur de la propriété return.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Ingredient }
+     *     
+     */
+    public void setReturn(Ingredient value) {
+        this._return = value;
+    }
+
+}

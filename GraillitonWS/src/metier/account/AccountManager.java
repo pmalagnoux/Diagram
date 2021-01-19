@@ -88,15 +88,18 @@ public abstract class AccountManager {
 	}
 	
 	/**
-	 * Retourne un tableau de Boolean de la forme [true, false] :
+	 * Retourne une List de Boolean de la forme [true, false] :
 	 * - Le premier est true si l'adresse email est déjà utilisée
 	 * - Le deuxième est true si le login est délà utilisé
 	 * @param email
 	 * @param login
-	 * @return  boolean[]
+	 * @return  List
 	 */
-	public static boolean[] isAvailable(String email, String login) {
-		boolean[] result = new boolean[] {false,false};
+	public static List<Boolean> isAvailable(String email, String login) {
+		System.out.println("1");
+		List<Boolean> result = new ArrayList<Boolean>();
+		result.add(false);
+		result.add(false);
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		try {
@@ -105,26 +108,32 @@ public abstract class AccountManager {
 			//execution d'une requête et récupération de résultat dans l'objet resultSet
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			connection.getResultSet().next();
-			if(connection.getResultSet().getInt("nb")==0) result[1] = true;
+			if(connection.getResultSet().getInt("nb")==0) result.set(1,true);
 
-				
+				System.out.println("2");
 				
 			req ="SELECT COUNT(*) as nb FROM `account` WHERE `mailAddress` = '"+ email +"';";
 			connection.setStatement(connection.getConnection().createStatement());
 			//execution d'une requête et récupération de résultat dans l'objet resultSet
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			connection.getResultSet().next();
-			if(connection.getResultSet().getInt("nb")==0) result[0] = true;
+			if(connection.getResultSet().getInt("nb")==0) result.set(0,true);
 			
 		} catch (SQLException e) {
 			System.out.println("Erreur de connection (account)");
-			return new boolean[]{false,false};
+			result = new ArrayList<Boolean>();
+			result.clear();
+			result.add(false);
+			result.add(false);
+			System.out.println("3");
+			return result;
 		}
 		finally {
 			connection.close();
 		}
-		 
+		System.out.println("4");
 		return result;
+		// L'utilisation d'une liste est obligatoire ici car le WebService ne permet pas l'envoi de tableaux
 	}
 	
 	/**

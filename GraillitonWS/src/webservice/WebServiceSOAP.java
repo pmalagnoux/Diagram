@@ -7,6 +7,7 @@ import metier.account.Account;
 import metier.account.AccountManager;
 import metier.difficulty.Difficulty;
 import metier.difficulty.DifficultyManager;
+import metier.favorite.Favorite;
 import metier.favorite.FavoriteManager;
 import metier.ingredient.Ingredient;
 import metier.ingredient.IngredientManager;
@@ -29,8 +30,158 @@ import javax.jws.WebService;
 public class WebServiceSOAP {
 	
 	
+	// --- Constructeurs ---
 	
+	//Account
+	
+	@WebMethod(operationName = "getAccount1")
+	public Account getAccount1(@WebParam(name = "login")String login) {
+		return new Account(login);
+	}
+	
+	@WebMethod(operationName = "getAccount2")
+	public Account getAccount2(@WebParam(name = "id")int id, @WebParam(name = "login")String login) {
+		return new Account(id, login);
+	}
+	
+	@WebMethod(operationName = "getAccount3")
+	public Account getAccount3(@WebParam(name = "password")String password, @WebParam(name = "login")String login, @WebParam(name = "email")String email) {
+		return new Account(password, login, email);
+	}
+	
+	//Difficulty
+	
+	@WebMethod(operationName = "getDifficulty")
+	public Difficulty getDifficulty(@WebParam(name = "id")int id, @WebParam(name = "name")String name) {
+		return new Difficulty(id, name);
+	}
+	
+	//Favorite
+	
+	@WebMethod(operationName = "getFavorite")
+	public Favorite getFavorite(@WebParam(name = "account")int account, @WebParam(name = "recipe")int recipe) {
+		return new Favorite(account, recipe);
+	}
+	
+	//Ingredient
+	
+	@WebMethod(operationName = "getIngredient1")
+	public Ingredient getIngredient1(@WebParam(name = "id")int id) {
+		return new Ingredient(id);
+	}
+	
+	@WebMethod(operationName = "getIngredient2")
+	public Ingredient getIngredient2(@WebParam(name = "name")String name) {
+		return new Ingredient(name);
+	}
+	
+	@WebMethod(operationName = "getIngredient3")
+	public Ingredient getIngredient3(@WebParam(name = "id")int id, @WebParam(name = "name")String name) {
+		return new Ingredient(id,name);
+	}
+	
+	@WebMethod(operationName = "getIngredient4")
+	public Ingredient getIngredient4(@WebParam(name = "name")String name, @WebParam(name = "quantity")double quantity) {
+		return new Ingredient(name,quantity);
+	}
+	
+	@WebMethod(operationName = "getIngredient5")
+	public Ingredient getIngredient5(@WebParam(name = "id")int id, @WebParam(name = "name")String name, @WebParam(name = "quantity")double quantity) {
+		return new Ingredient(id, name, quantity);
+	}
+	
+	//Recipe
+	
+	@WebMethod(operationName = "getRecipe1")
+	public Recipe getRecipe1(@WebParam(name = "id")int id, @WebParam(name = "name")String name) {
+		return new Recipe(id, name);
+	}
+	
+	@WebMethod(operationName = "getRecipe2")
+	public Recipe getRecipe2(@WebParam(name = "name")String name, @WebParam(name = "preparationTime")int preparationTime, @WebParam(name = "cookingTime")int cookingTime, @WebParam(name = "quantity")int quantity, @WebParam(name = "account")int account,
+			@WebParam(name = "difficulty")int difficulty, @WebParam(name = "type")int type) {
+		return new Recipe(name, preparationTime, cookingTime, quantity, account,
+				difficulty, type);
+	}
+	
+	@WebMethod(operationName = "getRecipe3")
+	public Recipe getRecipe3(@WebParam(name = "id")int id, @WebParam(name = "name")String name, @WebParam(name = "preparationTime")int preparationTime, @WebParam(name = "cookingTime")int cookingTime, @WebParam(name = "likeNumber")int likeNumber, @WebParam(name = "quantity")int quantity, @WebParam(name = "account")int account,
+			@WebParam(name = "difficulty")int difficulty, @WebParam(name = "type")int type) {
+		return new Recipe(id, name, preparationTime, cookingTime, likeNumber, quantity, account,
+				difficulty, type);
+	}
+	
+	@WebMethod(operationName = "getRecipe4")
+	public Recipe getRecipe4(@WebParam(name = "id")int id, @WebParam(name = "name")String name, @WebParam(name = "preparationTime")int preparationTime, @WebParam(name = "cookingTime")int cookingTime, @WebParam(name = "likeNumber")int likeNumber, @WebParam(name = "quantity")int quantity, @WebParam(name = "account")int account,
+			@WebParam(name = "difficulty")int difficulty, @WebParam(name = "type")int type, @WebParam(name = "tagsID")List<Tag> tagsID) {
+		return new Recipe(id, name, preparationTime, cookingTime, likeNumber, quantity, account,
+				difficulty, type, tagsID);
+	}
+	
+	//RecipeType
+	
+	@WebMethod(operationName = "getRecipeType1")
+	public RecipeType getRecipeType1(@WebParam(name = "name")String name) {
+		return new RecipeType(name);
+	}
+	
+	@WebMethod(operationName = "getRecipeType2")
+	public RecipeType getRecipeType2(@WebParam(name = "id")int id, @WebParam(name = "name")String name) {
+		return new RecipeType(id,name);
+	}
+	
+	//Step
+	
+    @WebMethod(operationName = "getStep1")
+    public Step getStep1(@WebParam(name = "content") String content) {
+        return new Step(content);
+    }
+    
+    @WebMethod(operationName = "getStep2")
+    public Step getStep2(@WebParam(name = "id") int id, @WebParam(name = "content") String content) {
+        return new Step(id, content);
+    }
+    
+    //Tag
+    
+    @WebMethod(operationName = "getTag1")
+    public Tag getTag1(@WebParam(name = "id") int id) {
+        return new Tag(id);
+    }
+    
+    @WebMethod(operationName = "getTag2")
+    public Tag getTag2(@WebParam(name = "name") String name) {
+        return new Tag(name);
+    }
+    
+    @WebMethod(operationName = "getTag3")
+    public Tag getTag3(@WebParam(name = "id") int id, @WebParam(name = "name") String name) {
+        return new Tag(id, name);
+    }
+    
+    //Ustensil
+    
+    @WebMethod(operationName = "getUstensil1")
+    public Ustensil getUstensil1(@WebParam(name = "id") int id) {
+        return new Ustensil(id);
+    }
+    
+    @WebMethod(operationName = "getUstensil2")
+    public Ustensil getUstensil2(@WebParam(name = "name") String name) {
+        return new Ustensil(name);
+    }
+    
+    @WebMethod(operationName = "getUstensil3")
+    public Ustensil getUstensil3(@WebParam(name = "id") int id, @WebParam(name = "name") String name) {
+        return new Ustensil(id, name);
+    }
+    
+    // --- Fin Constructeurs ---
+    
+    // --- Managers ---
+    
 	//AccountManager
+    
 	@WebMethod(operationName = "addAccount")
 	public void addAccount(@WebParam(name = "account") Account account) {
 		AccountManager.addAccount(account);
@@ -47,7 +198,7 @@ public class WebServiceSOAP {
 	}
 	
 	@WebMethod(operationName = "isAvailable")
-	public boolean[] isAvailable(@WebParam(name = "email") String email, @WebParam(name = "login") String login) {
+	public List<Boolean> isAvailable(@WebParam(name = "email") String email, @WebParam(name = "login") String login) {
 		return AccountManager.isAvailable(email, login);
 	}
 	

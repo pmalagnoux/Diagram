@@ -1,6 +1,7 @@
 package client.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,48 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import client.metier.account.Account;
-import client.metier.account.AccountManager;
-import client.metier.favorite.FavoriteManager;
-import webservice.SecuriteService;
-import webservice.SecuriteWS;
+import webservice.Account;
+import webservice.GetAccount3;
+import webservice.WS;
+import webservice.WebServiceSOAPService;
 
-/**
- * Servlet implementation class RegisterServlet
- */
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+ 
     public RegisterServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		WS stub = new WebServiceSOAPService().getWSPort();
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
-		boolean[] areAvailable = AccountManager.isAvailable(email, login);
-		SecuriteWS stub = new SecuriteService().getSecuriteWSPort();
-		if (!areAvailable[0]) {
+		List<Boolean> areAvailable = stub.isAvailable(email, login);
+
+		if (!areAvailable.get(0)) {
 			request.setAttribute("emailNotAvailable",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
-		else if (!areAvailable[1]) {
+		else if (!areAvailable.get(1)) {
 			request.setAttribute("loginNotAvailable",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
@@ -59,10 +46,9 @@ public class RegisterServlet extends HttpServlet {
 		}
 		else {
 			
-			
 			String password = stub.encrypt(request.getParameter("password"));
-			Account account = new Account(password,login,email);
-			AccountManager.addAccount(account);
+			Account account = stub.getAccount3(password,login,email);
+			stub.addAccount(account);
 			
 			this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 		}

@@ -8,46 +8,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import client.metier.account.AccountManager;
-import client.metier.ingredient.Ingredient;
-import client.metier.ingredient.IngredientManager;
-import client.metier.recipe.Recipe;
-import client.metier.recipe.RecipeManager;
-import client.metier.step.Step;
-import client.metier.step.StepManager;
-import client.metier.tag.Tag;
-import client.metier.tag.TagManager;
-import client.metier.ustensil.Ustensil;
-import client.metier.ustensil.UstensilManager;
+import webservice.Ingredient;
+import webservice.Recipe;
+import webservice.Step;
+import webservice.Tag;
+import webservice.Ustensil;
+import webservice.WS;
+import webservice.WebServiceSOAPService;
 
-/**
- * Servlet implementation class RecipeCreation
- */
+
 @WebServlet("/RecipeCreationServlet")
 public class RecipeCreationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public RecipeCreationServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/recipeCreation.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String userLogin = (String) session.getAttribute("userLogin");
+		WS stub = new WebServiceSOAPService().getWSPort();
 		
 		String title = (String) session.getAttribute("title");
 		int preparationTime = Integer.parseInt((String) session.getAttribute("preparationTime"));
@@ -55,9 +41,9 @@ public class RecipeCreationServlet extends HttpServlet {
 		int personCount = Integer.parseInt((String) session.getAttribute("personCount"));
 		int difficulty = Integer.parseInt((String) session.getAttribute("difficulty"));
 		int recipeType = Integer.parseInt((String) session.getAttribute("recipeType"));
-		Recipe recipe = new Recipe(title, preparationTime, cookingTime, personCount, AccountManager.getCurrentAccountId(userLogin), difficulty, recipeType);
+		Recipe recipe = stub.getRecipe2(title, preparationTime, cookingTime, personCount, stub.getCurrentAccountId(userLogin), difficulty, recipeType);
 		//Insertion BD
-		RecipeManager.addRecipe(recipe);
+		stub.addRecipe(recipe);
 		
 		//Vider la session
 		session.removeAttribute("preparationTime");
@@ -69,34 +55,34 @@ public class RecipeCreationServlet extends HttpServlet {
 		int i = 1;
 		// Steps
 		while(request.getParameter("step"+i) != null) {
-			Step step = new Step((String) request.getParameter("step"+i));
-			StepManager.addStep(step, i, RecipeManager.getLastRecipeId());
+			Step step = stub.getStep1((String) request.getParameter("step"+i));
+			stub.addStep(step, i, stub.getLastRecipeId());
 			i++;
 		}
 		
 		i = 1;
 		// Ingrédients
 		while(request.getParameter("ingredient"+i) != null) {
-			Ingredient ingredient = new Ingredient(Integer.parseInt(request.getParameter("ingredient"+i)));
+			Ingredient ingredient = stub.getIngredient1(Integer.parseInt(request.getParameter("ingredient"+i)));
 			int quantity = Integer.parseInt(request.getParameter("ingredient" + i + "Qty"));
-			IngredientManager.addIngredient(ingredient, quantity, RecipeManager.getLastRecipeId());
+			stub.addIngredient(ingredient, quantity, stub.getLastRecipeId());
 			i++;
 		}
 		
 		i = 1;
 		// Ustensiles
 		while(request.getParameter("ustensil"+i) != null) {
-			Ustensil ustensil = new Ustensil(Integer.parseInt(request.getParameter("ustensil"+i)));
+			Ustensil ustensil = stub.getUstensil1(Integer.parseInt(request.getParameter("ustensil"+i)));
 			int quantity = Integer.parseInt(request.getParameter("ustensil" + i + "Qty"));
-			UstensilManager.addUstensil(ustensil, quantity, RecipeManager.getLastRecipeId());
+			stub.addUstensil(ustensil, quantity, stub.getLastRecipeId());
 			i++;
 		}
 		
 		// Tags
 		i = 1;
 		while(request.getParameter("tag"+i) != null) {
-			Tag tag = new Tag(Integer.parseInt(request.getParameter("tag"+i)));
-			TagManager.addTag(tag, RecipeManager.getLastRecipeId());
+			Tag tag = stub.getTag1(Integer.parseInt(request.getParameter("tag"+i)));
+			stub.addTag(tag, stub.getLastRecipeId());
 			i++;
 		}
 		this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);

@@ -7,38 +7,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import client.metier.account.AccountManager;
-import client.metier.difficulty.DifficultyManager;
-import client.metier.favorite.FavoriteManager;
-import client.metier.recipe.RecipeManager;
-import client.metier.recipeType.RecipeTypeManager;
+import webservice.WS;
+import webservice.WebServiceSOAPService;
 
-/**
- * Servlet implementation class RecipeSearchServlet
- */
 @WebServlet("/RecipeSearchServlet")
 public class RecipeSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public RecipeSearchServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cookingTime = 0;
         int difficulty = 0;
         int recipeType = 0;
         String keyWord = "";
-
+        WS stub = new WebServiceSOAPService().getWSPort();
+        
         if(request.getParameter("cookingTime") != null) {
             cookingTime = Integer.parseInt(request.getParameter("cookingTime"));
         }
@@ -52,27 +39,14 @@ public class RecipeSearchServlet extends HttpServlet {
             keyWord = request.getParameter("keyWord");
         }
         
-        //STUB
-
-        request.setAttribute("recipes", RecipeManager.getRecipes(difficulty,recipeType,cookingTime,keyWord));
-        request.setAttribute("difficulties", DifficultyManager.getDifficulties());
-        request.setAttribute("recipeTypes", RecipeTypeManager.getRecipeTypes());
-        request.setAttribute("accounts", AccountManager.getAccounts());
+        request.setAttribute("recipes", stub.getRecipes(difficulty,recipeType,cookingTime,keyWord));
+        request.setAttribute("difficulties", stub.getDifficulties());
+        request.setAttribute("recipeTypes", stub.getRecipeTypes());
+        request.setAttribute("accounts", stub.getAccounts());
         this.getServletContext().getRequestDispatcher("/WEB-INF/recipeSearch.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		HttpSession session = request.getSession();
-		if(session.getAttribute("userLogin") != null && AccountManager.getCurrentAccountId(request) !=0) {
-			String recipeId = request.getParameter("recipeId");
-			FavoriteManager.addFavorite(AccountManager.getCurrentAccountId(request),Integer.parseInt(recipeId));
-			
-		}
-		*/
 		doGet(request, response);
 		
 	}

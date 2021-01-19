@@ -2,8 +2,11 @@ package metier.recipe;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import metier.tag.Tag;
 
+@XmlRootElement
 public class Recipe {
 	private int id;
 	private String name;

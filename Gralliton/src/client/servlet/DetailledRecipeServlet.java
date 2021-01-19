@@ -1,7 +1,6 @@
 package client.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,84 +9,67 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import client.metier.account.AccountManager;
-import client.metier.difficulty.DifficultyManager;
-import client.metier.favorite.FavoriteManager;
-import client.metier.ingredient.IngredientManager;
-import client.metier.recipe.Recipe;
-import client.metier.recipe.RecipeManager;
-import client.metier.recipeType.RecipeTypeManager;
-import client.metier.step.StepManager;
-import client.metier.tag.TagManager;
-import client.metier.ustensil.UstensilManager;
+import webservice.WS;
+import webservice.WebServiceSOAPService;
 
-/**
- * Servlet implementation class DetailledRecipeServlet
- */
+
 @WebServlet("/DetailledRecipeServlet")
 public class DetailledRecipeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public DetailledRecipeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		if(request.getParameter("recipeId") != null) {
 			
+			WS stub = new WebServiceSOAPService().getWSPort();
+			
 			int recipeId = Integer.parseInt(request.getParameter("recipeId"));
-			request.setAttribute("recipe",RecipeManager.getRecipeById(recipeId));
-			request.setAttribute("steps",StepManager.getStepsById(recipeId));
-			request.setAttribute("difficulty",DifficultyManager.getDifficultyById(recipeId));
-			request.setAttribute("tags",TagManager.getTagsById(recipeId));
-			request.setAttribute("type",RecipeTypeManager.getTypeById(recipeId));
-			request.setAttribute("ingredients",IngredientManager.getIngredientsById(recipeId));
-			request.setAttribute("ustensils",UstensilManager.getUstensilsById(recipeId));
-			request.setAttribute("account",AccountManager.getAccountById(recipeId));
+			request.setAttribute("recipe",stub.getRecipeById(recipeId));
+			request.setAttribute("steps",stub.getStepsById(recipeId));
+			request.setAttribute("difficulty",stub.getDifficultyById(recipeId));
+			request.setAttribute("tags",stub.getTagsById(recipeId));
+			request.setAttribute("type",stub.getTypeById(recipeId));
+			request.setAttribute("ingredients",stub.getIngredientsById(recipeId));
+			request.setAttribute("ustensils",stub.getUstensilsById(recipeId));
+			request.setAttribute("account",stub.getAccountById(recipeId));
 			
 			HttpSession session = request.getSession();
 			String userLogin = (String) session.getAttribute("userLogin");
 			
-			if(FavoriteManager.isFavorite(AccountManager.getCurrentAccountId(userLogin), recipeId)) {
-				request.setAttribute("isFavorite",true);
-			}
-			else {
-				request.setAttribute("isFavorite",false);
+			if(userLogin != null) {
+				if(stub.isFavorite(stub.getCurrentAccountId(userLogin), recipeId)) {
+					request.setAttribute("isFavorite",true);
+				}
+				else request.setAttribute("isFavorite",false);
 			}
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/detailledRecipe.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String userLogin = (String) session.getAttribute("userLogin");
+		WS stub = new WebServiceSOAPService().getWSPort();
 		
-		int userId = AccountManager.getCurrentAccountId(userLogin);
+		int userId = stub.getCurrentAccountId(userLogin);
 		
 		if(userLogin != null && request.getParameter("recipeIdAdd") != null) { // Utilisateur est connect� et ajout� favoris et selectionn�
 			int recipeId = Integer.parseInt(request.getParameter("recipeIdAdd")); 
 			
-			if(!FavoriteManager.isFavorite(AccountManager.getCurrentAccountId(userLogin), recipeId))
-				FavoriteManager.addFavorite(userId,recipeId);
+			if(!stub.isFavorite(stub.getCurrentAccountId(userLogin), recipeId))
+				stub.addFavorite(userId,recipeId);
 		}
 		else if(userLogin != null && request.getParameter("recipeIdDel") != null) { // Utilisateur est connect� et suppression favoris et selectionn�
 			
 			int recipeId = Integer.parseInt(request.getParameter("recipeIdDel")); 
 			
-			if(FavoriteManager.isFavorite(AccountManager.getCurrentAccountId(userLogin), recipeId))
-				FavoriteManager.removeFavorite(userId,recipeId);
+			if(stub.isFavorite(stub.getCurrentAccountId(userLogin), recipeId))
+				stub.removeFavorite(userId,recipeId);
 		}
 		doGet(request, response);
 	}
