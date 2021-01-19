@@ -6,6 +6,30 @@ public class Account {
 	private String login;
 	private String email;
 	
+	//Constructeur 
+	public Account() {
+		super();
+	}
+	
+	public Account(String login) {
+		super();
+		this.login = login;
+	}
+	
+	public Account(int id, String login) {
+		super();
+		this.id = id;
+		this.login = login;
+	}
+	
+	public Account(String password, String login, String email) {
+		super();
+		this.password = password;
+		this.login = login;
+		this.email = email;
+	}
+	
+	//Getter & Setter
 	
 	public int getId() {
 		return id;
@@ -31,28 +55,5 @@ public class Account {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Account(String password, String login, String email) {
-		super();
-		this.password = password;
-		this.login = login;
-		this.email = email;
-	}
-	public Account() {
-		super();
-	}
-	@Override
-	public String toString() {
-		return "Account [password=" + password + ", login=" + login + ", email=" + email + "]";
-	}
-	public Account(int id, String login) {
-		super();
-		this.id = id;
-		this.login = login;
-	}
-	public Account(String login) {
-		super();
-		this.login = login;
-	}
-	
 	
 }

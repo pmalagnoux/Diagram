@@ -23,10 +23,10 @@ public abstract class RecipeManager {
 			preparedStatement.setInt(6, recipe.getDifficulty());
 			preparedStatement.setInt(7, recipe.getType());
 			
-			// executer la requête
+			// executer la requï¿½te
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Problème d'insertion dans la BD (recipe)");
+			System.out.println("Problï¿½me d'insertion dans la BD (recipe)");
 		}finally {
 			connection.close();
 		}
@@ -38,7 +38,7 @@ public abstract class RecipeManager {
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			//execution d'une requï¿½te et rï¿½cupï¿½ration de rï¿½sultat dans l'objet resultSet
 			
 			connection.setResultSet(connection.getStatement().executeQuery("SELECT MAX(id) FROM `recipe`;"));
 			connection.getResultSet().next();
@@ -46,12 +46,12 @@ public abstract class RecipeManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipe) getLastRecipeId");
+			System.out.println("Problï¿½me de selection dans la BD (recipe) getLastRecipeId");
 		}
 		finally {
 			connection.close();
 		}
-		return 0; // GéRER LE RETURN 0
+		return 0; // Gï¿½RER LE RETURN 0
 	}
 	
 	
@@ -61,7 +61,7 @@ public abstract class RecipeManager {
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			//execution d'une requï¿½te et rï¿½cupï¿½ration de rï¿½sultat dans l'objet resultSet
 			
 			connection.setResultSet(connection.getStatement().executeQuery("SELECT * FROM `recipe` WHERE `id` = '"+recipeId+"';"));
 			connection.getResultSet().next();
@@ -81,7 +81,7 @@ public abstract class RecipeManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipe) getRecipeById");
+			System.out.println("Problï¿½me de selection dans la BD (recipe) getRecipeById");
 		}
 		finally {
 			connection.close();
@@ -90,7 +90,7 @@ public abstract class RecipeManager {
 	}
 	
 	/**
-	 * Selectionne dans la BD les recettes correspondantes aux filtres en paramètres
+	 * Selectionne dans la BD les recettes correspondantes aux filtres en paramï¿½tres
 	 * @param maxDifficulty
 	 * @param recipeType
 	 * @param maxCookingTime
@@ -101,7 +101,7 @@ public abstract class RecipeManager {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		
-		// ---------- Construction de la requète ----------
+		// ---------- Construction de la requï¿½te ----------
 		
 		String req = "SELECT * FROM `recipe`";
 		boolean isFirstFilter = true;
@@ -112,7 +112,7 @@ public abstract class RecipeManager {
 			req += " WHERE `preparationTime` + `cookingTime` <= " + maxCookingTime;
 		}
 		
-		// Difficulté
+		// Difficultï¿½
 		if(maxDifficulty != 0) {
 			if(isFirstFilter)
 				req += " WHERE";
@@ -134,10 +134,10 @@ public abstract class RecipeManager {
 			req += " `recipeType_id` =  " + recipeType;
 		}
 		
-		// Mot-clé
+		// Mot-clï¿½
 		if(!keyWord.equals("")) { 
 			keyWord = keyWord.replace(" ", ""); // Suppression des espaces parasites
-			String[] keyWords = keyWord.split(",");	// Découpe des mots clé suivant ","
+			String[] keyWords = keyWord.split(",");	// Dï¿½coupe des mots clï¿½ suivant ","
 			
 			for (String kw : keyWords) {
 				if(isFirstFilter)
@@ -163,15 +163,15 @@ public abstract class RecipeManager {
 		}
 		req += ";";
 		
-		// ---------- Fin de la requète ----------
+		// ---------- Fin de la requï¿½te ----------
 		
 		
 		// Recherche des recettes sans les tags
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			//execution d'une requï¿½te et rï¿½cupï¿½ration de rï¿½sultat dans l'objet resultSet
 			connection.setResultSet(connection.getStatement().executeQuery(req));
-			//récupération des données
+			//rï¿½cupï¿½ration des donnï¿½es
 			while(connection.getResultSet().next()) {
 				int id = connection.getResultSet().getInt("id");
 				String name = connection.getResultSet().getString("name");
@@ -187,14 +187,14 @@ public abstract class RecipeManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipe)");
+			System.out.println("Problï¿½me de selection dans la BD (recipe)");
 			return new ArrayList<Recipe>(); // retourne liste vide si erreur
 		}
 		// Ajout des tags
 		try {
 
 			for(int i = 0; i<result.size();i++) { // pour chaque recette
-				//récupération des tags correspondant la recette i
+				//rï¿½cupï¿½ration des tags correspondant la recette i
 				connection.setResultSet(connection.getStatement().executeQuery("SELECT `tagName`, `id` FROM `tag`,`recipetag` WHERE `tag_id`=`id` AND `recipe_id`="+result.get(i).getId()+";"));
 				List<Tag> tagsID = new ArrayList<Tag>();
 				while(connection.getResultSet().next()) {
@@ -206,7 +206,7 @@ public abstract class RecipeManager {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipetag/tag)");
+			System.out.println("Problï¿½me de selection dans la BD (recipetag/tag)");
 			return new ArrayList<Recipe>(); // retourne liste vide si erreur
 		}
 		finally {
@@ -216,7 +216,7 @@ public abstract class RecipeManager {
 	}
 	
 	/**
-	 * Selectionne un nombre aléatoire de recette dans la BD
+	 * Selectionne un nombre alï¿½atoire de recette dans la BD
 	 * @param recipeNumber
 	 * @return
 	 */
@@ -230,25 +230,33 @@ public abstract class RecipeManager {
 		// Recherche des recettes sans les tags
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
+			//execution d'une requï¿½te et rï¿½cupï¿½ration de rï¿½sultat dans l'objet resultSet
 			connection.setResultSet(connection.getStatement().executeQuery(req));
-			//récupération des données
+			//rï¿½cupï¿½ration des donnï¿½es
 			while(connection.getResultSet().next()) {
 				int id = connection.getResultSet().getInt("id");
 				String name = connection.getResultSet().getString("name");
-				result.add(new Recipe(id,name));
+				int preparationTime = connection.getResultSet().getInt("preparationTime");
+				int cookingTime = connection.getResultSet().getInt("cookingTime");
+				int quantity = connection.getResultSet().getInt("quantity");
+				int account_id = connection.getResultSet().getInt("account_id");
+				int difficulty_id = connection.getResultSet().getInt("difficulty_id");
+				int recipeType_id = connection.getResultSet().getInt("recipeType_id");
+				int likeNumber = connection.getResultSet().getInt("likeNumber");
+				
+				result.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipe)");
+			System.out.println("Problï¿½me de selection dans la BD (recipe)");
 			return new ArrayList<Recipe>(); // retourne liste vide si erreur
 		}
 		// Ajout des tags
 		try {
 
 			for(int i = 0; i<result.size();i++) { // pour chaque recette
-				//récupération des tags correspondant la recette i
+				//rï¿½cupï¿½ration des tags correspondant la recette i
 				connection.setResultSet(connection.getStatement().executeQuery("SELECT `tagName`, `id` FROM `tag`,`recipetag` WHERE `tag_id`=`id` AND `recipe_id`="+result.get(i).getId()+";"));
 				List<Tag> tagsID = new ArrayList<Tag>();
 				while(connection.getResultSet().next()) {
@@ -260,7 +268,7 @@ public abstract class RecipeManager {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Problème de selection dans la BD (recipetag/tag)");
+			System.out.println("Problï¿½me de selection dans la BD (recipetag/tag)");
 			return new ArrayList<Recipe>(); // retourne liste vide si erreur
 		}
 		finally {
@@ -270,34 +278,34 @@ public abstract class RecipeManager {
 	}
 	
 	public static List<Recipe> getRecipesbyAccountId(int accountId){
-		 List<Recipe> myRecipes = new ArrayList<Recipe>();
-		ConnectionToDB connection = new ConnectionToDB();
-		connection.open();
-		String req = "SELECT * FROM `recipe` WHERE `account_id` = '"+ accountId +"';";
-		try {
-			connection.setStatement(connection.getConnection().createStatement());
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
-			connection.setResultSet(connection.getStatement().executeQuery(req));
-			while(connection.getResultSet().next()) {
-				int id = connection.getResultSet().getInt("id");
-				String name = connection.getResultSet().getString("name");
-				int preparationTime = connection.getResultSet().getInt("preparationTime");
-				int cookingTime = connection.getResultSet().getInt("cookingTime");
-				int quantity = connection.getResultSet().getInt("quantity");
-				int account_id = connection.getResultSet().getInt("account_id");
-				int difficulty_id = connection.getResultSet().getInt("difficulty_id");
-				int recipeType_id = connection.getResultSet().getInt("recipeType_id");
-				int likeNumber = connection.getResultSet().getInt("likeNumber");
-				myRecipes.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
-			}
-			
-		}catch (SQLException e) {
-			System.out.println("Problème dans la BD (recipe)");
-			e.printStackTrace();
-		}
-		finally {
-			connection.close();
-		}
-		return myRecipes;
-	}
+		List<Recipe> myRecipes = new ArrayList<Recipe>();
+	   ConnectionToDB connection = new ConnectionToDB();
+	   connection.open();
+	   String req = "SELECT * FROM `recipe` WHERE `account_id` = '"+ accountId +"';";
+	   try {
+		   connection.setStatement(connection.getConnection().createStatement());
+		   //execution d'une requÃªte et rÃ©cupÃ©ration de rÃ©sultat dans l'objet resultSet
+		   connection.setResultSet(connection.getStatement().executeQuery(req));
+		   while(connection.getResultSet().next()) {
+			   int id = connection.getResultSet().getInt("id");
+			   String name = connection.getResultSet().getString("name");
+			   int preparationTime = connection.getResultSet().getInt("preparationTime");
+			   int cookingTime = connection.getResultSet().getInt("cookingTime");
+			   int quantity = connection.getResultSet().getInt("quantity");
+			   int account_id = connection.getResultSet().getInt("account_id");
+			   int difficulty_id = connection.getResultSet().getInt("difficulty_id");
+			   int recipeType_id = connection.getResultSet().getInt("recipeType_id");
+			   int likeNumber = connection.getResultSet().getInt("likeNumber");
+			   myRecipes.add(new Recipe(id,name,preparationTime,cookingTime,likeNumber,quantity,account_id,difficulty_id,recipeType_id));
+		   }
+		   
+	   }catch (SQLException e) {
+		   System.out.println("ProblÃ¨me dans la BD (recipe)");
+		   e.printStackTrace();
+	   }
+	   finally {
+		   connection.close();
+	   }
+	   return myRecipes;
+   }
 }
