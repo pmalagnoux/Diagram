@@ -2,82 +2,66 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<link rel="stylesheet" href="css/bootstrap.css">
-<script src="jquery-3.5.1.min.js"></script>
-<title>Gralliton</title>
-
-</head>
-<body style= "background-color:#484d50; color:white">
-<%@ include file="menu.jsp"%>
-
-
-
-
-
-  
-<!-- Carrousel  -->
-<div class="container">
-	<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="7000">
-		<!-- Indicateur-sélecteur-->
-		<ol class="carousel-indicators">
-			<li data-target=".carousel" data-slide-to="0" class="active"></li>
-			<li data-target=".carousel" data-slide-to="1"></li>
-			<li data-target=".carousel" data-slide-to="2"></li>
-			<li data-target=".carousel" data-slide-to="3"></li>
-		</ol>
-
-		<!-- Élements  -->	<!-- SELECT BD 4 RECETTES AL2ATOIRES    -->
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img class=".d-block img-fluid w-100" src="images/recipies/entrecote_bordelaise.jpg" alt="Entrecôte à la bordelaise" style="border-radius: 30px">
-				<div class="carousel-caption d-none d-md-block">
-        			<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Entrecôte à la bordelaise</p>
-      			</div>
-			</div>
-				
-			<div class="carousel-item">
-				<img class=".d-block img-fluid w-100" src="images/recipies/risotto_champignoon.jpg" alt="Risotto aux champignons" style="border-radius: 30px">
-				<div class="carousel-caption d-none d-md-block">
-        			<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Risotto aux champignons</p>
-      			</div>
-			</div>
-				
-			<div class="carousel-item">
-				<img class=".d-block img-fluid w-100" src="images/recipies/risotto_fenouil.jpg" alt="Risotto au fenouil" style="border-radius: 30px">
-				<div class="carousel-caption d-none d-md-block">
-        				<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Risotto au fenouil</p>
-      			</div>
-			</div>
-
-			<div class="carousel-item">
-				<img class=".d-block img-fluid w-100" src="images/recipies/saumon_echalotte.jpg" alt="Saumon à l'échalotte" style="border-radius: 30px">
-				<div class="carousel-caption d-none d-md-block">
-        			<p class="h1" style="color:white; background-color: rgba(140, 140, 140, 0.75); border-radius: 30px;">Saumon à l'échalotte</p>
-      			</div>
-			</div>
+	<head>
+		<meta charset="ISO-8859-1">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="jquery-3.5.1.min.js"></script>
+		<title>Grailliton</title>
+		<link rel = "icon" href ="images/cat.png" type = "image/x-icon"> 
+	</head>
+	
+	<body style= "background-color:#484d50; color:white">
+		<%@ include file="menu.jsp"%>
+		
+		
+		<div class="d-flex align-items-center justify-content-center" style="height: 500px">
+			<c:out escapeXml="false" value="<h1>Bienvenue sur Grailliton, la référence du graillon</h1>"></c:out>
 		</div>
-
-		<!-- Contrôles -->
-		<a id="precedent" class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"> 
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="sr-only">Précédent</span>
-		</a> 
-		<a id="suivant" class="carousel-control-next" href="#carousel" role="button" data-slide="next"> 
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="sr-only">Suivant</span>
-		</a>
-	</div>
-</div>
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
-</body>
+		<div class="d-flex align-items-center justify-content-center">
+			<c:out escapeXml="false" value="<h1>Nos suggestions</h1>"></c:out>
+		</div>
+		
+		<!-- Affichage suggestions -->
+		<c:forEach items="${recipes}" var="recipe">
+			<div class="rounded container mt-5 mx-auto position-relative" style="background: linear-gradient(#5F5F5F 0%, #404040 100%);">
+				<a href="detailledrecipe?recipeId=${recipe.id}" class="stretched-link"></a>
+				<div class="row ml-1">
+					<c:out escapeXml="false" value="<h1>${ recipe.name}</h1>"></c:out>
+				</div>
+				<div class="row ml-1">
+					<c:forEach items="${recipeTypes}" var="rt">
+						<c:if test="${rt.id == recipe.type}">
+							<div class="col-sm">
+								<c:out value="Type :  ${rt.name}"></c:out>
+							</div>
+						</c:if>
+					</c:forEach>
+				</div>
+				<div class="row ml-1">
+					<div class="col-sm">
+						<c:forEach items="${recipe.tags}" var="tag"> <!-- tags de la recette -->
+							<c:out escapeXml="false" value="${tag.name}&nbsp;&nbsp;&nbsp;"></c:out>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="row ml-1">
+					<div class="col-sm">
+						<c:out value="Temps de cuisine : ${recipe.cookingTime + recipe.preparationTime} min"></c:out>
+					</div>
+					<div class="col-sm">
+						<c:forEach items="${difficulties}" var="diff">
+							<c:if test="${diff.id == recipe.difficulty}">
+									<c:out value="Difficulté : ${diff.name}"></c:out>
+							</c:if>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+		
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	</body>
 </html>
