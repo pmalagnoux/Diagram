@@ -16,10 +16,18 @@ public class Recipe {
 	private int type;
 	private List<Tag> tags;
 	
+	//Constructeur
 	
 	public Recipe() {
 		super();
 	}
+	
+	public Recipe(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
 	public Recipe(String name, int preparationTime, int cookingTime, int quantity, int account,
 			int difficulty, int type) {
 		super();
@@ -32,11 +40,6 @@ public class Recipe {
 		this.type = type;
 	}
 	
-	public Recipe(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
 	public Recipe(int id, String name, int preparationTime, int cookingTime, int likeNumber, int quantity, int account,
 			int difficulty, int type) {
 		super();
@@ -64,6 +67,8 @@ public class Recipe {
 		this.type = type;
 		this.tags = tagsID;
 	}
+	
+	//Getter & Setter
 	public int getId() {
 		return id;
 	}

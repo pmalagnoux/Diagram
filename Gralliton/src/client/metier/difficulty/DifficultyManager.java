@@ -8,6 +8,12 @@ import client.metier.ingredient.Ingredient;
 import client.utils.ConnectionToDB;
 
 public abstract class DifficultyManager {
+	
+	
+	/**
+	 * Retourne la liste complète des difficultés.
+	 * @return List
+	 */
 	public static List<Difficulty> getDifficulties(){
 		List<Difficulty> result = new ArrayList<Difficulty>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -34,6 +40,11 @@ public abstract class DifficultyManager {
 		return result;
 	}
 	
+	/**
+	 *  Retourne la difficulté associé à une recette grâce à l'id de cette dernière.
+	 * @param recipeId
+	 * @return Difficulty
+	 */
 	public static Difficulty getDifficultyById(int recipeId) {
 		Difficulty result ;
 		ConnectionToDB connection = new ConnectionToDB();
@@ -44,7 +55,7 @@ public abstract class DifficultyManager {
 			String req = "SELECT `difficulty`.`name` FROM `difficulty`, `recipe` WHERE `difficulty`.`id` = `recipe`.`difficulty_id` AND `recipe`.`id` = '"+recipeId+"';";
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			connection.getResultSet().next();
-				result = new Difficulty(connection.getResultSet().getString("name"));
+			result = new Difficulty(connection.getResultSet().getString("name"));
 			
 			return result;
 		}

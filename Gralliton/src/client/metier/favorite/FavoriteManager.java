@@ -12,6 +12,13 @@ import client.utils.ConnectionToDB;
 
 public abstract class FavoriteManager {
 	
+	
+	
+	/**
+	 * Ajoute une recette aux favoris d'un compte.
+	 * @param accountId
+	 * @param recipeId
+	 */
 	public static void addFavorite(int accountId, int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();	
@@ -27,6 +34,12 @@ public abstract class FavoriteManager {
 			connection.close();
 		}
 	}
+	
+	/**
+	 * Retire une recette favorite d'un compte.
+	 * @param accountId
+	 * @param recipeId
+	 */
 	public static void removeFavorite(int accountId, int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();	
@@ -43,11 +56,16 @@ public abstract class FavoriteManager {
 		}
 	}
 	
-	public static List<Recipe> getFavorites(int accId){
+	/**
+	 * Retourne la liste des favoris d'un compte en fonction de l'id du compte.
+	 * @param accId
+	 * @return List
+	 */
+	public static List<Recipe> getFavorites(int accountId){
 		List<Favorite> resultid =new ArrayList<Favorite>();
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
-		String req = "SELECT * FROM `favoriterecipe` WHERE `account_id` = '"+ accId +"';";
+		String req = "SELECT * FROM `favoriterecipe` WHERE `account_id` = '"+ accountId +"';";
 		
 		try {
 			connection.setStatement(connection.getConnection().createStatement());
@@ -55,7 +73,7 @@ public abstract class FavoriteManager {
 			connection.setResultSet(connection.getStatement().executeQuery(req));
 			while(connection.getResultSet().next()) {
 				int recipe_id = connection.getResultSet().getInt("recipe_id");
-				resultid.add(new Favorite(accId, recipe_id));
+				resultid.add(new Favorite(accountId, recipe_id));
 			}
 			
 			

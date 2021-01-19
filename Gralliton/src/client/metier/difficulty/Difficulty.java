@@ -4,14 +4,19 @@ public class Difficulty {
 	private int id;
 	private String name;
 	
+	//Constructeur 
+	public Difficulty() {
+		super();
+	}
+	
 	public Difficulty(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public Difficulty() {
-		super();
-	}
+	
+	//Getter & Setter
+	
 	public int getId() {
 		return id;
 	}

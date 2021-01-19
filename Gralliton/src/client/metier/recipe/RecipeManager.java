@@ -9,6 +9,11 @@ import client.metier.tag.Tag;
 import client.utils.ConnectionToDB;
 
 public abstract class RecipeManager {
+	
+	/**
+	 * Ajoute une recette à la BDD.
+	 * @param recipe
+	 */
 	public static void addRecipe(Recipe recipe) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -32,6 +37,10 @@ public abstract class RecipeManager {
 		}
 	}
 	
+	/**
+	 * Récupère l'id de la dernière recette ajoutée.
+	 * @return int
+	 */
 	public static int getLastRecipeId() {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -54,7 +63,11 @@ public abstract class RecipeManager {
 		return 0; // G�RER LE RETURN 0
 	}
 	
-	
+	/**
+	 * Récoupère la recette en fonction de son id.
+	 * @param recipeId
+	 * @return Recipe
+	 */
 	public static Recipe getRecipeById(int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -277,6 +290,11 @@ public abstract class RecipeManager {
 		return result;
 	}
 	
+	/**
+	 * Récupère la liste des recettes créées par un utilisateur en particulier en fonction de l'id du compte.
+	 * @param accountId
+	 * @return List
+	 */
 	public static List<Recipe> getRecipesbyAccountId(int accountId){
 		List<Recipe> myRecipes = new ArrayList<Recipe>();
 	   ConnectionToDB connection = new ConnectionToDB();

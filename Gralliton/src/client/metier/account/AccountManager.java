@@ -12,6 +12,11 @@ import client.metier.difficulty.Difficulty;
 import client.utils.ConnectionToDB;
 
 public abstract class AccountManager {
+	
+	/**
+	 * Ajoute un compte Utilisateur dans la BDD.
+	 * @param account
+	 */
 	public static void addAccount(Account account) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -31,7 +36,12 @@ public abstract class AccountManager {
 		}
 	}
 	
-	public static int getCurrentAccountId(String userLogin) {//TODO A modifier en String Login
+	/**
+	 * Retourne l'id du Compte en fonction du Login.
+	 * @param userLogin
+	 * @return  int
+	 */
+	public static int getCurrentAccountId(String userLogin) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
 		
@@ -50,9 +60,13 @@ public abstract class AccountManager {
 		finally {
 			connection.close();
 		}
-		return 0; // gestion
+		return 0;
 	}
 	
+	/**
+	 * Retourne la liste de tous les comptes de la BDD.
+	 * @return List
+	 */
 	public static List<Account> getAccounts(){
 		List<Account> result = new ArrayList<Account>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -78,6 +92,14 @@ public abstract class AccountManager {
 		return result;
 	}
 	
+	/**
+	 * Retourne un tableau de Boolean de la forme [true, false] :
+	 * - Le premier est true si l'adresse email est déjà utilisée
+	 * - Le deuxième est true si le login est délà utilisé
+	 * @param email
+	 * @param login
+	 * @return  boolean[]
+	 */
 	public static boolean[] isAvailable(String email, String login) {
 		boolean[] result = new boolean[] {false,false};
 		ConnectionToDB connection = new ConnectionToDB();
@@ -109,6 +131,12 @@ public abstract class AccountManager {
 		 
 		return result;
 	}
+	
+	/**
+	 * Retourne le Compte du créateur d'une recette grâce à l'id de cette dernière.
+	 * @param recipeId
+	 * @return Account
+	 */
 	public static Account getAccountById(int recipeId) {
 		Account result ;
 		ConnectionToDB connection = new ConnectionToDB();

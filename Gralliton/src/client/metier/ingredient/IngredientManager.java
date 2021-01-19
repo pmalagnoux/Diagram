@@ -9,6 +9,12 @@ import client.metier.tag.Tag;
 import client.utils.ConnectionToDB;
 
 public abstract class IngredientManager {
+	
+	
+	/**
+	 * Retourne la liste des ingrédients.
+	 * @return
+	 */
 	public static List<Ingredient> getIngredients(){
 		List<Ingredient> result = new ArrayList<Ingredient>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -61,6 +67,11 @@ public abstract class IngredientManager {
 		}
 	}
 	
+	/**
+	 * Retourne la liste d'ingrédient d'une recette en focntion de l'id de cette dernière.
+	 * @param recipeId
+	 * @return
+	 */
 	public static List<Ingredient> getIngredientsById(int recipeId) {
 		List<Ingredient> result = new ArrayList<Ingredient>();
 		ConnectionToDB connection = new ConnectionToDB();

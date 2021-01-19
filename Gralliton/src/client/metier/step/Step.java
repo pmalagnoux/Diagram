@@ -4,6 +4,24 @@ public class Step {
 	private int id;
 	private String content;
 	
+	//Constructeur
+	
+	public Step() {
+		super();
+	}
+	
+	public Step(String content) {
+		super();
+		this.content = content;
+	}
+	
+	public Step(int id, String content) {
+		super();
+		this.id = id;
+		this.content = content;
+	}
+	
+	//Getter & Setter
 	
 	public int getId() {
 		return id;
@@ -17,18 +35,5 @@ public class Step {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Step(int id, String content) {
-		super();
-		this.id = id;
-		this.content = content;
-	}
-	public Step(String content) {
-		super();
-		this.content = content;
-	}
-	public Step() {
-		super();
-	}
-	
-	
+
 }

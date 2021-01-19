@@ -5,23 +5,43 @@ public class Ingredient {
 	private String name;
 	private double quantity;
 	
+	//Constructeur
+	
+	public Ingredient() {
+		super();
+	}
+	
+	public Ingredient(int id) {
+		super();
+		this.id = id;
+	}
+	
+	public Ingredient(String name) {
+		super();
+		this.name = name;
+	}
 	
 	public Ingredient(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public Ingredient(int id) {
-		super();
-		this.id = id;
-	}
-	public Ingredient(String name) {
+	
+	public Ingredient(String name, double quantity) {
 		super();
 		this.name = name;
+		this.quantity = quantity;
 	}
-	public Ingredient() {
+	
+	public Ingredient(int id, String name, double quantity) {
 		super();
+		this.id = id;
+		this.name = name;
+		this.quantity = quantity;
 	}
+
+	//Getter & Setter
+	
 	public int getId() {
 		return id;
 	}
@@ -40,16 +60,6 @@ public class Ingredient {
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
-	public Ingredient(int id, String name, double quantity) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.quantity = quantity;
-	}
-	public Ingredient(String name, double quantity) {
-		super();
-		this.name = name;
-		this.quantity = quantity;
-	}
+
 	
 }

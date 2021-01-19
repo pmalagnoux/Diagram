@@ -9,6 +9,12 @@ import client.metier.step.Step;
 import client.utils.ConnectionToDB;
 
 public abstract class TagManager {
+	
+	
+	/**
+	 * Retourne la liste des tags.
+	 * @return List
+	 */
 	public static List<Tag> getTags(){
 		List<Tag> result = new ArrayList<Tag>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -58,6 +64,11 @@ public abstract class TagManager {
 		}
 	}
 	
+	/**
+	 * Retourne la liste de tags d'une recette en fonction de l'id de cette dernière.
+	 * @param recipeId
+	 * @return List
+	 */
 	public static List<Tag> getTagsById(int recipeId) {
 		List<Tag> result = new ArrayList<Tag>();
 		ConnectionToDB connection = new ConnectionToDB();

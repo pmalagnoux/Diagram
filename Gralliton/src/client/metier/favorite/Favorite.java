@@ -4,6 +4,8 @@ public class Favorite {
 	private int account;
 	private int recipe;
 	
+	//Constructeur
+	
 	public Favorite() {
 		super();
 	}
@@ -14,6 +16,8 @@ public class Favorite {
 		this.recipe = recipe;
 	}
 
+	//Geyyet & Setter
+	
 	public int getAccount() {
 		return account;
 	}

@@ -8,6 +8,14 @@ import java.util.List;
 import client.utils.ConnectionToDB;
 
 public abstract class StepManager {
+	
+	
+	/**
+	 * Ajoute une étape à une recette.
+	 * @param step
+	 * @param order
+	 * @param recipeId
+	 */
 	public static void addStep(Step step, int order, int recipeId) {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -32,6 +40,10 @@ public abstract class StepManager {
 		}
 	}
 	
+	/**
+	 * Retourne l'id de la dernière étape enregistrée dans la BDD.
+	 * @return int
+	 */
 	public static int getLastStepId() {
 		ConnectionToDB connection = new ConnectionToDB();
 		connection.open();
@@ -54,6 +66,12 @@ public abstract class StepManager {
 		}
 		return 0; // GéRER LE RETURN 0
 	}
+	
+	/**
+	 * Retourne la liste des étapes d'une recette en fonction de l'id de cette dernière.
+	 * @param recipeId
+	 * @return List
+	 */
 	public static List<Step> getStepsById(int recipeId) {
 		List<Step> result = new ArrayList<Step>();
 		ConnectionToDB connection = new ConnectionToDB();

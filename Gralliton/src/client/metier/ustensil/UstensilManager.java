@@ -9,6 +9,11 @@ import client.metier.tag.Tag;
 import client.utils.ConnectionToDB;
 
 public abstract class UstensilManager {
+	
+	/**
+	 * Retourne la liste de tous les ustensiles.
+	 * @return List
+	 */
 	public static List<Ustensil> getUstensils(){
 		List<Ustensil> result = new ArrayList<Ustensil>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -61,6 +66,11 @@ public abstract class UstensilManager {
 		}
 	}
 	
+	/**
+	 * Retourne la liste d'ustensiles nécessaire pour une recette en fonction de l'id de cette dernière.
+	 * @param recipeId
+	 * @return List
+	 */
 	public static List<Ustensil> getUstensilsById(int recipeId) {
 		List<Ustensil> result = new ArrayList<Ustensil>();
 		ConnectionToDB connection = new ConnectionToDB();

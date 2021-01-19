@@ -8,6 +8,13 @@ import client.metier.difficulty.Difficulty;
 import client.utils.ConnectionToDB;
 
 public abstract class RecipeTypeManager {
+	
+	
+	
+	/**
+	 * Récupère la liste des types de recette.
+	 * @return List
+	 */
 	public static List<RecipeType> getRecipeTypes(){
 		List<RecipeType> result = new ArrayList<RecipeType>();
 		ConnectionToDB connection = new ConnectionToDB();
@@ -34,6 +41,11 @@ public abstract class RecipeTypeManager {
 		return result;
 	}
 	
+	/**
+	 * Retourne le type en fonction de son id.
+	 * @param recipeId
+	 * @return RecipeType
+	 */
 	public static RecipeType getTypeById(int recipeId) {
 		RecipeType result ;
 		ConnectionToDB connection = new ConnectionToDB();

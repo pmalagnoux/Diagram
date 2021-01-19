@@ -4,14 +4,24 @@ public class RecipeType {
 	private int id;
 	private String name;
 	
+	//Constructeur
+	public RecipeType() {
+		super();
+	}
+	
+	public RecipeType(String name) {
+		super();
+		this.name = name;
+	}
+	
 	public RecipeType(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public RecipeType() {
-		super();
-	}
+	
+	//Getter & Setter
+	
 	public int getId() {
 		return id;
 	}
@@ -24,8 +34,5 @@ public class RecipeType {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public RecipeType(String name) {
-		super();
-		this.name = name;
-	}
+	
 }

@@ -4,14 +4,30 @@ public class Tag {
 	private int id;
 	private String name;
 	
+	//Constructeur
+	
+	public Tag() {
+		super();
+	}
+	
+	public Tag(int id) {
+		super();
+		this.id = id;
+	}
+	
+	public Tag(String name) {
+		super();
+		this.name = name;
+	}
+	
 	public Tag(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public Tag() {
-		super();
-	}
+
+	//Getter & Setter
+	
 	public int getId() {
 		return id;
 	}
@@ -24,13 +40,5 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Tag(int id) {
-		super();
-		this.id = id;
-	}
-	public Tag(String name) {
-		super();
-		this.name = name;
-	}
-	
+
 }
