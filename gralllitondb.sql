@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 20 jan. 2021 à 08:35
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le : mer. 20 jan. 2021 à 16:17
+-- Version du serveur :  10.4.13-MariaDB
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `gralllitondb`
+-- Base de données : `gralllitondb`
 --
 CREATE DATABASE IF NOT EXISTS `gralllitondb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `gralllitondb`;
@@ -38,7 +37,15 @@ CREATE TABLE IF NOT EXISTS `account` (
   `mailAddress` varchar(254) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `account`
+--
+
+INSERT INTO `account` (`id`, `username`, `password`, `mailAddress`) VALUES
+(7, 'Paulo', 'n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=', 'paul@malagnoux.com'),
+(8, 'FLOFLO', 'jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=', 'florian.miller@bbox.fr');
 
 -- --------------------------------------------------------
 
@@ -94,6 +101,14 @@ CREATE TABLE IF NOT EXISTS `favoriterecipe` (
   KEY `account_id` (`account_id`),
   KEY `recipe_id` (`recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `favoriterecipe`
+--
+
+INSERT INTO `favoriterecipe` (`account_id`, `recipe_id`) VALUES
+(7, 4),
+(8, 4);
 
 -- --------------------------------------------------------
 
@@ -283,7 +298,15 @@ CREATE TABLE IF NOT EXISTS `recipe` (
   KEY `account_id` (`account_id`),
   KEY `Difficulty_id` (`difficulty_id`),
   KEY `RecipeType_id` (`recipeType_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `recipe`
+--
+
+INSERT INTO `recipe` (`id`, `name`, `preparationTime`, `cookingTime`, `likeNumber`, `quantity`, `account_id`, `difficulty_id`, `recipeType_id`) VALUES
+(4, 'Risotto aux champignons', 45, 30, NULL, 2, 7, 3, 1),
+(5, 'Gâteau au chocolat', 10, 30, NULL, 6, 8, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -300,6 +323,30 @@ CREATE TABLE IF NOT EXISTS `recipeingredient` (
   KEY `recipe_id` (`recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipeingredient`
+--
+
+INSERT INTO `recipeingredient` (`quantity`, `ingredient_id`, `recipe_id`) VALUES
+(250, 17, 4),
+(200, 1, 4),
+(1, 38, 4),
+(10, 59, 4),
+(50, 6, 4),
+(1, 2, 4),
+(10, 3, 4),
+(1, 13, 4),
+(1, 9, 4),
+(2, 10, 4),
+(1, 4, 4),
+(1, 5, 4),
+(20, 16, 4),
+(200, 64, 5),
+(100, 59, 5),
+(3, 50, 5),
+(50, 53, 5),
+(100, 54, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -315,6 +362,38 @@ CREATE TABLE IF NOT EXISTS `recipestep` (
   KEY `step_id` (`step_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipestep`
+--
+
+INSERT INTO `recipestep` (`stepOrder`, `recipe_id`, `step_id`) VALUES
+(1, 4, 8),
+(2, 4, 9),
+(3, 4, 10),
+(4, 4, 11),
+(5, 4, 12),
+(6, 4, 13),
+(7, 4, 14),
+(8, 4, 15),
+(9, 4, 16),
+(10, 4, 17),
+(11, 4, 18),
+(12, 4, 19),
+(13, 4, 20),
+(14, 4, 21),
+(15, 4, 22),
+(16, 4, 23),
+(17, 4, 24),
+(18, 4, 25),
+(19, 4, 26),
+(20, 4, 27),
+(1, 5, 28),
+(2, 5, 29),
+(3, 5, 30),
+(4, 5, 31),
+(5, 5, 32),
+(6, 5, 33);
+
 -- --------------------------------------------------------
 
 --
@@ -328,6 +407,17 @@ CREATE TABLE IF NOT EXISTS `recipetag` (
   KEY `recipe_id` (`recipe_id`),
   KEY `tag_id` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `recipetag`
+--
+
+INSERT INTO `recipetag` (`recipe_id`, `tag_id`) VALUES
+(4, 3),
+(4, 5),
+(5, 3),
+(5, 8),
+(5, 16);
 
 -- --------------------------------------------------------
 
@@ -367,6 +457,21 @@ CREATE TABLE IF NOT EXISTS `recipeustensil` (
   KEY `ustensil_id` (`ustensil_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `recipeustensil`
+--
+
+INSERT INTO `recipeustensil` (`quantity`, `recipe_id`, `ustensil_id`) VALUES
+(1, 4, 4),
+(1, 4, 7),
+(1, 4, 3),
+(1, 4, 19),
+(1, 5, 5),
+(1, 5, 3),
+(1, 5, 15),
+(1, 5, 14),
+(1, 5, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -378,7 +483,39 @@ CREATE TABLE IF NOT EXISTS `step` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `step`
+--
+
+INSERT INTO `step` (`id`, `content`) VALUES
+(8, 'Il existe sur la toile deux écoles du risotto aux champignons, à savoir celle du champignon qui cuit dans le riz, et celle des champignons poêlés ajoutés à la dernière minute. Ayant longtemps pratiqué les deux recettes, je souhaitais vous communiquer la mienne : '),
+(9, 'Séparer les champignons en deux (préférer des cèpes) : une partie servira à élaborer le bouillon et cuira avec le riz. L\'autre partie sera poêlé au dernier moment pour la présentation et mettre en avant le champignon tout en conservant une texture ferme.\r\nEmincer un petit peu d\'ail, d\'échalote et de persil séparément et réserver. '),
+(10, 'Nettoyer les champignons et les couper en morceaux.'),
+(11, 'Faire blondir dans une casserole un demi-oignon émincé dans un mélange de beurre et d\'huile d\'olive.'),
+(12, 'Ajouter et poêler les champignons. '),
+(13, 'Ajouter du bouillon de légume ou de poule (assez pour nourrir le risotto). '),
+(14, 'Laisser mijoter le bouillon pour qu\'il s\'imprègne bien du goût et des saveurs des champignons. '),
+(15, 'Chauffer une nouvelle casserole (qui accueillera le risotto), ajouter un peu d\'huile d\'olive et de beurre que vous ferez blondir. '),
+(16, 'Ajouter le riz carnaroli et remuer jusqu\'à le rendre translucide (attention à la température, le riz ne doit pas coller). '),
+(17, 'Déglacer avec un verre de vin blanc sec. Continuer à remuer pour que le riz n\'adhère pas et laisser réduire l\'alcool. '),
+(18, 'Verser une louche de bouillon que vous avez laissé mijoter et continuer à remuer constamment jusqu\'à l\'absorption totale du riz. '),
+(19, 'Réitérer l\'étape 11 jusqu\'au point de cuisson (préférer al dente). '),
+(20, 'Juste avant la fin, faire fondre du beurre et un peu d\'huile d\'olive dans une poêle tout en remuant le risotto. '),
+(21, 'Faire blondir l\'échalote émincée dans la poêle puis ajouter l\'ail (attention à ne pas le brûler). '),
+(22, 'Faire poêler les champignons tout en remuant le risotto, assaisonner et ajouter le persil émincé en fin de cuisson avec un tour de moulin à poivre puis réserver. '),
+(23, 'Assaisonner le risotto juste avant la fin. '),
+(24, 'Ciseler du persil et en parsemer au dessus. '),
+(25, 'Dresser le riz dans des assiettes creuses. Placer soigneusement sur le haut les champignons poêlés. '),
+(26, 'Servir avec un tour de moulin à poivre et du parmesan. '),
+(27, 'Le gras du beurre va s\'opposer au salé du parmesan et à l\'amertume du cèpe en arrière plan. Les puristes privilégieront un rouge italien d\'âge moyen avec une structure légère mais à la fois ronde et consistante. Personnellement, je préfère un blanc sec minéral un peu évolué au accent de sous-bois. Un bourgogne fera parfaitement l\'affaire. Bon appétit '),
+(28, 'Préchauffez votre four à 180°C (thermostat 6).\r\nDans une casserole, faites fondre le chocolat et le beurre coupé en morceaux à feu très doux.'),
+(29, 'Dans un saladier, ajoutez le sucre, les oeufs, la farine. Mélangez. '),
+(30, 'Ajoutez le mélange chocolat/beurre. Mélangez bien. '),
+(31, 'Beurrez et farinez votre moule puis y versez la pâte à gâteau. '),
+(32, 'Faites cuire au four environ 20 minutes. '),
+(33, 'A la sortie du four le gâteau ne paraît pas assez cuit. C\'est normal, laissez-le refroidir puis démoulez- le. ');
 
 -- --------------------------------------------------------
 
