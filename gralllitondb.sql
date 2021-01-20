@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 30 déc. 2020 à 12:14
+-- Généré le :  mer. 20 jan. 2021 à 08:35
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -38,14 +38,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `mailAddress` varchar(254) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `account`
---
-
-INSERT INTO `account` (`id`, `username`, `password`, `mailAddress`) VALUES
-(4, 'f3nrir', 'jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=', 'florian.miller.jeux@gmail.com');
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -115,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `ingredient` (
   `ingredienttype_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ingredienttype_id` (`ingredienttype_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ingredient`
@@ -127,7 +120,80 @@ INSERT INTO `ingredient` (`id`, `name`, `ingredienttype_id`) VALUES
 (3, 'Parmesan', 9),
 (4, 'Sel', 6),
 (5, 'Poivre', 6),
-(6, 'Bouillon de volaille', 10);
+(6, 'Bouillon de volaille', 10),
+(7, 'Courgette', 2),
+(8, 'Carotte', 2),
+(9, 'Échalotte', 6),
+(10, 'Persil', 13),
+(11, 'Thym', 13),
+(12, 'Menthe', 13),
+(13, 'Gousse d\'ail', 6),
+(14, 'Chipolata', 17),
+(15, 'Merguez', 17),
+(16, 'Bolet', 11),
+(17, 'Cèpe', 11),
+(18, 'Pleurote', 11),
+(19, 'Crevettes', 16),
+(20, 'Cabillaud', 12),
+(21, 'Saumon', 12),
+(22, 'Moule', 16),
+(23, 'Filet de poulet', 4),
+(24, 'Échine de porc', 4),
+(25, 'Calamar', 16),
+(35, 'Safran', 6),
+(36, 'Piment', 6),
+(37, 'Aneth', 13),
+(38, 'Huile d\'olive', 14),
+(39, 'Huile de colza', 14),
+(40, 'Huile de noisette', 14),
+(41, 'Pain de campagne', 18),
+(42, 'Baguette', 18),
+(43, 'Ciboulette ', 13),
+(44, 'Orange', 1),
+(45, 'Fraise', 1),
+(46, 'Pomme', 1),
+(47, 'Poire', 2),
+(48, 'Noix de Saint-Jacques', 16),
+(49, 'Paprika', 6),
+(50, 'Oeuf', 10),
+(51, 'Béchamel', 15),
+(52, 'Gélatine', 10),
+(53, 'Farine', 10),
+(54, 'Sucre', 10),
+(55, 'Lieu noir', 12),
+(56, ' Estragon', 13),
+(57, 'Coriandre', 13),
+(58, ' Chapelure', 10),
+(59, 'Beurre', 10),
+(60, 'Lait', 10),
+(61, 'Chanterelle', 11),
+(62, 'Langouste', 16),
+(63, 'Homard', 16),
+(64, 'Chocolat noir', 10),
+(65, 'Chocolat au lait', 10),
+(66, 'Rhum', 19),
+(67, 'Kirsch', 19),
+(68, 'Mozzarella', 9),
+(69, 'Levure', 10),
+(70, 'Miel', 10),
+(71, 'Yaourt', 10),
+(72, 'Bière', 19),
+(73, 'Jambon', 17),
+(74, 'Gruyère ', 9),
+(75, 'Pomme de terre', 2),
+(76, 'Boeuf haché', 3),
+(77, 'Bavette', 3),
+(78, 'Pavé de rumsteak', 4),
+(79, 'Baron d\'agneau', 5),
+(80, 'Filet de boeuf', 3),
+(81, 'Faux-filet de boeuf', 3),
+(82, 'Côte de porc', 4),
+(83, 'Moutarde', 7),
+(84, 'Blé', 8),
+(85, 'Avoine', 8),
+(86, 'Panais', 2),
+(87, 'Topinambour', 2),
+(90, 'Petits pois', 2);
 
 -- --------------------------------------------------------
 
@@ -140,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `ingredienttype` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ingredienttype`
@@ -156,7 +222,16 @@ INSERT INTO `ingredienttype` (`id`, `name`) VALUES
 (7, 'Condiment'),
 (8, 'Céréale'),
 (9, 'Fromage'),
-(10, 'Divers');
+(10, 'Divers'),
+(11, 'Champignon'),
+(12, 'Poisson'),
+(13, 'Aromate'),
+(14, 'Huile'),
+(15, 'Sauce'),
+(16, 'Fruit de mer'),
+(17, 'Charcuterie'),
+(18, 'Pain'),
+(19, 'Alcool');
 
 -- --------------------------------------------------------
 
@@ -208,15 +283,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
   KEY `account_id` (`account_id`),
   KEY `Difficulty_id` (`difficulty_id`),
   KEY `RecipeType_id` (`recipeType_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `recipe`
---
-
-INSERT INTO `recipe` (`id`, `name`, `preparationTime`, `cookingTime`, `likeNumber`, `quantity`, `account_id`, `difficulty_id`, `recipeType_id`) VALUES
-(1, 'Risotto aux cèpes', 20, 40, NULL, 2, 4, 3, 1),
-(2, 'Tournedos Rossini', 10, 15, NULL, 1, 4, 2, 1);
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -233,17 +300,6 @@ CREATE TABLE IF NOT EXISTS `recipeingredient` (
   KEY `recipe_id` (`recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `recipeingredient`
---
-
-INSERT INTO `recipeingredient` (`quantity`, `ingredient_id`, `recipe_id`) VALUES
-(100, 1, 1),
-(50, 3, 1),
-(10, 4, 1),
-(10, 5, 2),
-(10, 4, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -259,18 +315,6 @@ CREATE TABLE IF NOT EXISTS `recipestep` (
   KEY `step_id` (`step_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `recipestep`
---
-
-INSERT INTO `recipestep` (`stepOrder`, `recipe_id`, `step_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(1, 2, 4),
-(2, 2, 5),
-(3, 2, 6);
-
 -- --------------------------------------------------------
 
 --
@@ -284,16 +328,6 @@ CREATE TABLE IF NOT EXISTS `recipetag` (
   KEY `recipe_id` (`recipe_id`),
   KEY `tag_id` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `recipetag`
---
-
-INSERT INTO `recipetag` (`recipe_id`, `tag_id`) VALUES
-(1, 1),
-(1, 2),
-(2, 1),
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -333,17 +367,6 @@ CREATE TABLE IF NOT EXISTS `recipeustensil` (
   KEY `ustensil_id` (`ustensil_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `recipeustensil`
---
-
-INSERT INTO `recipeustensil` (`quantity`, `recipe_id`, `ustensil_id`) VALUES
-(2, 1, 7),
-(1, 1, 3),
-(1, 1, 1),
-(1, 2, 2),
-(5, 2, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -355,19 +378,7 @@ CREATE TABLE IF NOT EXISTS `step` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `step`
---
-
-INSERT INTO `step` (`id`, `content`) VALUES
-(1, 'e1'),
-(2, 'e2'),
-(3, 'e3'),
-(4, 'e1'),
-(5, 'e2'),
-(6, 'e3');
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -395,15 +406,29 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tagName` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `tag`
 --
 
 INSERT INTO `tag` (`id`, `tagName`) VALUES
-(1, 'plat d\'hiver'),
-(2, 'petite folie');
+(1, 'Plat d\'hiver'),
+(2, 'Petite folie'),
+(3, 'Végétarien'),
+(4, 'Sans gluten'),
+(5, 'Pâtes, riz, semoule'),
+(6, 'Les classiques'),
+(7, 'Rapide'),
+(8, 'Gâteau'),
+(9, 'Petits gâteaux'),
+(10, 'Sud-Ouest'),
+(11, 'Soupe'),
+(12, 'Entrée chaude'),
+(13, 'Plat unique'),
+(14, 'Entrée froide'),
+(15, 'Flan salé'),
+(16, 'Recette minceur');
 
 -- --------------------------------------------------------
 
@@ -430,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `ustensil` (
   `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ustensil`
@@ -444,7 +469,20 @@ INSERT INTO `ustensil` (`id`, `name`) VALUES
 (5, 'Fouet'),
 (6, 'Rouleau à pâtisserie'),
 (7, 'Casserole'),
-(8, 'Écumoir');
+(8, 'Écumoir'),
+(9, 'Pinceau'),
+(10, 'Shaker'),
+(11, 'Saladier'),
+(12, 'Louche'),
+(13, 'Mixeur'),
+(14, 'Four'),
+(15, 'Moule'),
+(16, 'Fait-tout'),
+(17, 'Chaudron'),
+(18, 'Marmite'),
+(19, 'Râpe'),
+(20, 'Plat à gratin'),
+(21, 'Écumoire');
 
 --
 -- Contraintes pour les tables déchargées
