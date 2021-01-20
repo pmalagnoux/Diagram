@@ -40,8 +40,8 @@ public class DetailledRecipeServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			String userLogin = (String) session.getAttribute("userLogin");
 			
-			if(userLogin != null) {
-				if(stub.isFavorite(stub.getCurrentAccountId(userLogin), recipeId)) {
+			if(userLogin != null) { // est connecté
+				if(stub.isFavorite(stub.getCurrentAccountId(userLogin), recipeId)) {	// est déjà dans les favoris
 					request.setAttribute("isFavorite",true);
 				}
 				else request.setAttribute("isFavorite",false);

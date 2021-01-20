@@ -33,6 +33,8 @@ public class RecipePrecreationServlet extends HttpServlet {
 		HttpSession session = request.getSession();	
 		WS stub = new WebServiceSOAPService().getWSPort();
 		
+		// On passe les paramètres en session pour pouvoir les récupérés sur la servlet de création de recette.
+		// Des cookies aurait pu être utilisés
 		session.setAttribute("title", request.getParameter("title"));
 		session.setAttribute("preparationTime", request.getParameter("preparationTime"));
 		session.setAttribute("cookingTime", request.getParameter("cookingTime"));

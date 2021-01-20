@@ -20,7 +20,7 @@ public class DisconnectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();	
-		session.invalidate();
+		session.invalidate(); // Fermeture de la sesssion
 		this.getServletContext().getRequestDispatcher("/WEB-INF/disconnection.jsp").forward(request, response);
 	}
 

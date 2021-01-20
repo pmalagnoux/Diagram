@@ -32,23 +32,23 @@ public class RegisterServlet extends HttpServlet {
 		String login = request.getParameter("login");
 		List<Boolean> areAvailable = stub.isAvailable(email, login);
 
-		if (!areAvailable.get(0)) {
+		if (!areAvailable.get(0)) { 	// vérification que l'adresse mail est libre
 			request.setAttribute("emailNotAvailable",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
-		else if (!areAvailable.get(1)) {
+		else if (!areAvailable.get(1)) {	// vérification que le login est libre
 			request.setAttribute("loginNotAvailable",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
-		else if (!stub.mailIsValid(email)) {
+		else if (!stub.mailIsValid(email)) {	// vérification que l'adresse mail est valide
 			request.setAttribute("emailNotValid",true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 		}
 		else {
 			
-			String password = stub.encrypt(request.getParameter("password"));
+			String password = stub.encrypt(request.getParameter("password")); // cryptage du mdp
 			Account account = stub.getAccount3(password,login,email);
-			stub.addAccount(account);
+			stub.addAccount(account);	// ajout du compte sur la BD
 			
 			this.getServletContext().getRequestDispatcher("/accueil").forward(request, response);
 		}
